@@ -1,4 +1,4 @@
-# STEREOMAKIA;; War on Infinte Fronts
+# STEREOMAKIA;; War on Infinite Fronts
 is an arcade rhythm game for your home controller. It's inspired most directly by ongeki but plays more like sdvx in reality.[^a]
 [^a]: It's built on top of the original [STEREOMAKIA](https://nanahyakuman.itch.io/stereomakia) no one played, hence the herculean inital commit.
 
