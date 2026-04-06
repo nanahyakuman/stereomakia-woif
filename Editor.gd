@@ -605,9 +605,10 @@ func load_img():
 	var bytes = file.get_buffer(file.get_length())
 	file.close()
 	var img = Image.new()
-	var _err = img.load_png_from_buffer(bytes)
-	var imgtex = ImageTexture.create_from_image(img)
-	waveform_sprite_2d.texture = imgtex
+	var err = img.load_png_from_buffer(bytes)
+	if err == Error.OK:
+		var imgtex = ImageTexture.create_from_image(img)
+		waveform_sprite_2d.texture = imgtex
 	
 	# this factor is completely arbitrary tbc
 	var scale = .02206
