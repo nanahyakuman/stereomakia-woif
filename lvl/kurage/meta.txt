@@ -1,0 +1,12 @@
+{
+	"full_name": "kurage",
+	"phonetic_name": "kurage",
+	"artist_name": "Jag",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"2"
+	],
+	"preview": 20.6
+}

@@ -1,0 +1,12 @@
+{
+	"full_name": "thought in night",
+	"phonetic_name": "thought in night",
+	"artist_name": "newtown romancer",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"1"
+	],
+	"preview": 104.0
+}

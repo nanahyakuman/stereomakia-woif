@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt6n6dggt7cu4"]
+
+[ext_resource type="Texture2D" uid="uid://beng4p5qy05h8" path="res://notes/arrow.png" id="1_qcduh"]
+[ext_resource type="Script" path="res://notes/TapNoteLinear.gd" id="2_xpbdf"]
+
+[node name="TapNoteLinear" type="Sprite2D"]
+texture = ExtResource("1_qcduh")
+hframes = 2
+vframes = 2
+script = ExtResource("2_xpbdf")

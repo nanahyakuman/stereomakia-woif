@@ -1,0 +1,12 @@
+{
+	"full_name": "CRYFORHELP",
+	"phonetic_name": "cryforhelp",
+	"artist_name": "lil art project",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"2+"
+	],
+	"preview": 34.0
+}

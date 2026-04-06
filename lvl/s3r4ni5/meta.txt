@@ -1,0 +1,13 @@
+{
+	"full_name": "-S3R4NI5-",
+	"phonetic_name": "serenity",
+	"artist_name": "7e+6",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"2",
+		"3"
+	],
+	"preview": 30.9
+}

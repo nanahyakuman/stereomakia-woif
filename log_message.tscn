@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bau4ym1tpd3y7"]
+
+[ext_resource type="Script" path="res://Log.gd" id="1_scaoc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wwgri"]
+line_spacing = 0.0
+font_size = 32
+font_color = Color(0.32549, 0.32549, 0.32549, 1)
+
+[node name="LogMessage" type="Label"]
+text = "logged message !"
+label_settings = SubResource("LabelSettings_wwgri")
+script = ExtResource("1_scaoc")

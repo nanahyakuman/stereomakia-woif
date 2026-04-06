@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://oyqdsuoee1by"]
+
+[node name="CircleNote" type="PanelContainer" unique_id=575823352]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -78.0
+offset_right = 156.0
+offset_bottom = 78.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1975790665]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1336001778]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=2051989649]
+layout_mode = 2
+text = "Angle:"
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer" unique_id=365220373]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 360.0
+allow_greater = true
+allow_lesser = true
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer" unique_id=1789758614]
+layout_mode = 2
+focus_mode = 0
+max_value = 360.0
+allow_greater = true
+allow_lesser = true
+tick_count = 36
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer" unique_id=954129785]
+layout_mode = 2
+focus_mode = 0
+text = "Connect to prev."
+
+[node name="CheckBox2" type="CheckBox" parent="VBoxContainer" unique_id=10230733]
+layout_mode = 2
+focus_mode = 0
+text = "Tap"
+
+[node name="CheckBox3" type="CheckBox" parent="VBoxContainer" unique_id=1026468782]
+layout_mode = 2
+focus_mode = 0
+text = "Release"

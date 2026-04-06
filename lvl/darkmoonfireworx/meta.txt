@@ -1,0 +1,12 @@
+{
+	"full_name": "DARK MOON FIREWORKS",
+	"phonetic_name": "dark moon fireworks",
+	"artist_name": "1trillionMPH",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"3+"
+	],
+	"preview": 52.0
+}

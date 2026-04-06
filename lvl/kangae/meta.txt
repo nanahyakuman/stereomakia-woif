@@ -1,0 +1,12 @@
+{
+	"full_name": "考え",
+	"phonetic_name": "kangae",
+	"artist_name": "Kabanagu",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"3+"
+	],
+	"preview": 0.0
+}

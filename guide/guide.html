@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>STEREOMAKIA Player Guide</title>
+  <link href="./resources/css/index.css" type="text/css" rel="stylesheet">
+</head>
+<body background="resources/img/bg.png">
+
+  <h1><span class="stereo">STEREO</span><span class="makia">MAKIA</span> Player Guide</h1>
+  <p>Yahallo! Thank you for downloading <span class="stereo">STEREO</span><span class="makia">MAKIA</span>! I don't feel like putting a tutorial chart in the game so it's here instead ;p</p>
+
+  <hr>
+  <h2>Gameplay</h2>
+  <span class="sn">I love modern rhythm arcade games' focus on implementing and exploring physical gimmicks; <span class="stereo">STEREO</span><span class="makia">MAKIA</span>'s is the classic twin-stick controller I don't believe any game has fully explored. Project Diva, Gitaroo Man, a lot of the games that invented the genre, etc. all individually do something cool with it but afaik <span class="stereo">STEREO</span><span class="makia">MAKIA</span>'s is a novel configuration.</span>
+  <p><span class="stereo">STEREO</span><span class="makia">MAKIA</span> was originally conceived to play like O.N.G.E.K.I., but on hardware you'd find at home—this somehow ended up feeling more like an alternate-universe Sound Voltex.<span class="snr"></span></p>
+  
+  <p>There are six vertical scroll lanes and two circlular joystick lanes.</p>
+  
+  <p><img src="resources/img/vertlanes.png" alt="Example Vertical Notes"class="center"></p>
+  
+  <p><strong>The two outer lanes with the flat line notes are mapped to the left and right bumpers respectively.</strong></p>
+  
+  <span class="sn">I took this from O.N.G.E.K.I. originally, but this is also exactly what Project Diva does. I just use icons that are intutive instead of SONY branded (yea I am still annoyed by this in {current-year}). Anyway, they're also arranged in DDR order, and incidentally, playing DDR-esque by switching 'feet' every note will usually feel natural.</span>
+  <p>The four inner lanes are where things get interesting: <strong>The four directionals can be triggered with either the d-pad <em>or</em> the corresponding face button</strong> (e.g. up = ps4 Δ / xbox y).<span class="snr"></span></p>
+  
+  <span class="sn">Hold polling may change to tempo-synced in the future, this way is kinda lame and also can mess with scoring slightly.</span>
+  <p>Vertical notes can also be held. All holds are polled ten times a second, regardless of song tempo.<span class="snr"></span> Release timing is never graded on vertical holds. Lastly, because there are two inputs for every lane, it's possible to hit a note while also holding the same note on the other side of the controller.</p>
+  
+  <p><img src="resources/img/verthold.png" alt="Example Vertical Hold Note" class="center"></p>
+  
+  <p><strong>Vertical notes will sometimes be doubled, requiring you to press the note on both sides.</strong> This is indicated by doubling the directional line.  However, even holds that follow doubled notes only ever need to be held singly.</p>
+  
+  <p>Vertical notes can also be 'absolute', coloring them lavender. This plays a nice sound if you can hit them within the <span class="sc">absolute</span> grade window but has no actual effect on gameplay or scoring.</p>
+  
+  <p><img src="resources/img/vertspecials.png" alt="Example Vertical Specials" class="center"></p>
+  
+  </br>
+  <p align="center"><u>◯◯</u></p>
+  </br>
+  
+  <p>Notes in the circular lane will approach you, and are meant to be hit  as they intersect the ring they inhabit. The left 'lane' corresponds to the left stick, and the right the right.</p>
+  
+  <p>They can be held as well, this requires tracking along the hold as it moves. <strong>Release timing is not graded on circular notes by default, but if there's a ovoid note at the end of the hold, it is.</strong></p>
+  
+  <p><img src="resources/img/circlanes.png" alt="Example Circular Notes" class="center"></p>
+  
+  <p><strong>A circle note needs to be hit in-time from the joystick's neutral position.</strong> This means that you can't just rotate over as it appears, nor just hold in the indicated direction as it passes through, you need to actively flick the stick on time. This may be unintuitive at first but makes more gameplay sense once you get used to it, i pwommy.</p>
+  
+  <p>The window for circle notes is a <em>lot</em> more forgiving than it is for vertical notes. That is, if you hit it within the scoring window at all you get an <span class="sc">absolute</span>.</p>
+  </ul></p>
+  
+  <hr>
+  <h2>Scoring</h2>
+  
+  <p>You can ignore this entire section if you're just starting out. It might be useful to understand as you improve, though.</p>
+  
+  <p>The target numerical score on any level is 7000000. Individual note value is scaled chart-by-chart so that this target is maintained. Scores are letter-based, S being above 7000000 and then following alphabetical order from there. A full combo rewards a + alongside whatever letter you recieved.</p>
+  
+  <span class="sn">I don't want to go on a tangent but I really like the framework they settled on, it's pretty beginner friendly w/o being too baby for stronger players. imo a number of game scoring systems are too complicated and don't really add anything. It's not an interpolated curve either, I dont think Godot's input methods are even accurate enough to accurately report that.</span>
+  <p>Much of scoring is similar to as in <span class="sc">GekiChuMai</span>.<span class="snr"></span> The four grades for individual notes are <span class="sc">absolute, pure, impure, absent</span>, each accounting for 0.0<span class="ol">3</span>s (two 60fps frames), split into 0.01<span class="ol">6</span>s (one frame) in each direction. <span class="sc">impure</span> and <span class="sc">absent</span> break your combo. Right now it's impossible to get an <span class="sc">absent</span> grade early—it only triggers if you miss the note completely. If that was confusing, see the chart below:</p>
+  
+  <table>
+    <tr>
+	  <th style="width:10%">Grade</th>
+	  <td style="background-color:rgba(0,0,0,.05)">Early <span class="sc">impure</span></td>
+	  <td>Early <span class="sc">pure</span></td>
+	  <td><span class="sc">absolute</span></td>
+	  <td>Late <span class="sc">pure</span></td>
+	  <td style="background-color:rgba(0,0,0,.05)">Late <span class="sc">impure</span></td>
+	  <td style="background-color:rgba(0,0,0,.05)"><span class="sc">absent</span></td>
+	</tr>
+	<tr>
+	  <th>Window (frames)</th>
+	  <td style="background-color:rgba(0,0,0,.05)">[-3, -2)</td>
+	  <td>[-2, -1)</td>
+	  <td>[-1, 1]</td>
+	  <td>(1, 2]</td>
+	  <td style="background-color:rgba(0,0,0,.05)">(2, 3]</td>
+	  <td style="background-color:rgba(0,0,0,.05)">>3</td>
+	</tr>
+	<tr>
+	  <th>Window (seconds)</th>
+	  <td style="background-color:rgba(0,0,0,.05)" >[-0.05, -0.0<span class="ol">3</span>)</td>
+	  <td>[-0.0<span class="ol">3</span>, -0.01<span class="ol">6</span>)</td>
+	  <td>[-0.01<span class="ol">6</span>, 0.01<span class="ol">6</span>]</td>
+	  <td>(0.01<span class="ol">6</span>, 0.0<span class="ol">3</span>]</td>
+	  <td style="background-color:rgba(0,0,0,.05)">(0.0<span class="ol">3</span>, 0.05]</td>
+	  <td style="background-color:rgba(0,0,0,.05)">>0.05</td>
+	</tr>
+	<tr>
+	  <th>Score Awarded</th>
+	  <td style="background-color:rgba(0,0,0,.05)">50% val</td>
+	  <td>90% val</td>
+	  <td>100% val</td>
+	  <td>90% val</td>
+	  <td style="background-color:rgba(0,0,0,.05)">50% val</td>
+	  <td style="background-color:rgba(0,0,0,.05)">-50% val</td>
+	</tr>
+  </table>
+  
+  <p>Holds award 10% of a full note 10 times a second. This is accounted for when calculating score totals.</p>
+  
+  <p>If that was also confusing, feel free to stop caring and just hit the notes on time :p</p>
+  
+  <p><img src="resources/img/scoring.png" alt="Score Screen" class="center"></p>
+  
+  <p>The scoring screen tells you how many of each grade you recieved over a chart. The numbers in parentheses are how many notes you hit early and late respectively. <strong>If your accuracy is low and you see that your <span class="sc">pure</span>s and <span class="sc">impure</span>s are heavily weighted in one direction, you may need to adjust your offset from the song select settings screen.</strong></p>
+  
+  <hr>
+  <h2>Song Select Screen</h2>
+  
+  <p><img src="resources/img/songselect.png" alt="Score Screen" class="center"></p>
+  
+  <p>Press up or down on the d-pad to select a track, then left and right to select a difficulty. Many songs only feature 1 difficulty at the moment.</p>
+  
+  <p>You can press select to toggle sort between song-phonetic-name-alphabetical and artist-lowercase-name-unicode order.
+  
+  <h2>Settings</h2>
+  
+  <p>Press <span class="sc">start</span> on the song select screen to open the settings menu.</p>
+  
+  <p><img src="resources/img/settings.png" alt="Settings Menu" class="center"></p>
+  
+  <span class="sn">I am this annoying in real life too.</span>
+  <p><span class="sc">Cents</span> is the playback speed multiplier, in cents.<span class="snr"></span></p>
+  
+  <span class="sn">This might change in the future but it's kind of a choice overload imo.</span>
+  <p><span class="sc">Scroll Speed</span> affects both the speed of the vertical lanes and the circular lanes. They cannot at this time be adjusted seperately.<span class="snr"></span></p>
+  
+  <p>Circle lane holds are remeshed every frame. This is not that expensive in theory but some computers don't like doing it. <strong>If you're struggling with frame drops consider turning the <span class="sc">Mesh Detail</span> down</strong>—right now <span class="stereo">STEREO</span><span class="makia">MAKIA</span> doesn't handle them very well so it's best to avoid them entirely. Low settings will look dopey but don't affect gameplay any.</p>
+  
+  <p><span class="sc">Global Offset</span> is the offset applied to your input when scoring notes. The default value of -0.03 works well on both the computers I tested on but YMMV.<p>
+  
+  <hr>
+  <p>Thanks again for playing! Depending on the dot product of reception and personal interest I may release a v2 with some combination of more charts, a feature-complete editor, chart theming similar to how soundodger does it, etc.</p>
+  
+  <p>I don't want your money for this, not yet at least, but if playing this really got you into a spending mood I encourage you to donate to or otherwise spend money on an artist in the game, a small artist you like, or a charity. Bonus points for queers but it's your money.</p>
+  
+  <p>Remember, trans rights are human rights !!!</p>
+  
+  <p align="right"><i>~7tk of <span class="sc">nanahyakuman</span></i></p>
+  
+</body>
+</html>

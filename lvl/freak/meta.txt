@@ -1,0 +1,12 @@
+{
+	"full_name": "*\\!fr34k!/*",
+	"phonetic_name": "freak",
+	"artist_name": "7e+6",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"4"
+	],
+	"preview": 11.0
+}

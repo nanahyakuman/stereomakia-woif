@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7np614mg6mkk"]
+
+[ext_resource type="Script" path="res://beatline.gd" id="1_ebkmh"]
+
+[sub_resource type="Gradient" id="Gradient_dad3d"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p3sr7"]
+gradient = SubResource("Gradient_dad3d")
+width = 700
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0, 1)
+
+[node name="Beatline" type="Sprite2D"]
+modulate = Color(0, 0, 0, 0.12549)
+texture = SubResource("GradientTexture2D_p3sr7")
+offset = Vector2(0, -4)
+script = ExtResource("1_ebkmh")

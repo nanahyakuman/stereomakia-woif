@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://cta1nir4bdfsv"]
+
+[ext_resource type="Script" path="res://notes/TapNoteCircular.gd" id="1_s35nn"]
+
+[sub_resource type="Gradient" id="Gradient_xrl4c"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_afixv"]
+gradient = SubResource("Gradient_xrl4c")
+width = 48
+height = 48
+
+[node name="TapNoteCircular" type="Node2D"]
+script = ExtResource("1_s35nn")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(200, 0)
+scale = Vector2(0.5, 1.5)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Node2D"]
+modulate = Color(0.258824, 0.258824, 0.258824, 1)
+rotation = 0.785398
+scale = Vector2(1.2, 1.2)
+texture = SubResource("GradientTexture2D_afixv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+rotation = 0.785398
+texture = SubResource("GradientTexture2D_afixv")

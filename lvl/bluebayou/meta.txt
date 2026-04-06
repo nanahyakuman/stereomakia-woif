@@ -1,0 +1,12 @@
+{
+	"full_name": "2015 blue bayou water incident",
+	"phonetic_name": "2015 blue bayou water incident",
+	"artist_name": "yoshienjoyer",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"3"
+	],
+	"preview": 21.0
+}

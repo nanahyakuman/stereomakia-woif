@@ -1,0 +1,12 @@
+{
+	"full_name": "dreamlovebye <3",
+	"phonetic_name": "dreamlovebye",
+	"artist_name": "dimmortalz",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"3"
+	],
+	"preview": 0.0
+}

@@ -1,0 +1,158 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7ha6f2gi7d8i"]
+
+[ext_resource type="Script" path="res://score_screen_root.gd" id="1_srlx4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ig1mp"]
+line_spacing = 0.0
+font_size = 1100
+font_color = Color(0.960784, 0.960784, 0.960784, 1)
+outline_size = 40
+shadow_size = 60
+shadow_color = Color(0, 0, 0, 0.0235294)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_li687"]
+line_spacing = 0.0
+font_size = 200
+font_color = Color(0.968627, 0.968627, 0.968627, 1)
+outline_size = 15
+outline_color = Color(0.843137, 0.843137, 0.843137, 1)
+shadow_size = 30
+shadow_color = Color(0, 0, 0, 0.0941176)
+shadow_offset = Vector2(0, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_my13b"]
+line_spacing = 0.0
+font_size = 24
+font_color = Color(0.552941, 0.552941, 0.552941, 1)
+
+[node name="ScoreScreenRoot" type="Node"]
+script = ExtResource("1_srlx4")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GradeLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.5
+offset_top = -711.0
+offset_right = 330.5
+offset_bottom = 651.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ig1mp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -20
+
+[node name="ScoreLabel" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "7000000"
+label_settings = SubResource("LabelSettings_li687")
+
+[node name="CountLabels" type="GridContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = -9
+columns = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/CountLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ABSOLUTE:"
+label_settings = SubResource("LabelSettings_my13b")
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer/CountLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+label_settings = SubResource("LabelSettings_my13b")
+
+[node name="Label3" type="Label" parent="Control/VBoxContainer/CountLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PURE:"
+label_settings = SubResource("LabelSettings_my13b")
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="Control/VBoxContainer/CountLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+label_settings = SubResource("LabelSettings_my13b")
+
+[node name="Label5" type="Label" parent="Control/VBoxContainer/CountLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "IMPURE:"
+label_settings = SubResource("LabelSettings_my13b")
+horizontal_alignment = 2
+
+[node name="Label6" type="Label" parent="Control/VBoxContainer/CountLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+label_settings = SubResource("LabelSettings_my13b")
+
+[node name="Label7" type="Label" parent="Control/VBoxContainer/CountLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ABSENT:"
+label_settings = SubResource("LabelSettings_my13b")
+horizontal_alignment = 2
+
+[node name="Label8" type="Label" parent="Control/VBoxContainer/CountLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+label_settings = SubResource("LabelSettings_my13b")
+
+[node name="Label9" type="Label" parent="Control/VBoxContainer/CountLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "HOLD:"
+label_settings = SubResource("LabelSettings_my13b")
+horizontal_alignment = 2
+
+[node name="Label10" type="Label" parent="Control/VBoxContainer/CountLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+label_settings = SubResource("LabelSettings_my13b")
+
+[node name="Label11" type="Label" parent="Control/VBoxContainer/CountLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "HOLD ABSENT:"
+label_settings = SubResource("LabelSettings_my13b")
+horizontal_alignment = 2
+
+[node name="Label12" type="Label" parent="Control/VBoxContainer/CountLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+label_settings = SubResource("LabelSettings_my13b")

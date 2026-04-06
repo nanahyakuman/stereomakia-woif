@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://bheb3un7m2xk0"]
+
+[ext_resource type="Script" path="res://GUISlider.gd" id="1_ilafd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_amlin"]
+line_spacing = 0.0
+font_size = 24
+font_color = Color(0.133333, 0.133333, 0.133333, 1)
+
+[node name="Slider" type="HBoxContainer"]
+script = ExtResource("1_ilafd")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Cents:"
+label_settings = SubResource("LabelSettings_amlin")
+
+[node name="ValueLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "+0"
+label_settings = SubResource("LabelSettings_amlin")
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = -1200.0
+max_value = 1200.0
+step = 100.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+scrollable = false
+ticks_on_borders = true

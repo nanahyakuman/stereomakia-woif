@@ -1,0 +1,12 @@
+{
+	"full_name": "you dont even know who i am",
+	"phonetic_name": "you dont even know who i am",
+	"artist_name": "Anna Lily remix, orig. underscores",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"1"
+	],
+	"preview": 0.0
+}

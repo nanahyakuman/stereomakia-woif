@@ -1,0 +1,12 @@
+{
+	"full_name": "WHY IM SINGLE",
+	"phonetic_name": "why im single",
+	"artist_name": "dynastic remix, orig. Alli Simpson",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"3"
+	],
+	"preview": 22.0
+}

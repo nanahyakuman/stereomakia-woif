@@ -1,0 +1,12 @@
+{
+	"full_name": "Alter 17",
+	"phonetic_name": "alter 17",
+	"artist_name": "puhyuneco",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"4"
+	],
+	"preview": 11.0
+}

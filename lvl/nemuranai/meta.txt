@@ -1,0 +1,12 @@
+{
+	"full_name": "n3m5r4n愛",
+	"phonetic_name": "nemuranai",
+	"artist_name": "7e+6",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"3"
+	],
+	"preview": 0.0
+}

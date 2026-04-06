@@ -1,0 +1,12 @@
+{
+	"full_name": "LOW TAPER FADE",
+	"phonetic_name": "low taper fade",
+	"artist_name": "Yem, orig. ericdoa",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"2"
+	],
+	"preview": 56.4
+}

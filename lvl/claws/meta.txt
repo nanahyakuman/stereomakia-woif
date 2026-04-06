@@ -1,0 +1,12 @@
+{
+	"full_name": "Claws",
+	"phonetic_name": "claws",
+	"artist_name": "Beanboy Remix, orig. Charli XCX",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"4"
+	],
+	"preview": 66.0
+}

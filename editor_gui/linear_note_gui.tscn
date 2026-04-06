@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://c4ejsibysl6l1"]
+
+[ext_resource type="Script" uid="uid://41ep104v3qew" path="res://editor_gui/linear_note_gui.gd" id="1_x52st"]
+
+[node name="LinearNoteGUI" type="PanelContainer" unique_id=754329694]
+custom_minimum_size = Vector2(176, 0)
+offset_right = 270.0
+offset_bottom = 206.0
+size_flags_vertical = 8
+script = ExtResource("1_x52st")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1186115679]
+layout_mode = 2
+
+[node name="Specifics" type="VBoxContainer" parent="VBoxContainer" unique_id=272029262]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Specifics" unique_id=2047666645]
+layout_mode = 2
+
+[node name="AbsoluteButton" type="CheckBox" parent="VBoxContainer/Specifics/HBoxContainer" unique_id=1522949688]
+layout_mode = 2
+focus_mode = 0
+text = "Abs."
+
+[node name="DoubledButton" type="CheckBox" parent="VBoxContainer/Specifics/HBoxContainer" unique_id=1105551513]
+layout_mode = 2
+focus_mode = 0
+text = "Doub."
+
+[node name="HoldToggle" type="CheckBox" parent="VBoxContainer/Specifics" unique_id=1901276353]
+layout_mode = 2
+focus_mode = 0
+text = "Hold"
+
+[node name="FracEditor" type="HBoxContainer" parent="VBoxContainer/Specifics" unique_id=40581274]
+layout_mode = 2
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/Specifics/FracEditor" unique_id=1102315770]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 9999.0
+rounded = true
+allow_greater = true
+editable = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Specifics/FracEditor" unique_id=1326560059]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpinBox2" type="SpinBox" parent="VBoxContainer/Specifics/FracEditor/VBoxContainer" unique_id=1654674511]
+layout_mode = 2
+max_value = 9999.0
+rounded = true
+allow_greater = true
+editable = false
+
+[node name="SpinBox3" type="SpinBox" parent="VBoxContainer/Specifics/FracEditor/VBoxContainer" unique_id=52926640]
+layout_mode = 2
+min_value = 1.0
+max_value = 9999.0
+value = 1.0
+rounded = true
+allow_greater = true
+editable = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Specifics" unique_id=397632894]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="VBoxContainer/Specifics/HBoxContainer2" unique_id=443184312]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lane:"
+
+[node name="LaneOptionButton" type="OptionButton" parent="VBoxContainer/Specifics/HBoxContainer2" unique_id=749405762]
+layout_mode = 2
+focus_mode = 0
+selected = 0
+item_count = 3
+popup/item_0/text = "Center"
+popup/item_0/id = 0
+popup/item_1/text = "Left"
+popup/item_1/id = 1
+popup/item_2/text = "Right"
+popup/item_2/id = 2
+
+[node name="ExistsButton" type="Button" parent="VBoxContainer" unique_id=524076302]
+layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+text = "LBumper"
+
+[connection signal="toggled" from="VBoxContainer/Specifics/HBoxContainer/AbsoluteButton" to="." method="_on_absolute_button_toggled"]
+[connection signal="toggled" from="VBoxContainer/Specifics/HBoxContainer/DoubledButton" to="." method="_on_doubled_button_toggled"]
+[connection signal="toggled" from="VBoxContainer/Specifics/HoldToggle" to="." method="_on_hold_toggle_toggled"]
+[connection signal="toggled" from="VBoxContainer/ExistsButton" to="." method="_on_exists_button_toggled"]

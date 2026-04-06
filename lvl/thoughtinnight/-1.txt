@@ -1,0 +1,30 @@
+{
+	"circular_notes": {
+		"false": {
+
+		},
+		"true": {
+
+		}
+	},
+	"linear_notes": {
+		"0+0/1": [
+			{
+				"abs": false,
+				"also_hold": "4+0/1",
+				"dir": 0,
+				"doub": false
+			}
+		]
+	},
+	"metadata": {
+		"bpms": [
+			[
+				0,
+				100
+			]
+		],
+		"chart_artist": "nanashi",
+		"play_offset": 0
+	}
+}

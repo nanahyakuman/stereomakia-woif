@@ -1,0 +1,12 @@
+{
+	"full_name": "fh",
+	"phonetic_name": "fh",
+	"artist_name": "seventhousandk",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"3+"
+	],
+	"preview": 9.2
+}
