@@ -18,11 +18,14 @@ var ratings_en = [
 ]
 
 var colors = [
-	#Color("c49fff").lightened(.1),
 	Color.WHITE,
 	Color("ffd66f"),
 	Color("b37e4b"),
 	Color("71052b"),
+	#Color.WHITE,
+	#Color.WHITE.darkened(.06),
+	#Color.WHITE.darkened(.4),
+	#Color.WHITE.darkened(.95),
 ]
 
 @onready var target_pos = position

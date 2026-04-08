@@ -1,0 +1,12 @@
+{
+	"full_name": "TENSIONNN",
+	"phonetic_name": "tension",
+	"artist_name": "webcage",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"3"
+	],
+	"preview": 0.0
+}

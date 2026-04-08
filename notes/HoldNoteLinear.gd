@@ -1,4 +1,4 @@
-extends Node2D
+extends Palettizer
 class_name HoldNoteLinear
 
 # dont set the underscored directly
@@ -11,7 +11,9 @@ var _calculated_len = 1.0
 
 var base_pos = Vector2.ZERO
 
-@onready var nine_patch_rect = $NinePatchRect
+@onready var nine_patch_rect_outline: NinePatchRect = $NinePatchRectOutline
+@onready var nine_patch_rect_base: NinePatchRect = $NinePatchRectBase
+
 
 func update(calculated_timer):
 	position = base_pos + (calculated_offset - calculated_timer) * PlayerSettings.get_speed() * Vector2.UP
@@ -20,8 +22,9 @@ func update(calculated_timer):
 	if position.y > 0.0:
 		var in_calc_len = (_calculated_len - (calculated_timer-calculated_offset)) * PlayerSettings.get_speed()
 		var voffset = (calculated_timer-calculated_offset) * PlayerSettings.get_speed()
-		nine_patch_rect.size.y = 64 + in_calc_len
-		nine_patch_rect.position.y = -32 - in_calc_len - voffset
+		for npr in [nine_patch_rect_base, nine_patch_rect_outline]:
+			npr.size.y = 64 + in_calc_len
+			npr.position.y = -32 - in_calc_len - voffset
 		visible = in_calc_len >= 0.0
 	else:
 		#  this every frame might be a little slow but it allows
@@ -40,5 +43,11 @@ func set_cast(val):
 func set_len(val):
 	_calculated_len = val
 	var calc_len = _calculated_len * PlayerSettings.get_speed()
-	nine_patch_rect.size.y = 64 + calc_len
-	nine_patch_rect.position.y = -32 - calc_len
+	for npr in [nine_patch_rect_base, nine_patch_rect_outline]:
+		npr.size.y = 64 + calc_len
+		npr.position.y = -32 - calc_len
+
+# like tapnotelinear, a little decroded but fully functional
+func _get_color():
+	nine_patch_rect_base.modulate = ph.colors[whichColor]
+	nine_patch_rect_outline.modulate = ph.colors[PaletteHolder.WHICH_COLOR.NOTE_OUTLINE]

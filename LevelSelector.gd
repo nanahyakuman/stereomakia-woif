@@ -58,11 +58,11 @@ func _regenerate_file_structure():
 func _add_info(file_path: String, known_scores: Dictionary):
 	var file = FileAccess.open(file_path + "/meta.txt", FileAccess.READ)
 	if !file:
-		print("failed to load file `%s`" % file_path)
+		print("failed to load file `%s/meta.txt`" % file_path)
 		return
 	var dict = JSON.parse_string(file.get_as_text())
 	if !dict:
-		print("failed to parse file `%s`" % file_path)
+		print("failed to parse file `%s/meta.txt`" % file_path)
 		return
 	
 	var info = LevelInfo.new()

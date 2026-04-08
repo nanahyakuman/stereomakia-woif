@@ -1,16 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://70okyvrefe1g"]
+[gd_scene format=3 uid="uid://70okyvrefe1g"]
 
-[ext_resource type="Script" path="res://notes/HoldNoteLinear.gd" id="1_7f0tl"]
-[ext_resource type="Texture2D" uid="uid://yna6fe7nm6er" path="res://notes/hold.png" id="2_7gvm7"]
+[ext_resource type="Script" uid="uid://ced4jgxqlk5tw" path="res://notes/HoldNoteLinear.gd" id="1_7f0tl"]
+[ext_resource type="Texture2D" uid="uid://dep504tcjmy4a" path="res://notes/hold_outline.png" id="2_i574l"]
+[ext_resource type="Texture2D" uid="uid://d3dcrrp75de1" path="res://notes/hold_base.png" id="3_b5bob"]
 
-[node name="HoldNoteLinear" type="Node2D"]
+[node name="HoldNoteLinear" type="Node2D" unique_id=1569626543]
 script = ExtResource("1_7f0tl")
+whichColor = 5
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="NinePatchRectOutline" type="NinePatchRect" parent="." unique_id=1133190673]
+modulate = Color(0, 0, 0, 1)
 offset_left = -32.0
 offset_top = -32.0
 offset_right = 32.0
 offset_bottom = 32.0
-texture = ExtResource("2_7gvm7")
+texture = ExtResource("2_i574l")
+patch_margin_top = 32
+patch_margin_bottom = 32
+
+[node name="NinePatchRectBase" type="NinePatchRect" parent="." unique_id=511364364]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+texture = ExtResource("3_b5bob")
 patch_margin_top = 32
 patch_margin_bottom = 32

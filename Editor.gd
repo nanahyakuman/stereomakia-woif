@@ -535,30 +535,32 @@ func load_lvl(_folder_path: String, chart_name: String):
 		chart_artist = dict["metadata"]["chart_artist"]
 		
 		# circles
-		for is_right in dict["circular_notes"]:
-			for fracstr in dict["circular_notes"][is_right]:
-				for item in dict["circular_notes"][is_right][fracstr]:
-					var head = item
-					var is_release = head.has("is_release") and head["is_release"]
-					
-					var a = _add_circle_note(Fraction.from_string(fracstr), is_right == "true", head["dir"], is_release)
-					# recursively add holds. frac.fromstr is called real redundantly
-					var frac = a.frac
-					while head.has("next"):
-						a.next_hold = _add_circle_hold(frac, is_right == "true", head["dir"], Fraction.from_string(head["next"]["len"]), head["next"]["dir"])
-						a = a.next_hold
-						frac = frac.added(a.frac_len)
-						head = head["next"]
-					
-					max_beat = maxi(max_beat, a.frac.base)
+		if dict.has("circular_notes"):
+			for is_right in dict["circular_notes"]:
+				for fracstr in dict["circular_notes"][is_right]:
+					for item in dict["circular_notes"][is_right][fracstr]:
+						var head = item
+						var is_release = head.has("is_release") and head["is_release"]
+						
+						var a = _add_circle_note(Fraction.from_string(fracstr), is_right == "true", head["dir"], is_release)
+						# recursively add holds. frac.fromstr is called real redundantly
+						var frac = a.frac
+						while head.has("next"):
+							a.next_hold = _add_circle_hold(frac, is_right == "true", head["dir"], Fraction.from_string(head["next"]["len"]), head["next"]["dir"])
+							a = a.next_hold
+							frac = frac.added(a.frac_len)
+							head = head["next"]
+						
+						max_beat = maxi(max_beat, a.frac.base)
 		
 		# taps
-		for fracstr in dict["linear_notes"]:
-			var note_array = dict["linear_notes"][fracstr]
-			for n in note_array:
-				var frac = Fraction.from_string(fracstr)
-				max_beat = maxi(max_beat, frac.base)
-				_add_note(frac, n["dir"], n["doub"], n["abs"], Fraction.from_string(n["also_hold"]))
+		if dict.has("linear_notes"):
+			for fracstr in dict["linear_notes"]:
+				var note_array = dict["linear_notes"][fracstr]
+				for n in note_array:
+					var frac = Fraction.from_string(fracstr)
+					max_beat = maxi(max_beat, frac.base)
+					_add_note(frac, n["dir"], n["doub"], n["abs"], Fraction.from_string(n["also_hold"]))
 		
 		# resort nodes. prob really slow but like
 		for nh in tap_notes + hold_notes + [circle_hold_notes_left, circle_hold_notes_right, 

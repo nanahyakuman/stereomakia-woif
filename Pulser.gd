@@ -6,7 +6,7 @@ extends Node
 @export var nodes: Array[Node2D]
 @export var cnodes: Array[Control]
 
-const min = .8
+const min = 1.0#.8
 const decay = 25
 
 var mod = 1.0

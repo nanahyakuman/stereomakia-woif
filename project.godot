@@ -38,6 +38,14 @@ window/stretch/aspect="expand"
 mouse_cursor/custom_image="res://cursor.png"
 mouse_cursor/custom_image_hotspot=Vector2(3, 3)
 
+[global_group]
+
+palette_holder=""
+
+[gui]
+
+theme/custom_font="uid://bvyc6p0os1nbn"
+
 [input]
 
 ui_accept={

@@ -81,7 +81,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=1597452766]
 layout_mode = 2
-text = " STEREOMAKIA v1.0"
+text = "STEREOMAKIA;; WoIF v0.0"
 label_settings = SubResource("LabelSettings_2ag0g")
 
 [node name="Label2" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=2085284300]
@@ -149,11 +149,13 @@ layout_mode = 2
 text = "Song Artist"
 label_settings = SubResource("LabelSettings_vtojj")
 horizontal_alignment = 2
+autowrap_mode = 2
 
 [node name="DiffPrompt" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/SongInfo/VBoxContainer" unique_id=1546971856]
 layout_mode = 2
-text = "(L/R TO CHANGE DIFFICULTY)"
+text = "(l/r to change chart)"
 label_settings = SubResource("LabelSettings_jacpc")
+horizontal_alignment = 1
 
 [node name="Difficulties" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/SongInfo/VBoxContainer" unique_id=1609938681]
 unique_name_in_owner = true
