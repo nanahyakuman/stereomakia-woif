@@ -474,6 +474,7 @@ bus = &"SFX"
 
 [node name="Editor" type="Node" parent="." unique_id=420948338]
 script = ExtResource("15_qgihk")
+active = true
 
 [node name="GUI" type="Control" parent="Editor" unique_id=1769329441]
 z_index = 1

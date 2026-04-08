@@ -79,6 +79,8 @@ var editor_held_dirs = {}
 # sorted by type, just dumped in
 var notes_dict = {}
 
+var ph: PaletteHolder
+
 func _ready():
 	gui.visible = active
 	if active:
@@ -430,12 +432,18 @@ func _update_ui_for_current_time():
 # which is annoying but lowk it prob doesnt matter if we call sort on startup
 #  `save_internal` puts it in the core game, else it goes to the user folder
 func _save_lvl(folder_path: String, chart_name: String):
+	ph = get_tree().get_first_node_in_group("palette_holder")
+	var cols = []
+	if ph:
+		cols = ph.get_color_hexes()
+	
 	var dict = {
 		"metadata":
 		{
 			"bpms": note_holder.bpms,
 			"chart_artist": chart_artist,
 			"play_offset": note_holder.chart_play_offset,
+			"colors": cols
 		},
 		"linear_notes": {},
 		"circular_notes": {false: {}, true: {}}
@@ -531,6 +539,10 @@ func load_lvl(_folder_path: String, chart_name: String):
 		#note_holder.quarter = 60.0 / note_holder.bpms[0][1]
 		if dict["metadata"].has("play_offset"):
 			note_holder.chart_play_offset = dict["metadata"]["play_offset"]
+		if dict["metadata"].has("colors"):
+			ph = get_tree().get_first_node_in_group("palette_holder")
+			if ph:
+				ph.assign_colors(dict["metadata"]["colors"])
 		
 		chart_artist = dict["metadata"]["chart_artist"]
 		
