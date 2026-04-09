@@ -26,8 +26,9 @@ var associated_hold: HoldNoteLinear = null:
 	set(a):
 		associated_hold = a
 		# force color assign on new holds
-		associated_hold.whichColor = whichColor
-		associated_hold.force_get_color()
+		if associated_hold:
+			associated_hold.whichColor = whichColor
+			associated_hold.force_get_color()
 
 # just propogate up. only here as a reminder
 func _ready() -> void:

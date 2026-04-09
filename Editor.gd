@@ -95,6 +95,11 @@ func _ready():
 		note_holder.position.y = 360
 		waveform_sprite_2d.visible = false
 	
+	# attach to ui signals
+	for ln: LinearNoteGUI in gui.get_linear_notes():
+		ln.connect("ui_erase_request", _ui_request_note_erasure)
+		ln.connect("ui_add_tap_request", _ui_request_tap_note_addition)
+		ln.connect("ui_add_hold_request", _ui_request_hold_note_addition)
 
 # actual editing
 func _process(delta):
@@ -181,13 +186,11 @@ func _editor_press_note(time: Fraction, track: int):
 	if note == null:
 		editor_held_dirs[track] = _add_note(time, track, Input.is_action_pressed("lvlr_mod_2"), Input.is_action_pressed("lvlr_mod_1"), Fraction.new(0,0,1,true))
 	else:
-		note.queue_free()
-		_remove_note_from_dict(note)
+		_remove_note(note)
 		# also clear associated holds
 		var hold = note.associated_hold
 		if hold:
-			hold.queue_free()
-			_remove_note_from_dict(hold)
+			_remove_note(hold)
 		editor_held_dirs.erase(track)
 	# call update
 	note_holder.update_notes()
@@ -215,8 +218,7 @@ func circle_pressed(is_right: bool, dir: float):
 			_add_circle_note(offset_as_frac, is_right, dir, false)
 		else:
 			while note and is_instance_valid(note):
-				note.queue_free()
-				_remove_note_from_dict(note)
+				_remove_note(note)
 				note = note.next_hold
 	
 	# mod1 and mod2 are not mutually exclusive,
@@ -231,8 +233,7 @@ func circle_pressed(is_right: bool, dir: float):
 			_add_circle_note(offset_as_frac, is_right, dir, true)
 		else:
 			while note and is_instance_valid(note):
-				note.queue_free()
-				_remove_note_from_dict(note)
+				_remove_note(note)
 				note = note.next_hold
 	
 	# mod 1 is a hold
@@ -242,8 +243,7 @@ func circle_pressed(is_right: bool, dir: float):
 		if same_time_hold:
 			var note = same_time_hold
 			while note and is_instance_valid(note):
-				note.queue_free()
-				_remove_note_from_dict(note)
+				_remove_note(note)
 				note = note.next_hold
 		# otherwise add the hold
 		else:
@@ -272,6 +272,9 @@ func _add_note(time: Fraction, track: int, double: bool = false, absolute: bool 
 		var h = _add_hold(time, track, also_hold)
 		n.associated_hold = h
 	
+	# super redundant a lot of the time
+	_update_ui_for_current_time()
+	
 	return n
 
 func _add_hold(time: Fraction, track: int, len: Fraction):
@@ -279,8 +282,7 @@ func _add_hold(time: Fraction, track: int, len: Fraction):
 	hold_notes[track].add_child(h)
 	h.frac = time
 	h.calculated_offset = note_holder.calculate_offset_at(h.frac)
-	h.len_frac = len
-	h.set_len(note_holder.calculate_offset_at(h.frac.added(len)) - (note_holder.calculate_offset_at(h.frac)))
+	h.set_len(note_holder.calculate_offset_at(h.frac.added(len)) - (note_holder.calculate_offset_at(h.frac)), len)
 	h.set_cast(track)
 	scoring_manager.register_hold(h._calculated_len)
 	
@@ -311,6 +313,8 @@ func _add_circle_note(time: Fraction, is_right: bool, angle, is_release: bool):
 	scoring_manager.register_circle_tap()
 	
 	_add_note_to_dict(n)
+	# super redundant a lot of the time
+	_update_ui_for_current_time()
 	return n
 
 func _add_circle_hold(time: Fraction, is_right: bool, angle, hold_len: Fraction, hold_dir):
@@ -328,7 +332,8 @@ func _add_circle_hold(time: Fraction, is_right: bool, angle, hold_len: Fraction,
 	scoring_manager.register_circle_hold(h.calculated_len)
 	
 	_add_note_to_dict(h)
-	
+	# super redundant a lot of the time
+	_update_ui_for_current_time()
 	return h
 
 # dict management. recall that the dict doesn't do any type enforcement
@@ -607,31 +612,34 @@ func load_lvl(_folder_path: String, chart_name: String):
 
 func load_img():
 	var ffmpegpath = "./../ffmpeg/bin/ffmpeg.exe"
-	var oggpath = "../stereomakia/" + folder_path.substr(6) + "/music.ogg"
+	var oggpath = "../stereomakia-woif/" + folder_path.substr(6) + "/music.ogg"
 	var imgpath = "../img/outputwaveform.png"
 	
 	var output = []
-	OS.execute(ffmpegpath, ["-i", oggpath, "-filter_complex", "showwavespic=s=6400x150:split_channels=1", "-frames:v", "1", "-y", imgpath], output, true)
+	OS.execute(ffmpegpath, ["-i", oggpath, "-filter_complex", "showwavespic=s=12800x150:split_channels=1", "-frames:v", "1", "-y", imgpath], output, true)
 	#for o in output:
 		#print(o)
 	
 	var file = FileAccess.open("res://../img/outputwaveform.png", FileAccess.READ)
-	var bytes = file.get_buffer(file.get_length())
+	if file.is_open():
+		var bytes = file.get_buffer(file.get_length())
+		var img = Image.new()
+		var err = img.load_png_from_buffer(bytes)
+		if err == Error.OK:
+			var imgtex = ImageTexture.create_from_image(img)
+			waveform_sprite_2d.texture = imgtex
 	file.close()
-	var img = Image.new()
-	var err = img.load_png_from_buffer(bytes)
-	if err == Error.OK:
-		var imgtex = ImageTexture.create_from_image(img)
-		waveform_sprite_2d.texture = imgtex
 	
-	# this factor is completely arbitrary tbc
-	var scale = .02206
+	#  these factors are completely arbitrary but believably accurate
+	# for all songs ive tested.
+	var scale = .02206 * .5
 	scale *= MusicPlayerShinobu.get_length() / 141.217
 	waveform_sprite_2d.scale.x = PlayerSettings.get_speed() * scale
 	waveform_sprite_2d.scale.y = 6.0
 
 #  save and load functions will fail if any part of the folder string is absent from the computer,
 # so we manually create them on startup to prevent issues
+#  woif update: i forget why i disabled this, investigate mayb
 func _ensure_folder_exists(folder_path: String):
 	return
 	## lvl folder
@@ -643,12 +651,36 @@ func _ensure_folder_exists(folder_path: String):
 	#if !dir.dir_exists(folder_name):
 		#dir.make_dir(folder_name)
 
+# its feels insane that this is typeless but it is
+func _remove_note(note):
+	if note:
+		note.queue_free()
+		_remove_note_from_dict(note)
+		
+		if note is TapNoteLinear and note.associated_hold:
+			_remove_note(note.associated_hold)
 
 func _clear():
 	for nh in tap_notes + hold_notes + [circle_hold_notes_left, circle_hold_notes_right, circle_tap_notes_left, circle_tap_notes_right, beatlines]:
 		for n in nh.get_children():
-			n.queue_free()
+			_remove_note(n)
 	scoring_manager.deregister_all()
+
+
+# interpret signals from the editor ui
+func _ui_request_tap_note_addition(index: TapNoteLinear.DIRS):
+	#  just one-tap this, you need to use the holds par of the ui to edit holds
+	# with the ui (no arrowvortex drag logic)
+	_editor_press_note(offset_as_frac, index)
+	_editor_release_note(offset_as_frac, index)
+
+func _ui_request_hold_note_addition(index: TapNoteLinear.DIRS, note: TapNoteLinear, len: Fraction):
+	_remove_note(note.associated_hold)
+	note.associated_hold = _add_hold(note.frac, index, len)
+	note_holder.update_notes()
+
+func _ui_request_note_erasure(note):
+	_remove_note(note)
 
 
 func _log(msg: String):

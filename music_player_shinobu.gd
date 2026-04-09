@@ -43,7 +43,7 @@ func load_song(path: String):
 	soundSource = Shinobu.register_sound_from_memory(path, data)
 	soundPlayer = soundSource.instantiate(group)
 	soundPlayer.pitch_scale = pitch_scale
-	soundPlayer.volume = .4
+	soundPlayer.volume = .35
 	add_child(soundPlayer)
  
 # something to play a new song

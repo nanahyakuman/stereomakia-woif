@@ -30,7 +30,7 @@ func update(calculated_timer):
 		#  this every frame might be a little slow but it allows
 		# speed mods at runtime + is neccessary for our editor
 		# to draw right
-		set_len(_calculated_len)
+		set_len(_calculated_len, len_frac)
 
 # cast a note by its type
 func set_cast(val):
@@ -40,8 +40,9 @@ func set_cast(val):
 	else:
 		base_pos.x = 2.5 * TapNoteLinear.x_dist * (-1 if _dir == 4 else 1)
 
-func set_len(val):
+func set_len(val: float, _frac: Fraction):
 	_calculated_len = val
+	len_frac = _frac
 	var calc_len = _calculated_len * PlayerSettings.get_speed()
 	for npr in [nine_patch_rect_base, nine_patch_rect_outline]:
 		npr.size.y = 64 + calc_len

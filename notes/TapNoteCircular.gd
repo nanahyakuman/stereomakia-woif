@@ -29,7 +29,7 @@ func update(calculated_timer):
 
 # idk this might be too much math but its pretty legible this way
 static func distance_curve(val: float):
-	var base_scale = pow(val, 2.0)
+	var base_scale = pow(val, 3.0)
 	# editor gets goopy otherwise
 	if base_scale > 1.0:
 		return (1.0 + (base_scale - 1.0) * .5) * .95

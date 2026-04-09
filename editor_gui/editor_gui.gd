@@ -13,8 +13,8 @@ var LINEAR_KEYS = [
 
 func _ready() -> void:
 	for c in 6:
-		var nam = TapNoteLinear.DIRS.keys()[LINEAR_KEYS[c]]
-		linear_notes.get_child(c).rename(nam)
+		var nam = LINEAR_KEYS[c]
+		linear_notes.get_child(c).assign_dir(nam)
 
 #  called every time we seek w the notes that we're hovering over.
 # often empty tbf
@@ -27,4 +27,7 @@ func update_hovered_notes(notes: Array):
 	for n in notes:
 		if n is TapNoteLinear:
 			linear_notes.get_child(LINEAR_KEYS.find(n._dir)).assign_note(n)
-	
+
+# the editor needs these to connect off their signals
+func get_linear_notes():
+	return linear_notes.get_children()

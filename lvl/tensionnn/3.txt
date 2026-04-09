@@ -1,6 +1,82 @@
 {
 	"circular_notes": {
 		"false": {
+			"104+0/1": [
+				{
+					"dir": -2.40406203269958,
+					"is_release": false
+				}
+			],
+			"105+0/1": [
+				{
+					"dir": -1.73794627189636,
+					"is_release": false
+				}
+			],
+			"106+0/1": [
+				{
+					"dir": -1.15395760536194,
+					"is_release": false
+				}
+			],
+			"107+0/1": [
+				{
+					"dir": -0.51961624622345,
+					"is_release": false,
+					"next": {
+						"dir": -0.591245889663696,
+						"len": "0+1/2"
+					}
+				}
+			],
+			"107+1/2": [
+				{
+					"dir": -0.591245889663696,
+					"is_release": true
+				}
+			],
+			"109+0/1": [
+				{
+					"dir": -3.12198734283447,
+					"is_release": false
+				}
+			],
+			"109+1/2": [
+				{
+					"dir": 0.0300339478999376,
+					"is_release": false,
+					"next": {
+						"dir": -0.0592192113399506,
+						"len": "1+0/1"
+					}
+				}
+			],
+			"111+0/1": [
+				{
+					"dir": 1.55903208255768,
+					"is_release": false
+				}
+			],
+			"111+1/2": [
+				{
+					"dir": -1.58274793624878,
+					"is_release": false,
+					"next": {
+						"dir": -1.60635447502136,
+						"len": "0+1/2",
+						"next": {
+							"dir": -1.49524319171906,
+							"len": "0+1/2"
+						}
+					}
+				}
+			],
+			"112+1/2": [
+				{
+					"dir": -1.49524319171906,
+					"is_release": true
+				}
+			],
 			"48+0/1": [
 				{
 					"dir": -2.20565676689148,
@@ -39,6 +115,48 @@
 			]
 		},
 		"true": {
+			"109+0/1": [
+				{
+					"dir": 0.0118572106584907,
+					"is_release": false
+				}
+			],
+			"109+1/2": [
+				{
+					"dir": 3.10331344604492,
+					"is_release": false,
+					"next": {
+						"dir": 3.08900952339172,
+						"len": "1+0/1"
+					}
+				}
+			],
+			"111+0/1": [
+				{
+					"dir": 1.49642395973206,
+					"is_release": false
+				}
+			],
+			"111+1/2": [
+				{
+					"dir": -1.48091042041779,
+					"is_release": false,
+					"next": {
+						"dir": -1.57474887371063,
+						"len": "0+1/2",
+						"next": {
+							"dir": -1.53185486793518,
+							"len": "0+1/2"
+						}
+					}
+				}
+			],
+			"112+1/2": [
+				{
+					"dir": -1.53185486793518,
+					"is_release": true
+				}
+			],
 			"50+0/1": [
 				{
 					"dir": -0.752623021602631,
@@ -88,6 +206,14 @@
 		}
 	},
 	"linear_notes": {
+		"0+0/1": [
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 0,
+				"doub": false
+			}
+		],
 		"10+0/1": [
 			{
 				"abs": false,
@@ -176,11 +302,229 @@
 				"doub": false
 			}
 		],
+		"114+0/1": [
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 0,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 3,
+				"doub": false
+			}
+		],
+		"115+0/1": [
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 2,
+				"doub": true
+			}
+		],
+		"116+0/1": [
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 1,
+				"doub": true
+			}
+		],
+		"116+1/2": [
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 1,
+				"doub": true
+			}
+		],
+		"117+1/2": [
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 2,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 0,
+				"doub": false
+			}
+		],
+		"119+0/1": [
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 3,
+				"doub": true
+			}
+		],
+		"119+1/2": [
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 3,
+				"doub": true
+			}
+		],
 		"12+0/1": [
 			{
 				"abs": false,
 				"also_hold": "0+0/1",
 				"dir": 4,
+				"doub": false
+			}
+		],
+		"120+1/2": [
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 5,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 2,
+				"doub": false
+			}
+		],
+		"122+0/1": [
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 4,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 2,
+				"doub": false
+			}
+		],
+		"123+0/1": [
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 0,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 2,
+				"doub": false
+			}
+		],
+		"124+0/1": [
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 3,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 1,
+				"doub": false
+			}
+		],
+		"124+1/2": [
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 3,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 1,
+				"doub": false
+			}
+		],
+		"125+1/2": [
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 2,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 5,
+				"doub": false
+			}
+		],
+		"127+0/1": [
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 0,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 3,
+				"doub": false
+			}
+		],
+		"127+1/2": [
+			{
+				"abs": true,
+				"also_hold": "0+0/1",
+				"dir": 4,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 1,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 2,
+				"doub": false
+			},
+			{
+				"abs": true,
+				"also_hold": "0+1/2",
+				"dir": 5,
+				"doub": false
+			}
+		],
+		"128+1/2": [
+			{
+				"abs": true,
+				"also_hold": "0+0/1",
+				"dir": 4,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 1,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 2,
+				"doub": false
+			},
+			{
+				"abs": true,
+				"also_hold": "0+1/2",
+				"dir": 5,
 				"doub": false
 			}
 		],
@@ -788,13 +1132,13 @@
 			{
 				"abs": false,
 				"also_hold": "0+0/1",
-				"dir": 2,
+				"dir": 3,
 				"doub": false
 			},
 			{
 				"abs": false,
 				"also_hold": "0+0/1",
-				"dir": 3,
+				"dir": 2,
 				"doub": false
 			}
 		],
@@ -1120,12 +1464,6 @@
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 5,
-				"doub": false
-			},
-			{
-				"abs": false,
-				"also_hold": "1+0/1",
 				"dir": 1,
 				"doub": false
 			},
@@ -1133,6 +1471,12 @@
 				"abs": false,
 				"also_hold": "1+0/1",
 				"dir": 4,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 5,
 				"doub": false
 			}
 		],
@@ -1173,6 +1517,16 @@
 			]
 		],
 		"chart_artist": "7tk",
+		"colors": [
+			"ffffffff",
+			"fcfcfcff",
+			"b0b0b0ff",
+			"ff38c6ff",
+			"00ff8cff",
+			"ffffffff",
+			"000000ff",
+			"c9b7edff"
+		],
 		"play_offset": 0.0
 	}
 }
