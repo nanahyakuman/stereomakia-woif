@@ -14,11 +14,13 @@ extends Node
 @onready var circle_release_notes_right = $"../NoteHolder/Notes/CircleReleaseNotesRight"
 @onready var beatlines = $"../NoteHolder/Notes/Beatlines"
 @onready var waveform_sprite_2d: Sprite2D = $"../NoteHolder/Notes/Waveform/Sprite2D"
-
 @onready var gui: Control = $GUI
 @onready var division_label: Label = $GUI/DivisionLabel
 @onready var current_division_label: Label = $GUI/CurrentDivisionLabel
 @onready var logger: VBoxContainer = $GUI/Logger
+@onready var circle_note_l: CircleNoteGUI = $GUI/CircleNoteL
+@onready var circle_note_r: CircleNoteGUI = $GUI/CircleNoteR
+
 
 const HOLD_NOTE_CIRCULAR = preload("res://notes/hold_note_circular.tscn")
 const HOLD_NOTE_LINEAR = preload("res://notes/hold_note_linear.tscn")
@@ -100,6 +102,12 @@ func _ready():
 		ln.connect("ui_erase_request", _ui_request_note_erasure)
 		ln.connect("ui_add_tap_request", _ui_request_tap_note_addition)
 		ln.connect("ui_add_hold_request", _ui_request_hold_note_addition)
+	
+	for circle_ui: CircleNoteGUI in [circle_note_l, circle_note_r]:
+		circle_ui.connect("ui_erase_request", _ui_request_note_erasure)
+		circle_ui.connect("ui_add_circle_tap_request", _ui_request_circle_tap_addition)
+		circle_ui.connect("ui_add_circle_hold_request", _ui_request_circle_hold_addition)
+		circle_ui.connect("ui_add_circle_release_request", _ui_request_circle_release_addition)
 
 # actual editing
 func _process(delta):
@@ -238,21 +246,25 @@ func circle_pressed(is_right: bool, dir: float):
 	
 	# mod 1 is a hold
 	if Input.is_action_pressed("lvlr_mod_1"):
-		var same_time_hold = _find_circle_hold_by_terminus(offset_as_frac, is_right)
-		# remove a hold and its children
-		if same_time_hold:
-			var note = same_time_hold
-			while note and is_instance_valid(note):
-				_remove_note(note)
-				note = note.next_hold
-		# otherwise add the hold
-		else:
-			var prev_info = _find_preceding_circle_note_or_hold(offset_as_frac, is_right)
-			if prev_info:
-				prev_info[2].next_hold = _add_circle_hold(prev_info[0], is_right, prev_info[1], offset_as_frac.subtracted(prev_info[0]), dir)
+		_try_add_circle_hold(is_right, dir)
 	
 	# call update
 	note_holder.update_notes()
+
+#  pulled out so we can call it for the ui.
+# creates a hold and connects it
+func _try_add_circle_hold(is_right: bool, dir: float):
+	var same_time_hold = _find_circle_hold_by_terminus(offset_as_frac, is_right)
+	# remove a hold and its children
+	if same_time_hold:
+		var note = same_time_hold
+		while note and is_instance_valid(note):
+			_remove_note(note)
+			note = note.next_hold
+	else:
+		var prev_info = _find_preceding_circle_note_or_hold(offset_as_frac, is_right)
+		if prev_info:
+			prev_info[2].next_hold = _add_circle_hold(prev_info[0], is_right, prev_info[1], offset_as_frac.subtracted(prev_info[0]), dir)
 
 
 # add the indicated note
@@ -331,7 +343,7 @@ func _add_circle_hold(time: Fraction, is_right: bool, angle, hold_len: Fraction,
 	h.is_editor = active
 	scoring_manager.register_circle_hold(h.calculated_len)
 	
-	_add_note_to_dict(h)
+	_add_circle_hold_to_dict(h)
 	# super redundant a lot of the time
 	_update_ui_for_current_time()
 	return h
@@ -344,40 +356,52 @@ func _add_note_to_dict(note):
 	else:
 		notes_dict[fracstr] = [note]
 	_update_ui_for_current_time()
+
+#  circle holds are indexed by when they complete, not when they start.
+# this makes them easier to send to the ui.
+func _add_circle_hold_to_dict(note: HoldNoteCircular):
+	var fracstr = note.frac.added(note.frac_len).as_string()
+	if notes_dict.has(fracstr):
+		notes_dict[fracstr].append(note)
+	else:
+		notes_dict[fracstr] = [note]
+	_update_ui_for_current_time()
+
 func _remove_note_from_dict(note):
-	var fracstr = note.frac.as_string()
+	var fracstr
+	#  holds are indexed from their ends
+	if note is HoldNoteCircular:
+		fracstr = note.frac.added(note.frac_len).as_string()
+	else:
+		fracstr = note.frac.as_string()
 	if notes_dict.has(fracstr):
 		notes_dict[fracstr].erase(note)
 	_update_ui_for_current_time()
 
 
-#  find a note. this might be really slow on bigger levels, may have to have a
-# note dict instead of doing this in the future
+
+#  find a note. this might be really slow on bigger levels.
+# TODO: rework these to take advantage of the note dict
 func _find_note(time: Fraction, track: int):
 	for n in tap_notes[track].get_children():
 		if n.frac.equals(time):
 			return n
 	return null
-
 func _find_circle_note(time: Fraction, is_right: bool):
 	for n in (circle_tap_notes_right if is_right else circle_tap_notes_left).get_children():
 		if n.frac.equals(time):
 			return n
 	return null
-
 func _find_circle_release(time: Fraction, is_right: bool):
 	for n in (circle_release_notes_right if is_right else circle_release_notes_left).get_children():
 		if n.frac.equals(time):
 			return n
 	return null
-
-
 func _find_circle_hold_by_terminus(time: Fraction, is_right: bool):
 	for n in (circle_hold_notes_right if is_right else circle_hold_notes_left).get_children():
 		if n.frac.added(n.frac_len).equals(time):
 			return n
 	return null
-
 #  allow us to regen holds to snap to the previous note
 # return an array, first arg is fractime, second is dir
 func _find_preceding_circle_note_or_hold(time: Fraction, is_right: bool):
@@ -425,7 +449,6 @@ func _update_ui_for_current_time():
 	if notes_dict.has(fracstr):
 		notes_at_this_time = notes_dict[fracstr]
 	gui.update_hovered_notes(notes_at_this_time)
-
 
 
 ##		Saving and Loading		##
@@ -681,6 +704,18 @@ func _ui_request_hold_note_addition(index: TapNoteLinear.DIRS, note: TapNoteLine
 
 func _ui_request_note_erasure(note):
 	_remove_note(note)
+
+func _ui_request_circle_tap_addition(is_right: bool, dir: float):
+	_add_circle_note(offset_as_frac, is_right, dir, false)
+	note_holder.update_notes()
+
+func _ui_request_circle_release_addition(is_right: bool, dir: float):
+	_add_circle_note(offset_as_frac, is_right, dir, true)
+	note_holder.update_notes()
+
+func _ui_request_circle_hold_addition(is_right: bool, dir: float):
+	_try_add_circle_hold(is_right, dir)
+	note_holder.update_notes()
 
 
 func _log(msg: String):

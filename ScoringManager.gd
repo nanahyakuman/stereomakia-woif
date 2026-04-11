@@ -13,13 +13,13 @@ extends Node
 const tap_values = [ # ongeki is 10 9 6 0
 	10,
 	9,
-	5,
+	0,
 	-5 ]
 # abs notes just play a different sound ( used to be worth more )
 const abs_values = [
 	10,
 	9,
-	5,
+	0,
 	-5 ]
 const hold_value = 1
 const circle_tap_value = 12

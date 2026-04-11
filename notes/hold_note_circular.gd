@@ -37,7 +37,7 @@ func update(calculated_timer):
 	# regen mesh
 	#  dynamically decide how much to subdivide based on length.
 	# this should scale by speed in future
-	var calc_subdiv = calculated_len / abs(start_dir - new_dir) * subdiv_mod * PlayerSettings.get_circ_time()
+	var calc_subdiv = calculated_len / max(.01, abs(start_dir - new_dir)) * subdiv_mod * PlayerSettings.get_circ_time()
 	calc_subdiv *= PlayerSettings.mesh_detail_inv # player set accuracy mod goes here
 	var width = def_width
 	for which in [mesh_instance_2d, mesh_instance_2d_2]:
@@ -79,4 +79,3 @@ func _dir_and_time_to_coords(in_dir, _tim, timer, width):
 # get the direction at the given time
 func calc_dir(timer):
 	return lerp_angle(start_dir, new_dir, (timer - calculated_offset) / calculated_len)
-

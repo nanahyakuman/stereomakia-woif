@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://oyqdsuoee1by"]
 
+[ext_resource type="Script" uid="uid://bn1rdp0p1xboc" path="res://editor_gui/circle_note_gui.gd" id="1_vr8u0"]
+
 [node name="CircleNote" type="PanelContainer" unique_id=575823352]
 anchors_preset = 4
 anchor_top = 0.5
@@ -8,6 +10,7 @@ offset_top = -78.0
 offset_right = 156.0
 offset_bottom = 58.0
 grow_vertical = 2
+script = ExtResource("1_vr8u0")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1975790665]
 layout_mode = 2
@@ -19,32 +22,51 @@ layout_mode = 2
 layout_mode = 2
 text = "Angle:"
 
-[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer" unique_id=365220373]
+[node name="AngleSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer" unique_id=365220373]
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 360.0
+min_value = -180.0
+max_value = 180.0
 allow_greater = true
 allow_lesser = true
+suffix = "°"
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer" unique_id=1789758614]
+[node name="AngleHSlider" type="HSlider" parent="VBoxContainer" unique_id=1789758614]
 layout_mode = 2
 focus_mode = 0
-max_value = 360.0
+min_value = -180.0
+max_value = 180.0
+step = 5.0
 allow_greater = true
 allow_lesser = true
-tick_count = 36
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer" unique_id=954129785]
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=1764561098]
+custom_minimum_size = Vector2(0, 3)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=503099965]
+layout_mode = 2
+alignment = 1
+
+[node name="TapBox" type="CheckBox" parent="VBoxContainer/HBoxContainer2" unique_id=10230733]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Tap"
+
+[node name="ReleaseBox" type="CheckBox" parent="VBoxContainer/HBoxContainer2" unique_id=1026468782]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Release"
+
+[node name="PrevBox" type="CheckBox" parent="VBoxContainer" unique_id=954129785]
 layout_mode = 2
 focus_mode = 0
 text = "Connect to prev."
 
-[node name="CheckBox2" type="CheckBox" parent="VBoxContainer" unique_id=10230733]
-layout_mode = 2
-focus_mode = 0
-text = "Tap"
-
-[node name="CheckBox3" type="CheckBox" parent="VBoxContainer" unique_id=1026468782]
-layout_mode = 2
-focus_mode = 0
-text = "Release"
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/AngleSpinBox" to="." method="_on_angle_changed"]
+[connection signal="value_changed" from="VBoxContainer/AngleHSlider" to="." method="_on_angle_changed"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer2/TapBox" to="." method="_on_tap_box_toggled"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer2/ReleaseBox" to="." method="_on_release_box_toggled"]
+[connection signal="toggled" from="VBoxContainer/PrevBox" to="." method="_on_prev_box_toggled"]

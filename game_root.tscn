@@ -565,22 +565,23 @@ layout_mode = 2
 [node name="LinearNoteGUI6" parent="Editor/GUI/VBoxContainer/LinearNotes" unique_id=350049586 instance=ExtResource("21_xpevi")]
 layout_mode = 2
 
-[node name="CircleNote" parent="Editor/GUI" unique_id=575823352 instance=ExtResource("23_e0ydq")]
+[node name="CircleNoteL" parent="Editor/GUI" unique_id=575823352 instance=ExtResource("23_e0ydq")]
 layout_mode = 1
-offset_top = -79.0
-offset_right = 166.0
-offset_bottom = 79.0
+offset_top = -76.5
+offset_right = 155.0
+offset_bottom = 76.5
 
-[node name="CircleNote2" parent="Editor/GUI" unique_id=56205485 instance=ExtResource("23_e0ydq")]
+[node name="CircleNoteR" parent="Editor/GUI" unique_id=56205485 instance=ExtResource("23_e0ydq")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -166.0
-offset_top = -79.0
+offset_left = -155.0
+offset_top = -76.5
 offset_right = 0.0
-offset_bottom = 79.0
+offset_bottom = 76.5
 grow_horizontal = 0
+is_right = true
 
 [node name="PaletteHolder" type="Node" parent="." unique_id=1174330702 groups=["palette_holder"]]
 script = ExtResource("29_wan0x")

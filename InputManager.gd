@@ -33,12 +33,20 @@ const input_lane_mask = [
 	4, 5
 ]
 
+# historical values for reference, but these were modified in woif
+#const tap_windows = [
+	#.000, #abs
+	#.034, #pure
+	#.067, #impure
+	#.134,
+#]
 const tap_windows = [
 	.000, #abs
 	.034, #pure
-	.067, #impure
-	.134,
+	.084, #impure
+	.134, #miss. reminder you can't "miss" early, the input is just dropped
 ]
+# these are always abs if you hit them at all
 const circle_tap_window = .150
 
 #  nudge scoring window when you get a pure to improve scores a tiny bit.
