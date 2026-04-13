@@ -122,6 +122,15 @@ func _process(delta):
 	if !paused:
 		return
 	
+	# window toggle. relocate save once appropriate
+	if Input.is_action_just_pressed("lvlr_save"):
+		gui.toggle_gui()
+		_save_lvl(folder_path, diff)
+	
+	# discard input when in the mouse gui
+	if gui.is_mouse_mode:
+		return
+	
 	# seeking w frac snap
 	var mod = 1
 	if Input.is_action_pressed("lvlr_mod_1"):
@@ -152,10 +161,6 @@ func _process(delta):
 		PlayerSettings.player_set_scroll_mod /= 1.4
 		note_holder.update_notes()
 	
-	# saving
-	if Input.is_action_just_pressed("lvlr_save"):
-		gui.toggle_gui()
-		_save_lvl(folder_path, diff)
 
 
 func _pause(val: bool):

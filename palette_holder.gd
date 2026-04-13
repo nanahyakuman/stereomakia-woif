@@ -56,7 +56,12 @@ func get_color_hexes():
 	for i in colors.size():
 		ret.append(colors[i].to_html())
 	return ret
+
 func assign_colors(arr: Array):
 	colors = DEF_COLS
 	for i in min(arr.size(), colors.size()):
 		colors[i] = Color(arr[i])
+
+func assign_single_color(which: WHICH_COLOR, col: Color):
+	colors[which] = col
+	emit_signal("colorsChanged")

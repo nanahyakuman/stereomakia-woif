@@ -1472,11 +1472,21 @@
 	"metadata": {
 		"bpms": [
 			[
-				0,
-				55
+				0.0,
+				55.0
 			]
 		],
 		"chart_artist": "7tk",
-		"play_offset": 0
+		"colors": [
+			"fd2d23ff",
+			"fd2d23ff",
+			"000000ff",
+			"00000000",
+			"00000000",
+			"000000ff",
+			"000000ff",
+			"fd2d23ff"
+		],
+		"play_offset": 0.0
 	}
 }

@@ -8,7 +8,10 @@ const TITLE_SCREEN_ROOT = preload("uid://exl2hvdedg3t")
 
 func _ready():
 	#_start_title_screen()
-	_start_level_select()
+	
+	start_level_select()
+	
+	#start_level("res://lvl/tensionnn", "3")
 
 
 func _start_title_screen():
@@ -17,10 +20,10 @@ func _start_title_screen():
 	
 	var tsr: TitleScreenRoot = TITLE_SCREEN_ROOT.instantiate()
 	add_child(tsr)
-	# this has more signals but those screens arent implemented yet
-	tsr.level_select_pressed.connect(_start_level_select)
+	# tsr has more signals but those screens arent implemented yet
+	tsr.level_select_pressed.connect(start_level_select)
 
-func _start_level_select():
+func start_level_select():
 	if get_child_count() > 0:
 		get_child(0).queue_free()
 	add_child(LEVEL_SELECT_ROOT.instantiate())

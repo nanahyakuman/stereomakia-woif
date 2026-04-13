@@ -642,7 +642,7 @@
 		],
 		"16+0/1": [
 			{
-				"abs": false,
+				"abs": true,
 				"also_hold": "0+0/1",
 				"dir": 3,
 				"doub": false
@@ -1606,14 +1606,14 @@
 		],
 		"chart_artist": "7tk",
 		"colors": [
-			"ffffffff",
-			"fcfcfcff",
-			"b0b0b0ff",
-			"ff38c6ff",
-			"00ff8cff",
-			"ffffffff",
-			"000000ff",
-			"c9b7edff"
+			"8db3b8ff",
+			"82abadff",
+			"38493dff",
+			"4f113e41",
+			"00361d3a",
+			"c4cecaff",
+			"253029ff",
+			"f2a049ff"
 		],
 		"play_offset": 0.0
 	}

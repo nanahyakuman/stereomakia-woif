@@ -25,7 +25,14 @@ var pretentious_kansuu = [
 	"玖",
 ]
 
-func _ready():
+var ph: PaletteHolder
+
+func _ready() -> void:
+	ph = get_tree().get_first_node_in_group("palette_holder")
+	if ph:
+		ph.colorsChanged.connect(_get_color)
+		_get_color()
+	
 	set_score(0)
 
 func set_score(score: int):
@@ -34,3 +41,8 @@ func set_score(score: int):
 		str = str(score % 10) + "\n" + str
 		score /= 10
 	text = str
+
+
+func _get_color():
+	label_settings.font_color = ph.colors[PaletteHolder.WHICH_COLOR.NOTE_BASE]
+	label_settings.outline_color = ph.colors[PaletteHolder.WHICH_COLOR.NOTE_BASE].lerp(ph.colors[PaletteHolder.WHICH_COLOR.NOTE_OUTLINE], .25)
