@@ -15,11 +15,11 @@ extends Node
 @onready var beatlines = $"../NoteHolder/Notes/Beatlines"
 @onready var waveform_sprite_2d: Sprite2D = $"../NoteHolder/Notes/Waveform/Sprite2D"
 @onready var gui: Control = $GUI
-@onready var division_label: Label = $GUI/DivisionLabel
-@onready var current_division_label: Label = $GUI/CurrentDivisionLabel
-@onready var logger: VBoxContainer = $GUI/Logger
-@onready var circle_note_l: CircleNoteGUI = $GUI/CircleNoteL
-@onready var circle_note_r: CircleNoteGUI = $GUI/CircleNoteR
+@onready var division_label: Label = $GUI/NoteGUI/DivisionLabel
+@onready var current_division_label: Label = $GUI/NoteGUI/CurrentDivisionLabel
+@onready var logger: VBoxContainer = %Logger
+@onready var circle_note_l: CircleNoteGUI = $GUI/NoteGUI/CircleNoteL
+@onready var circle_note_r: CircleNoteGUI = $GUI/NoteGUI/CircleNoteR
 
 
 const HOLD_NOTE_CIRCULAR = preload("res://notes/hold_note_circular.tscn")
@@ -154,6 +154,7 @@ func _process(delta):
 	
 	# saving
 	if Input.is_action_just_pressed("lvlr_save"):
+		gui.toggle_gui()
 		_save_lvl(folder_path, diff)
 
 

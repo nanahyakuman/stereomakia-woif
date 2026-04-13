@@ -13,4 +13,3 @@ func update(timer):
 	sprite_2d.scale.y = 6.0
 	
 	position = -TapNoteLinear.get_vertical_offset(timer + note_holder.chart_play_offset)
-	

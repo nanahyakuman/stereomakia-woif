@@ -1,10 +1,13 @@
 extends Control
 
-@onready var linear_notes: HBoxContainer = $VBoxContainer/LinearNotes
+@onready var note_gui: Control = $NoteGUI
+@onready var mouse_gui: Control = $MouseGUI
 
-@onready var circle_note_l: CircleNoteGUI = $CircleNoteL
-@onready var circle_note_r: CircleNoteGUI = $CircleNoteR
+@onready var linear_notes: HBoxContainer = $NoteGUI/VBoxContainer/LinearNotes
+@onready var circle_note_l: CircleNoteGUI = $NoteGUI/CircleNoteL
+@onready var circle_note_r: CircleNoteGUI = $NoteGUI/CircleNoteR
 
+var is_mouse_mode: bool
 
 var LINEAR_KEYS = [
 	TapNoteLinear.DIRS.LB,
@@ -22,6 +25,14 @@ func _ready() -> void:
 	
 	circle_note_l.is_right = false
 	circle_note_r.is_right = true
+	
+	toggle_gui(false)
+
+# switch between the note placer ui and the other things ui
+func toggle_gui(is_mouse: bool = !is_mouse_mode):
+	note_gui.visible = !is_mouse
+	mouse_gui.visible = is_mouse
+	is_mouse_mode = is_mouse
 
 #  called every time we seek w the notes that we're hovering over.
 # often empty tbf

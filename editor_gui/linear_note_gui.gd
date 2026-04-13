@@ -8,7 +8,7 @@ class_name LinearNoteGUI
 @onready var absolute_button: CheckBox = $VBoxContainer/Specifics/HBoxContainer/AbsoluteButton
 @onready var doubled_button: CheckBox = $VBoxContainer/Specifics/HBoxContainer/DoubledButton
 
-@onready var note_holder: Control = $"../../../../../NoteHolder"
+@onready var note_holder: Control = $"../../../../../../NoteHolder"
 
 
 #  emitted on clicking the exists button, as appropriate. interpreted by

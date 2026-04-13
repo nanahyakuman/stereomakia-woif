@@ -12,5 +12,5 @@ func set_msg(msg: String):
 func _process(delta):
 	timer -= delta
 	modulate.a = clamp(timer, 0.0, 1.0)
-	if modulate.a < 0.0:
+	if modulate.a <= 0.0:
 		queue_free()

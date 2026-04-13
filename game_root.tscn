@@ -487,7 +487,29 @@ grow_vertical = 2
 theme = ExtResource("19_qbwgp")
 script = ExtResource("20_1gnx6")
 
-[node name="DivisionLabel" type="Label" parent="Editor/GUI" unique_id=337607738]
+[node name="Logger" type="VBoxContainer" parent="Editor/GUI" unique_id=497602653]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+script = ExtResource("16_8d3oj")
+
+[node name="Dummy" type="Control" parent="Editor/GUI/Logger" unique_id=1976325955]
+layout_mode = 2
+
+[node name="NoteGUI" type="Control" parent="Editor/GUI" unique_id=170808111]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DivisionLabel" type="Label" parent="Editor/GUI/NoteGUI" unique_id=337607738]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -503,7 +525,7 @@ grow_vertical = 2
 text = "1/2"
 label_settings = SubResource("LabelSettings_0ouvs")
 
-[node name="CurrentDivisionLabel" type="Label" parent="Editor/GUI" unique_id=403843043]
+[node name="CurrentDivisionLabel" type="Label" parent="Editor/GUI/NoteGUI" unique_id=403843043]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -519,59 +541,46 @@ grow_vertical = 2
 text = "1/2"
 label_settings = SubResource("LabelSettings_0ouvs")
 
-[node name="Logger" type="VBoxContainer" parent="Editor/GUI" unique_id=497602653]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -48.0
-offset_top = -40.0
-offset_right = -8.0
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("16_8d3oj")
-metadata/_edit_use_anchors_ = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Editor/GUI" unique_id=1001185983]
+[node name="VBoxContainer" type="VBoxContainer" parent="Editor/GUI/NoteGUI" unique_id=1001185983]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -186.0
 grow_horizontal = 2
 grow_vertical = 0
+alignment = 2
 
-[node name="LinearNotes" type="HBoxContainer" parent="Editor/GUI/VBoxContainer" unique_id=1914693769]
+[node name="LinearNotes" type="HBoxContainer" parent="Editor/GUI/NoteGUI/VBoxContainer" unique_id=1914693769]
 layout_mode = 2
 alignment = 1
 
-[node name="LinearNoteGUI" parent="Editor/GUI/VBoxContainer/LinearNotes" unique_id=754329694 instance=ExtResource("21_xpevi")]
+[node name="LinearNoteGUI" parent="Editor/GUI/NoteGUI/VBoxContainer/LinearNotes" unique_id=754329694 instance=ExtResource("21_xpevi")]
 layout_mode = 2
 
-[node name="LinearNoteGUI2" parent="Editor/GUI/VBoxContainer/LinearNotes" unique_id=536044860 instance=ExtResource("21_xpevi")]
+[node name="LinearNoteGUI2" parent="Editor/GUI/NoteGUI/VBoxContainer/LinearNotes" unique_id=536044860 instance=ExtResource("21_xpevi")]
 layout_mode = 2
 
-[node name="LinearNoteGUI3" parent="Editor/GUI/VBoxContainer/LinearNotes" unique_id=1355949936 instance=ExtResource("21_xpevi")]
+[node name="LinearNoteGUI3" parent="Editor/GUI/NoteGUI/VBoxContainer/LinearNotes" unique_id=1355949936 instance=ExtResource("21_xpevi")]
 layout_mode = 2
 
-[node name="LinearNoteGUI4" parent="Editor/GUI/VBoxContainer/LinearNotes" unique_id=325518384 instance=ExtResource("21_xpevi")]
+[node name="LinearNoteGUI4" parent="Editor/GUI/NoteGUI/VBoxContainer/LinearNotes" unique_id=325518384 instance=ExtResource("21_xpevi")]
 layout_mode = 2
 
-[node name="LinearNoteGUI5" parent="Editor/GUI/VBoxContainer/LinearNotes" unique_id=998755369 instance=ExtResource("21_xpevi")]
+[node name="LinearNoteGUI5" parent="Editor/GUI/NoteGUI/VBoxContainer/LinearNotes" unique_id=998755369 instance=ExtResource("21_xpevi")]
 layout_mode = 2
 
-[node name="LinearNoteGUI6" parent="Editor/GUI/VBoxContainer/LinearNotes" unique_id=350049586 instance=ExtResource("21_xpevi")]
+[node name="LinearNoteGUI6" parent="Editor/GUI/NoteGUI/VBoxContainer/LinearNotes" unique_id=350049586 instance=ExtResource("21_xpevi")]
 layout_mode = 2
 
-[node name="CircleNoteL" parent="Editor/GUI" unique_id=575823352 instance=ExtResource("23_e0ydq")]
+[node name="CircleNoteL" parent="Editor/GUI/NoteGUI" unique_id=575823352 instance=ExtResource("23_e0ydq")]
 layout_mode = 1
 offset_top = -76.5
 offset_right = 155.0
 offset_bottom = 76.5
 
-[node name="CircleNoteR" parent="Editor/GUI" unique_id=56205485 instance=ExtResource("23_e0ydq")]
+[node name="CircleNoteR" parent="Editor/GUI/NoteGUI" unique_id=56205485 instance=ExtResource("23_e0ydq")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -583,11 +592,13 @@ offset_bottom = 76.5
 grow_horizontal = 0
 is_right = true
 
-[node name="MouseGUI" type="Control" parent="Editor" unique_id=722187372]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MouseGUI" type="Control" parent="Editor/GUI" unique_id=722187372]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PaletteHolder" type="Node" parent="." unique_id=1174330702 groups=["palette_holder"]]
 script = ExtResource("29_wan0x")
