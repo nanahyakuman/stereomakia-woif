@@ -46,6 +46,9 @@ func assign_note(_n: TapNoteLinear):
 		hold_toggle.set_pressed_no_signal(true)
 		frac_editor.set_enabled(true)
 		frac_editor.assign(_n.associated_hold.len_frac)
+	else:
+		hold_toggle.set_pressed_no_signal(false)
+		frac_editor.set_enabled(false)
 	
 	note = _n
 
