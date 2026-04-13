@@ -144,6 +144,14 @@ func _process(delta):
 		if Input.is_action_just_released(dir_input_order[i]):
 			_editor_release_note(offset_as_frac, i)
 	
+	# zooming
+	if Input.is_action_just_released("scroll_u"):
+		PlayerSettings.player_set_scroll_mod *= 1.4
+		note_holder.update_notes()
+	if Input.is_action_just_released("scroll_d"):
+		PlayerSettings.player_set_scroll_mod /= 1.4
+		note_holder.update_notes()
+	
 	# saving
 	if Input.is_action_just_pressed("lvlr_save"):
 		_save_lvl(folder_path, diff)
@@ -653,12 +661,7 @@ func load_img():
 			waveform_sprite_2d.texture = imgtex
 	file.close()
 	
-	#  these factors are completely arbitrary but believably accurate
-	# for all songs ive tested.
-	var scale = .02206 * .5
-	scale *= MusicPlayerShinobu.get_length() / 141.217
-	waveform_sprite_2d.scale.x = PlayerSettings.get_speed() * scale
-	waveform_sprite_2d.scale.y = 6.0
+	
 
 #  save and load functions will fail if any part of the folder string is absent from the computer,
 # so we manually create them on startup to prevent issues

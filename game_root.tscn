@@ -583,6 +583,12 @@ offset_bottom = 76.5
 grow_horizontal = 0
 is_right = true
 
+[node name="MouseGUI" type="Control" parent="Editor" unique_id=722187372]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="PaletteHolder" type="Node" parent="." unique_id=1174330702 groups=["palette_holder"]]
 script = ExtResource("29_wan0x")
 
