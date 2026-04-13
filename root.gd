@@ -15,6 +15,8 @@ func _ready():
 
 
 func _start_title_screen():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	if get_child_count() > 0:
 		get_child(0).queue_free()
 	
@@ -24,6 +26,8 @@ func _start_title_screen():
 	tsr.level_select_pressed.connect(start_level_select)
 
 func start_level_select():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	if get_child_count() > 0:
 		get_child(0).queue_free()
 	add_child(LEVEL_SELECT_ROOT.instantiate())
@@ -31,6 +35,8 @@ func start_level_select():
 
 # called by the level selector
 func start_level(folder_path: String, chart_name: String):
+	# level decides whether to hide the mouse or not
+	
 	# kill the level selector
 	if get_child_count() > 0:
 		get_child(0).queue_free()

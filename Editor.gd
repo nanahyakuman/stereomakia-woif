@@ -96,6 +96,8 @@ func _ready():
 		note_holder.scale = Vector2(1.0,1.0)
 		note_holder.position.y = 360
 		waveform_sprite_2d.visible = false
+		
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	# attach to ui signals
 	for ln: LinearNoteGUI in gui.get_linear_notes():

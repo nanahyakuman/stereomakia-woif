@@ -36,15 +36,20 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Level Select"
 
-[node name="SyncButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1299137225]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Sync"
-
 [node name="SettingsButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1130903528]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Settings"
+
+[node name="EditorButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=141295355]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Editor"
+
+[node name="SyncButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1299137225]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Sync Mode"
 
 [node name="QuitButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=730215313]
 layout_mode = 2
@@ -52,6 +57,7 @@ theme_override_font_sizes/font_size = 32
 text = "Quit"
 
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/LevelSelectButton" to="." method="_on_level_select_button_pressed"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/SyncButton" to="." method="_on_sync_button_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/SyncButton" to="." method="_on_sync_button_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

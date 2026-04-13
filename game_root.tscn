@@ -477,7 +477,6 @@ bus = &"SFX"
 
 [node name="Editor" type="Node" parent="." unique_id=420948338]
 script = ExtResource("15_qgihk")
-active = true
 
 [node name="GUI" type="Control" parent="Editor" unique_id=1769329441]
 z_index = 1
@@ -611,6 +610,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -236.0
 grow_horizontal = 2
 grow_vertical = 0
 current_tab = 0
