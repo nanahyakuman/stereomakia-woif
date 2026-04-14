@@ -24,6 +24,7 @@ func _start_title_screen():
 	add_child(tsr)
 	# tsr has more signals but those screens arent implemented yet
 	tsr.level_select_pressed.connect(start_level_select)
+	tsr.editor_open.connect(start_level)
 
 func start_level_select():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -33,9 +34,9 @@ func start_level_select():
 	add_child(LEVEL_SELECT_ROOT.instantiate())
 
 
-# called by the level selector
-func start_level(folder_path: String, chart_name: String):
-	# level decides whether to hide the mouse or not
+# called by the level selector (and editor selector)
+func start_level(folder_path: String, chart_name: String, is_editor: bool = false):
+	# level decides itself whether to hide the mouse or not
 	
 	# kill the level selector
 	if get_child_count() > 0:
@@ -43,7 +44,7 @@ func start_level(folder_path: String, chart_name: String):
 	
 	var game_root = GAME_ROOT.instantiate()
 	add_child(game_root)
-	game_root.assign_level(folder_path, chart_name)
+	game_root.assign_level(folder_path, chart_name, is_editor)
 	game_root.connect("level_complete", _end_level)
 
 # called by gameplay root by signal

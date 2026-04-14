@@ -84,21 +84,6 @@ var notes_dict = {}
 var ph: PaletteHolder
 
 func _ready():
-	gui.visible = active
-	if active:
-		change_subdiv(0)
-		note_holder.scale = Vector2(.6,.6)
-		note_holder.position.y = 360 - 80
-		current_division_label.text = offset_as_frac.as_string()
-		call_deferred("load_img")
-		waveform_sprite_2d.visible = true
-	else:
-		note_holder.scale = Vector2(1.0,1.0)
-		note_holder.position.y = 360
-		waveform_sprite_2d.visible = false
-		
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
 	# attach to ui signals
 	for ln: LinearNoteGUI in gui.get_linear_notes():
 		ln.connect("ui_erase_request", _ui_request_note_erasure)
@@ -110,6 +95,27 @@ func _ready():
 		circle_ui.connect("ui_add_circle_tap_request", _ui_request_circle_tap_addition)
 		circle_ui.connect("ui_add_circle_hold_request", _ui_request_circle_hold_addition)
 		circle_ui.connect("ui_add_circle_release_request", _ui_request_circle_release_addition)
+
+# only call on startup plox
+func set_active(val):
+	active = val
+	
+	gui.visible = active
+	if active:
+		change_subdiv(0)
+		note_holder.scale = Vector2(.6,.6)
+		note_holder.position.y = 360 - 80
+		current_division_label.text = offset_as_frac.as_string()
+		call_deferred("load_img")
+		waveform_sprite_2d.visible = true
+		
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		note_holder.scale = Vector2(1.0,1.0)
+		note_holder.position.y = 360
+		waveform_sprite_2d.visible = false
+		
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 # actual editing
 func _process(delta):

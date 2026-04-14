@@ -16,7 +16,8 @@ func _ready():
 	MusicPlayerShinobu.pitch_scale = PlayerSettings.get_pitch_as_mult()
 
 # called by the parent after instantiation
-func assign_level(folder_path: String, chart_name: String):
+func assign_level(folder_path: String, chart_name: String, editor_active: bool):
+	editor.set_active(editor_active)
 	editor.load_lvl(folder_path, chart_name)
 
 # cheap force quit button. make it pause in future?

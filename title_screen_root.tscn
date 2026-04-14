@@ -56,8 +56,16 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Quit"
 
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1265844484]
+oversampling_override = 1.0
+title = "Open a File"
+position = Vector2i(0, 36)
+ok_button_text = "Select"
+file_mode = 0
+
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/LevelSelectButton" to="." method="_on_level_select_button_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/SyncButton" to="." method="_on_sync_button_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
