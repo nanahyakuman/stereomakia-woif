@@ -71,8 +71,6 @@ var active
 
 func _ready():
 	note_holder.connect("beat_passed", check_holds)
-	# disable self if the editor is active
-	active = !editor.active
 
 #  moved input code here because we dont want it being intercepted.
 # idk why but if we add a button to be a uiaction we cant hold
@@ -87,6 +85,10 @@ func _input(event):
 	
 
 func _process(delta):
+	#  disable self if the editor is active. this will toggle 0 or 1 time
+	# but editor activation is delayed so we need to wait for it
+	active = !editor.active
+	
 	if !active:
 		return
 	
