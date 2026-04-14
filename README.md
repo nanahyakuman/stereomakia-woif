@@ -14,7 +14,7 @@ I'm also planning for steam workshop support—I don't really want to run my own
 I will probably be working pretty slow but for the time being I don't intend on taking external PRs. No one else deserves to go through this code anyways ;p.
 
 ## Dev Info
-WoIF depends on the [Project Heartbeat Engine](https://github.com/EIRTeam/Project-Heartbeat-Engine), NOT regular Godot.[^d] Some level-editor functionality also depends on `../ffmpeg/bin/ffmpeg.exe` existing (and like, being the real ffmpeg executable), although it's optional right now. (The actual root for the project is really one folder above this one, this is just the godot repo).
+WoIF depends on the [Project Heartbeat Engine](https://github.com/EIRTeam/Project-Heartbeat-Engine), NOT regular Godot.[^d] Some level-editor functionality also depends on `/ffmpeg/bin/ffmpeg.exe` existing (and like, being the real ffmpeg executable), although it's optional right now.
 [^d]: You should really check out Project Heartbeat & I'm not just saying that bc I'm using their engine, athough I hope it's clear I'm grateful for their public contributions.
 
 Levels will not work without their `.ogg` files present. Also, `.ogg` files are in the .gitignore. This is really annoying and may not be true long-term but at least when I was working on original STEREOMAKIA they were really slow to upload, so orz in advance.[^f]

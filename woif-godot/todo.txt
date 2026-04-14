@@ -1,0 +1,74 @@
+RHYTHMOMACHIA
+RYTHMOMAKIA 
+but that's actually bootleg chess, so maybe more like
+SONOMACHIA
+PULSOMACHIA
+STEREOMACHIA (like monomochia 'duel' but stereo)
+STEREOMAKIA
+
+songs:
+	tensionnn
+	cyber kawaii kunai (could do a whole pack of remixes lol)
+	a sebon
+	a puhyu
+	jedwill
+	a milkfish mayb
+		ILIKEILIKEILIKE
+	snowblower
+	a six impala
+	jamie paige said her stuf is free (ww)
+	lfpx
+	more daria
+	have power! on the laptop rn tb convreted
+	leave me alone
+	mistwin overlap
+	no regrets form
+	I Can Be Your Cruel Angle Thesis Or Your Devil
+	Hikaru Utada - One Last Kiss (hirihiri remix)
+	emancipate (w/ apartment one) (prob can be sliced a lil)
+	that decline edit frm etterna
+	there must be a divetottheheart
+	beanboy claws would be stupey
+	fr13ndzone
+	go hard rmx
+	rei turner
+	a maak g or g jones
+	TMPF
+	caligirls is in the git
+	love song in git
+		start is ok it just gets kinda boring
+	wolfgun
+	atashi janai
+
+to finish
+	dreamlovebye could have a straightforward 1~2
+	
+
+evil tech:
+	hold all four buttons at the same time w right thumb 
+	hold both circs up and have buttons still (need to put ctrlr down and use pointer fingers)
+
+things if we make a v2:
+	note graphical options, implement as multipliers i think, like:
+		vert lr seperation to split to two lanes (0 by default)
+		vert width (1 var that applies to both lanes)
+		circle size and seperation
+		soflan
+	editor playthrough sounds
+	meta editing from game
+	rework filepath exists ensurer. dont need it for internals tbf
+	soflan support (?)
+	editable basic backgrounds
+		basic shapes type things
+		maybe mix in a grunge tex
+		floating cpu dots
+		switch to resource loader for file loading or you cant add .pcks on later (https://docs.godotengine.org/en/stable/classes/class_projectsettings.html#class-projectsettings-method-load-resource-pack)
+			also a way to open user created levels, idk if we want those to be pcks
+	color themes, either player set or sd+ style per map idk
+	mines so you cant just overpress on every jump
+	sync hold scoring back to tempo
+	visual update: https://www.youtube.com/watch?v=eP9BrLfrR5A&list=PLHrGNjL4_ZnbGsUf0mpYFaFSgZU1VxRsR
+
+critical for base game:
+	remove chart artist from meta file (manual i think, check if still happening internally)
+	finish extant tracks, then add a couple more + some lower difficulty alts

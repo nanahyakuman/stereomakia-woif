@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bt6n6dggt7cu4"]
+
+[ext_resource type="Texture2D" uid="uid://bkomvwcxjl8bm" path="res://notes/arrow_outline.png" id="2_nl0ur"]
+[ext_resource type="Script" uid="uid://dgsxr1hueks0o" path="res://notes/TapNoteLinear.gd" id="2_xpbdf"]
+[ext_resource type="Texture2D" uid="uid://cr605di1bclv4" path="res://notes/arrow_base.png" id="3_x8dre"]
+
+[node name="TapNoteLinear" type="Node2D" unique_id=872632464]
+script = ExtResource("2_xpbdf")
+whichColor = 5
+
+[node name="Sprite2DBG" type="Sprite2D" parent="." unique_id=1198737977]
+modulate = Color(0, 0, 0, 1)
+texture = ExtResource("2_nl0ur")
+hframes = 2
+vframes = 2
+
+[node name="Sprite2DBase" type="Sprite2D" parent="." unique_id=148919118]
+texture = ExtResource("3_x8dre")
+hframes = 2
+vframes = 2

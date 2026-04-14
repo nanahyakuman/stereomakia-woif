@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bw2kxi22wt7f4"]
+
+[ext_resource type="Theme" uid="uid://fcyixu6ewuwt" path="res://selector_theme.tres" id="1_a860f"]
+[ext_resource type="Script" uid="uid://c30er3yo6mvbc" path="res://IndividualLevel.gd" id="1_ilib0"]
+
+[sub_resource type="Gradient" id="Gradient_57yw4"]
+colors = PackedColorArray(0.912289, 0.912289, 0.912289, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p5knt"]
+gradient = SubResource("Gradient_57yw4")
+fill_from = Vector2(0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dau5o"]
+texture = SubResource("GradientTexture2D_p5knt")
+expand_margin_bottom = 2.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_ilaym"]
+line_spacing = 0.0
+font_size = 24
+font_color = Color(0.650128, 0.650128, 0.650128, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5tlp0"]
+line_spacing = 0.0
+font_size = 32
+font_color = Color(0.403922, 0.403922, 0.403922, 1)
+
+[node name="PanelContainer" type="PanelContainer" unique_id=2140649202]
+offset_right = 536.0
+offset_bottom = 55.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_dau5o")
+script = ExtResource("1_ilib0")
+
+[node name="IndividualLevel" type="HBoxContainer" parent="." unique_id=1059423722]
+layout_mode = 2
+theme = ExtResource("1_a860f")
+
+[node name="Button" type="Button" parent="IndividualLevel" unique_id=233500254]
+layout_mode = 2
+text = "name"
+
+[node name="Control" type="Control" parent="IndividualLevel" unique_id=1146210632]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="ArtistLabel" type="Label" parent="IndividualLevel" unique_id=246942194]
+layout_mode = 2
+text = "artist"
+label_settings = SubResource("LabelSettings_ilaym")
+
+[node name="Control2" type="Control" parent="IndividualLevel" unique_id=298500806]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="IndividualLevel" unique_id=73991040]
+layout_mode = 2
+
+[node name="HighScoreLabel" type="Label" parent="IndividualLevel/HBoxContainer" unique_id=1469120760]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_5tlp0")
+horizontal_alignment = 1

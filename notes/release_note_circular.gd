@@ -1,2 +1,0 @@
-extends TapNoteCircular
-class_name ReleaseNoteCircular

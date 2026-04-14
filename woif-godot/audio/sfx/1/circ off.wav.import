@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://csp5qa3npcaky"
+path="res://.godot/imported/circ off.wav-04387272a5a1f4b92a14087b2a5e8380.sample"
+
+[deps]
+
+source_file="res://audio/sfx/1/circ off.wav"
+dest_files=["res://.godot/imported/circ off.wav-04387272a5a1f4b92a14087b2a5e8380.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

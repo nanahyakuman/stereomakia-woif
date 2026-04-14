@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://exl2hvdedg3t"]
+
+[ext_resource type="Script" uid="uid://dd0apko2f6t" path="res://title_screen_root.gd" id="1_ebomd"]
+
+[node name="TitleScreen" type="Node" unique_id=916660308]
+script = ExtResource("1_ebomd")
+
+[node name="Control" type="Control" parent="." unique_id=893610517]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=353566182]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1120461173]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 2
+
+[node name="LevelSelectButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=64777274]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Level Select"
+
+[node name="SettingsButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1130903528]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+
+[node name="EditorButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=141295355]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Editor"
+
+[node name="SyncButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1299137225]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Sync Mode"
+
+[node name="QuitButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=730215313]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1265844484]
+oversampling_override = 1.0
+title = "Open a File"
+position = Vector2i(0, 36)
+ok_button_text = "Select"
+file_mode = 0
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/LevelSelectButton" to="." method="_on_level_select_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/EditorButton" to="." method="_on_editor_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/SyncButton" to="." method="_on_sync_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

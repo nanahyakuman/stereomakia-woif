@@ -1,0 +1,308 @@
+[gd_scene load_steps=20 format=3 uid="uid://bifxpdxevgvkf"]
+
+[ext_resource type="Shader" path="res://shader/checker.gdshader" id="2_slw4k"]
+[ext_resource type="AudioStream" uid="uid://dllhfey2lj3r0" path="res://audio/sfx/1/hold.wav" id="8_nycid"]
+[ext_resource type="PackedScene" uid="uid://dpnrenthr4d0p" path="res://indicator.tscn" id="11_kl4ss"]
+[ext_resource type="Shader" path="res://shader/rootshader.gdshader" id="21_r88vd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uka5h"]
+shader = ExtResource("2_slw4k")
+shader_parameter/vertical_count = 10.0
+shader_parameter/amount = 0.015
+shader_parameter/speed = Vector2(0, -0.015)
+
+[sub_resource type="Gradient" id="Gradient_j0q2u"]
+offsets = PackedFloat32Array(0.506494, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8144u"]
+gradient = SubResource("Gradient_j0q2u")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_ob076"]
+offsets = PackedFloat32Array(0.149351, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2k5fu"]
+gradient = SubResource("Gradient_ob076")
+width = 1000
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_72ppg"]
+offsets = PackedFloat32Array(0.941558, 0.99, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_aylb1"]
+gradient = SubResource("Gradient_72ppg")
+width = 400
+height = 400
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_n2iip"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l61op"]
+gradient = SubResource("Gradient_n2iip")
+width = 200
+height = 200
+fill = 1
+
+[sub_resource type="Gradient" id="Gradient_18sha"]
+offsets = PackedFloat32Array(0, 0.623377, 1)
+colors = PackedColorArray(1, 1, 1, 0.372549, 1, 1, 1, 0.27451, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0ao6k"]
+gradient = SubResource("Gradient_18sha")
+width = 400
+height = 400
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ltr6m"]
+line_spacing = 0.0
+font_size = 120
+outline_size = 20
+outline_color = Color(0.878431, 0.878431, 0.878431, 1)
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 0.141176)
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5w44o"]
+line_spacing = 0.0
+font_size = 48
+font_color = Color(0, 0, 0, 1)
+outline_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_62rrj"]
+line_spacing = 0.0
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+outline_size = 8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c6dwy"]
+shader = ExtResource("21_r88vd")
+shader_parameter/offset = 1.0
+
+[node name="GameRoot" type="Node"]
+
+[node name="BG" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_uka5h")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Vignette" type="TextureRect" parent="."]
+self_modulate = Color(0, 0, 0, 0.0705882)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_8144u")
+
+[node name="NoteHolder" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -172.0
+offset_right = -2.0
+offset_bottom = -172.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pulser" type="Node" parent="NoteHolder"]
+
+[node name="Bar" type="Sprite2D" parent="NoteHolder"]
+modulate = Color(0.572549, 0.572549, 0.572549, 1)
+position = Vector2(0, 302)
+texture = SubResource("GradientTexture2D_2k5fu")
+offset = Vector2(0, -7)
+
+[node name="RingLeft" type="Sprite2D" parent="NoteHolder"]
+modulate = Color(1, 0.219608, 0.776471, 1)
+position = Vector2(-200, 102)
+texture = SubResource("GradientTexture2D_aylb1")
+metadata/_edit_group_ = true
+
+[node name="RadialIndicator" type="Node2D" parent="NoteHolder/RingLeft"]
+
+[node name="Sprite2D" type="Sprite2D" parent="NoteHolder/RingLeft/RadialIndicator"]
+visible = false
+rotation = -0.785398
+texture = SubResource("GradientTexture2D_l61op")
+centered = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="NoteHolder/RingLeft/RadialIndicator"]
+volume_db = -6.0
+attenuation = 0.0
+panning_strength = 3.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="NoteHolder/RingLeft/RadialIndicator"]
+stream = ExtResource("8_nycid")
+volume_db = -80.0
+autoplay = true
+attenuation = 0.0
+panning_strength = 3.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="NoteHolder/RingLeft/RadialIndicator"]
+stream = ExtResource("8_nycid")
+volume_db = -80.0
+autoplay = true
+attenuation = 0.0
+panning_strength = 3.0
+bus = &"SFX"
+
+[node name="IncomingIndicator" type="Sprite2D" parent="NoteHolder/RingLeft"]
+visible = false
+texture = SubResource("GradientTexture2D_0ao6k")
+
+[node name="RingRight" type="Sprite2D" parent="NoteHolder"]
+modulate = Color(0, 1, 0.54902, 1)
+position = Vector2(200, 102)
+texture = SubResource("GradientTexture2D_aylb1")
+metadata/_edit_group_ = true
+
+[node name="RadialIndicator" type="Node2D" parent="NoteHolder/RingRight"]
+
+[node name="Sprite2D" type="Sprite2D" parent="NoteHolder/RingRight/RadialIndicator"]
+visible = false
+rotation = -0.785398
+texture = SubResource("GradientTexture2D_l61op")
+centered = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="NoteHolder/RingRight/RadialIndicator"]
+position = Vector2(-400, 0)
+volume_db = -6.0
+attenuation = 1e-05
+panning_strength = 3.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="NoteHolder/RingRight/RadialIndicator"]
+stream = ExtResource("8_nycid")
+volume_db = -80.0
+autoplay = true
+attenuation = 0.0
+panning_strength = 3.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="NoteHolder/RingRight/RadialIndicator"]
+stream = ExtResource("8_nycid")
+volume_db = -80.0
+autoplay = true
+attenuation = 0.0
+panning_strength = 3.0
+bus = &"SFX"
+
+[node name="IncomingIndicator" type="Sprite2D" parent="NoteHolder/RingRight"]
+visible = false
+texture = SubResource("GradientTexture2D_0ao6k")
+
+[node name="Indicators" type="Node2D" parent="NoteHolder"]
+visible = false
+position = Vector2(0, 302)
+
+[node name="Indicator" parent="NoteHolder/Indicators" instance=ExtResource("11_kl4ss")]
+script = null
+
+[node name="Indicator2" parent="NoteHolder/Indicators" instance=ExtResource("11_kl4ss")]
+script = null
+
+[node name="Indicator3" parent="NoteHolder/Indicators" instance=ExtResource("11_kl4ss")]
+script = null
+
+[node name="Indicator4" parent="NoteHolder/Indicators" instance=ExtResource("11_kl4ss")]
+script = null
+
+[node name="Indicator5" parent="NoteHolder/Indicators" instance=ExtResource("11_kl4ss")]
+script = null
+
+[node name="Indicator6" parent="NoteHolder/Indicators" instance=ExtResource("11_kl4ss")]
+script = null
+
+[node name="ScoreLabel" type="Node2D" parent="NoteHolder"]
+position = Vector2(0, 359)
+metadata/_edit_group_ = true
+
+[node name="SubLabel" type="Label" parent="NoteHolder/ScoreLabel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -519.0
+offset_top = -60.0
+offset_right = 508.0
+offset_bottom = 145.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "STEREOMAKIA"
+label_settings = SubResource("LabelSettings_ltr6m")
+horizontal_alignment = 1
+
+[node name="ComboLabel" type="Control" parent="NoteHolder"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -208.0
+offset_bottom = -208.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="Base" type="Label" parent="NoteHolder/ComboLabel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -22.5
+offset_bottom = 22.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "0"
+label_settings = SubResource("LabelSettings_5w44o")
+
+[node name="Fraction" type="Label" parent="NoteHolder/ComboLabel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -16.5
+offset_right = 45.0
+offset_bottom = 28.5
+grow_vertical = 2
+text = ".0"
+label_settings = SubResource("LabelSettings_62rrj")
+
+[node name="Filterer" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_c6dwy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
