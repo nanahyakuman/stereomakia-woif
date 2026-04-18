@@ -2182,5 +2182,10 @@
 			"c9b7edff"
 		],
 		"play_offset": 0.0
+	},
+	"samplers": {
+		"scroll_speed": {
+
+		}
 	}
 }

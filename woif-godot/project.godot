@@ -27,12 +27,13 @@ buses/default_bus_layout="uid://c1wakm3iwxd76"
 
 PlayerSettings="*res://player_settings.gd"
 MusicPlayerShinobu="*uid://p5cgaupmy22x"
+MouseLabel="*uid://csjaru3io41mr"
 
 [display]
 
 window/size/viewport_width=1080
 window/size/viewport_height=720
-window/size/mode=2
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 mouse_cursor/custom_image="res://cursor.png"
@@ -149,7 +150,7 @@ stick_r_d={
 lvlr_pause={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"timestamp_usec":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"location":0,"echo":false,"script":null)
-, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"timestamp_usec":-1,"button_index":6,"pressure":0.0,"pressed":true,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"timestamp_usec":113953274936,"button_index":4,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
 lvlr_seek_back={
@@ -184,7 +185,7 @@ lvlr_mod_2={
 }
 lvlr_save={
 "deadzone": 0.5,
-"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"timestamp_usec":-1,"button_index":4,"pressure":0.0,"pressed":true,"script":null)
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"timestamp_usec":113963978007,"button_index":6,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
 scroll_u={

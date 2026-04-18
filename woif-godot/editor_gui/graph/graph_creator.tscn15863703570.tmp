@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://bldac8uo6hhgl"]
+
+[ext_resource type="Script" uid="uid://ccg4vojq1oolt" path="res://editor_gui/graph/graph_creator.gd" id="1_kmkg7"]
+
+[node name="GraphCreator" type="Control" unique_id=2099170759]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kmkg7")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1965714038]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1759730479]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 50
+
+[node name="GraphArea" type="ColorRect" parent="MarginContainer" unique_id=1338344677]
+layout_mode = 2
+color = Color(0.96474224, 0.96474224, 0.9647421, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/GraphArea" unique_id=497145800]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GraphMarginArea" type="Control" parent="MarginContainer/GraphArea/MarginContainer" unique_id=545835638]
+layout_mode = 2
+
+[node name="VerticalLines" type="Node2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1813974024]
+unique_name_in_owner = true
+
+[node name="Line2D" type="Line2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1030244455]
+unique_name_in_owner = true
+points = PackedVector2Array(0, 0, 208, 196)
+width = 3.0
+default_color = Color(0.58103144, 0.58103347, 0.5810327, 1)
+joint_mode = 2
+
+[node name="GraphPoints" type="Node2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=711441008]
+unique_name_in_owner = true
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

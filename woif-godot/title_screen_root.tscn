@@ -58,10 +58,13 @@ text = "Quit"
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=1265844484]
 oversampling_override = 1.0
-title = "Open a File"
+title = "Select a Chart"
 position = Vector2i(0, 36)
 ok_button_text = "Select"
 file_mode = 0
+access = 2
+filters = PackedStringArray("*.txt")
+use_native_dialog = true
 
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/LevelSelectButton" to="." method="_on_level_select_button_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

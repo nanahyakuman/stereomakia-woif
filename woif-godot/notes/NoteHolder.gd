@@ -1,7 +1,9 @@
 extends Control
+class_name NoteHolder
 
 @onready var notes = $Notes
 @onready var metronome = $Metronome
+@onready var samplers: Node2D = $Samplers
 
 @onready var root = get_parent().get_parent()
 
@@ -70,6 +72,8 @@ func update_notes():
 	# update all the notes (recursive)
 	for nh in notes.get_children():
 		nh.update(timer)
+	for s in samplers.get_children():
+		s.update(timer)
 
 
 #  do bpm and soflan math. mostly called by the editor at initialize time

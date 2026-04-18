@@ -15,12 +15,20 @@ extends Node
 @onready var beatlines = $"../NoteHolder/Notes/Beatlines"
 @onready var waveform_sprite_2d: Sprite2D = $"../NoteHolder/Notes/Waveform/Sprite2D"
 @onready var gui: Control = $GUI
-@onready var division_label: Label = $GUI/NoteGUI/DivisionLabel
-@onready var current_division_label: Label = $GUI/NoteGUI/CurrentDivisionLabel
+@onready var division_label: Label = $GUI/DivisionLabel
+@onready var current_division_label: Label = $GUI/CurrentDivisionLabel
 @onready var logger: VBoxContainer = %Logger
 @onready var circle_note_l: CircleNoteGUI = $GUI/NoteGUI/CircleNoteL
 @onready var circle_note_r: CircleNoteGUI = $GUI/NoteGUI/CircleNoteR
 
+@onready var scroll_graph_creator: GraphCreator = $"GUI/MouseGUI/TabContainer/Scroll Speed Mod/ScrollGraphCreator"
+@onready var sampler_tester: ColorRect = $"../NoteHolder/Samplers/SamplerTester"
+
+# dict pairs { graph : SampleHolder }
+@onready var samplers_and_graphs = {
+	$"GUI/MouseGUI/TabContainer/Scroll Speed Mod/ScrollGraphCreator": 
+		$"../NoteHolder/Samplers/SamplerTester"
+}
 
 const HOLD_NOTE_CIRCULAR = preload("res://notes/hold_note_circular.tscn")
 const HOLD_NOTE_LINEAR = preload("res://notes/hold_note_linear.tscn")
@@ -95,6 +103,9 @@ func _ready():
 		circle_ui.connect("ui_add_circle_tap_request", _ui_request_circle_tap_addition)
 		circle_ui.connect("ui_add_circle_hold_request", _ui_request_circle_hold_addition)
 		circle_ui.connect("ui_add_circle_release_request", _ui_request_circle_release_addition)
+	
+	for graph in samplers_and_graphs.keys():
+		graph.connect("updated", _graph_changed)
 
 # only call on startup plox
 func set_active(val):
@@ -122,6 +133,10 @@ func _process(delta):
 	if !active:
 		return
 	
+	# give the graphs the time
+	for graph in samplers_and_graphs.keys():
+		graph.assign_time(note_holder.timer)
+	
 	# pause handling
 	if Input.is_action_just_pressed("lvlr_pause"):
 		_pause(!paused)
@@ -134,10 +149,6 @@ func _process(delta):
 	if Input.is_action_just_pressed("lvlr_save"):
 		gui.toggle_gui()
 		_save_lvl(folder_path, diff)
-	
-	# discard input when in the mouse gui
-	if gui.is_mouse_mode:
-		return
 	
 	# seeking w frac snap
 	var mod = 1
@@ -154,6 +165,11 @@ func _process(delta):
 	if Input.is_action_just_pressed("lvlr_snap_down"):
 		change_subdiv(-1)
 	
+	#  discard input when in the mouse gui. note this means we still
+	# perform the above seek logic. this is allowed
+	if gui.is_mouse_mode:
+		return
+	
 	# place note
 	for i in 6:
 		if Input.is_action_just_pressed(dir_input_order[i]):
@@ -161,14 +177,13 @@ func _process(delta):
 		if Input.is_action_just_released(dir_input_order[i]):
 			_editor_release_note(offset_as_frac, i)
 	
-	# zooming
+	#  zooming.
 	if Input.is_action_just_released("scroll_u"):
 		PlayerSettings.player_set_scroll_mod *= 1.4
 		note_holder.update_notes()
 	if Input.is_action_just_released("scroll_d"):
 		PlayerSettings.player_set_scroll_mod /= 1.4
 		note_holder.update_notes()
-	
 
 
 func _pause(val: bool):
@@ -496,7 +511,10 @@ func _save_lvl(folder_path: String, chart_name: String):
 			"colors": cols
 		},
 		"linear_notes": {},
-		"circular_notes": {false: {}, true: {}}
+		"circular_notes": {false: {}, true: {}},
+		"samplers": {
+			"scroll_speed": {}
+		}
 	}
 	
 	# add linear notes (assumes sorted)
@@ -554,6 +572,12 @@ func _save_lvl(folder_path: String, chart_name: String):
 			}
 			next_hold = next_hold.next_hold
 			curr = curr["next"]
+	
+	# samplers
+	var scroll_vals = scroll_graph_creator.get_vals()
+	for v in scroll_vals:
+		dict["samplers"]["scroll_speed"][v.frac.as_string()] = [v.val, v.interpolationMode]
+	
 	
 	_ensure_folder_exists(folder_path)
 	var save_file = FileAccess.open(folder_path + "/" + chart_name + ".txt", FileAccess.WRITE)
@@ -634,6 +658,21 @@ func load_lvl(_folder_path: String, chart_name: String):
 			for n in all_notes:
 				nh.add_child(n)
 		
+		# prime samplers and their editors as appropriate
+		if dict.has("samplers"):
+			if dict["samplers"].has("scroll_speed"):
+				for key in dict["samplers"]["scroll_speed"]:
+					var frac = Fraction.from_string(key)
+					var val = dict["samplers"]["scroll_speed"][key][0]
+					var interpolation = dict["samplers"]["scroll_speed"][key][1]
+					var pair = FractionPair.new(frac, val, note_holder.calculate_offset_at(frac), interpolation)
+					# graph creators
+					if active:
+						scroll_graph_creator.add_val(pair)
+					# samplers
+					sampler_tester.sampler.vals.append(pair)
+				sampler_tester.sampler.vals.sort_custom(FractionPair.compare)
+		
 		if active:
 			_log("Loaded from `%s/%s.txt`" % [folder_path, chart_name])
 		
@@ -653,15 +692,25 @@ func load_lvl(_folder_path: String, chart_name: String):
 	# this is obv kinda ugly but refactoring is annoying and not neccesary rn
 	scoring_manager.scoring_info.song_name = folder_path.substr("res://lvl/".length())
 	scoring_manager.scoring_info.chart_diff = chart_name
+	
+	var beatlinetimes: Array[FractionPair] = []
+	for i in 250:
+		beatlinetimes.append(FractionPair.new(Fraction.new(i), 0, note_holder.calculate_offset_at(Fraction.new(i))))
+	scroll_graph_creator.assign_beatlines(beatlinetimes)
 
-
+#  uses ffmpeg (if present) to create a sample image in the editor so you know broadly
+# what the waveform looks like
 func load_img():
 	var ffmpegpath = "./../ffmpeg/bin/ffmpeg.exe"
-	var oggpath = "../stereomakia-woif/" + folder_path.substr(6) + "/music.ogg"
+	var oggpath = folder_path + "/music.ogg"
 	var imgpath = "../img/outputwaveform.png"
 	
+	# 10 samples a second
+	var len = MusicPlayerShinobu.get_length()*32.0
+	var arg = "showwavespic=s=%dx150:split_channels=1" % len
+	
 	var output = []
-	OS.execute(ffmpegpath, ["-i", oggpath, "-filter_complex", "showwavespic=s=12800x150:split_channels=1", "-frames:v", "1", "-y", imgpath], output, true)
+	OS.execute(ffmpegpath, ["-i", oggpath, "-filter_complex", arg, "-frames:v", "1", "-y", imgpath], output, true)
 	#for o in output:
 		#print(o)
 	
@@ -679,7 +728,9 @@ func load_img():
 
 #  save and load functions will fail if any part of the folder string is absent from the computer,
 # so we manually create them on startup to prevent issues
-#  woif update: i forget why i disabled this, investigate mayb
+#  woif update: i forget why i disabled this, investigate mayb. i kno we originally
+# wanted to be able to open from both inside the game and externally but we only
+# open externally now, so whatever this was trying to do is almost certainly deprecated
 func _ensure_folder_exists(folder_path: String):
 	return
 	## lvl folder
@@ -733,6 +784,12 @@ func _ui_request_circle_release_addition(is_right: bool, dir: float):
 func _ui_request_circle_hold_addition(is_right: bool, dir: float):
 	_try_add_circle_hold(is_right, dir)
 	note_holder.update_notes()
+
+
+# graphs
+func _graph_changed(which, vals):
+	samplers_and_graphs[which].sampler.vals = vals
+	samplers_and_graphs[which].update(note_holder.timer)
 
 
 func _log(msg: String):

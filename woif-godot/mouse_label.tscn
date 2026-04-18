@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://csjaru3io41mr"]
+
+[ext_resource type="Script" uid="uid://gtxuc6nkafsa" path="res://mouse_label.gd" id="1_bqq1p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqq1p"]
+content_margin_left = 5.0
+content_margin_top = 1.0
+content_margin_right = 5.0
+content_margin_bottom = 1.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_luv0b"]
+line_spacing = 0.0
+font_size = 24
+
+[node name="MouseLabel" type="Node2D" unique_id=640208324]
+z_index = 100
+script = ExtResource("1_bqq1p")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1298163198]
+position = Vector2(24, 0)
+
+[node name="PanelContainer" type="PanelContainer" parent="Node2D" unique_id=1285549060]
+offset_right = 118.0
+offset_bottom = 28.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bqq1p")
+
+[node name="Label" type="Label" parent="Node2D/PanelContainer" unique_id=1941033201]
+layout_mode = 2
+text = "1+1/2:  0.7"
+label_settings = SubResource("LabelSettings_luv0b")

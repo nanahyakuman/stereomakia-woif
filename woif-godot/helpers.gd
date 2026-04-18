@@ -14,3 +14,10 @@ static func gcd(a: int, b: int) -> int:
 # https://forum.godotengine.org/t/how-to-make-fraction-simplification/13728
 static func _gcd(a: int, b: int) -> int:
 	return a if b == 0 else gcd(b, a % b)
+
+static func root_mean_square(arr: Array, power: float = 2.0):
+	var sum = 0
+	for val in arr:
+		sum += pow(val, power)
+	sum /= float(arr.size())
+	return pow(sum, 1.0/power)

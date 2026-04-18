@@ -30,18 +30,18 @@
 [ext_resource type="Script" uid="uid://b2bsnfalbios8" path="res://shader/TopShader.gd" id="18_bgd0t"]
 [ext_resource type="Theme" uid="uid://de4rrv08l2tfy" path="res://editor_gui/editor_theme.tres" id="19_qbwgp"]
 [ext_resource type="Script" uid="uid://beqekaklre2tx" path="res://editor_gui/editor_gui.gd" id="20_1gnx6"]
+[ext_resource type="Script" uid="uid://dovii8n5g6yhf" path="res://sampler_tester.gd" id="21_7bwrt"]
 [ext_resource type="PackedScene" uid="uid://c4ejsibysl6l1" path="res://editor_gui/linear_note_gui.tscn" id="21_xpevi"]
 [ext_resource type="PackedScene" uid="uid://oyqdsuoee1by" path="res://editor_gui/circle_note_gui.tscn" id="23_e0ydq"]
 [ext_resource type="Script" uid="uid://oue7ih6me5p5" path="res://palette_holder.gd" id="29_wan0x"]
 [ext_resource type="Script" uid="uid://bi4kmm3t0swel" path="res://ui_colors.gd" id="30_ia341"]
 [ext_resource type="Script" uid="uid://druvw3t0ldcg7" path="res://editor_gui/ui_color_picker_button.gd" id="31_xiqd8"]
+[ext_resource type="PackedScene" uid="uid://bldac8uo6hhgl" path="res://editor_gui/graph/graph_creator.tscn" id="32_qvv4r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uka5h"]
 shader = ExtResource("2_wxq4k")
 shader_parameter/colA = Color(1, 1, 1, 1)
 shader_parameter/colB = Color(0.973535, 0.9735351, 0.973535, 1)
-shader_parameter/vertical_count = 10.0
-shader_parameter/speed = Vector2(0, -0.015)
 
 [sub_resource type="Gradient" id="Gradient_j0q2u"]
 offsets = PackedFloat32Array(0.506494, 1)
@@ -133,6 +133,7 @@ grow_vertical = 2
 script = ExtResource("3_snqjv")
 
 [node name="Vignette" type="TextureRect" parent="." unique_id=1833777856]
+visible = false
 self_modulate = Color(0, 0, 0, 0.0705882)
 anchors_preset = 15
 anchor_right = 1.0
@@ -271,7 +272,7 @@ panning_strength = 3.0
 bus = &"SFX"
 
 [node name="IncomingIndicator" type="Sprite2D" parent="NoteHolder/RingLeft" unique_id=1734830096]
-modulate = Color(1, 1, 1, 0.13725491)
+modulate = Color(1, 1, 1, 0.26666668)
 texture = ExtResource("10_aki3e")
 script = ExtResource("8_hnybe")
 
@@ -319,7 +320,7 @@ panning_strength = 3.0
 bus = &"SFX"
 
 [node name="IncomingIndicator" type="Sprite2D" parent="NoteHolder/RingRight" unique_id=1746825248]
-modulate = Color(1, 1, 1, 0.13725491)
+modulate = Color(1, 1, 1, 0.26666668)
 texture = ExtResource("10_aki3e")
 script = ExtResource("8_hnybe")
 is_right = true
@@ -418,6 +419,14 @@ script = ExtResource("11_yj414")
 [node name="CircleTapNotesRight" type="Node2D" parent="NoteHolder/Notes" unique_id=607294641]
 script = ExtResource("11_yj414")
 
+[node name="Samplers" type="Node2D" parent="NoteHolder" unique_id=2018796985]
+
+[node name="SamplerTester" type="ColorRect" parent="NoteHolder/Samplers" unique_id=861977946]
+offset_left = -693.3334
+offset_right = 395.0
+offset_bottom = 228.33334
+script = ExtResource("21_7bwrt")
+
 [node name="ComboLabel" type="Control" parent="NoteHolder" unique_id=728325908]
 layout_mode = 1
 anchors_preset = 8
@@ -504,6 +513,38 @@ script = ExtResource("16_8d3oj")
 [node name="Dummy" type="Control" parent="Editor/GUI/Logger" unique_id=1976325955]
 layout_mode = 2
 
+[node name="DivisionLabel" type="Label" parent="Editor/GUI" unique_id=337607738]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -523.5
+offset_top = 84.0
+offset_right = -474.5
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1/2"
+label_settings = SubResource("LabelSettings_0ouvs")
+
+[node name="CurrentDivisionLabel" type="Label" parent="Editor/GUI" unique_id=403843043]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 399.5
+offset_top = 84.0
+offset_right = 448.5
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1/2"
+label_settings = SubResource("LabelSettings_0ouvs")
+
 [node name="NoteGUI" type="Control" parent="Editor/GUI" unique_id=170808111]
 visible = false
 layout_mode = 1
@@ -512,38 +553,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="DivisionLabel" type="Label" parent="Editor/GUI/NoteGUI" unique_id=337607738]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -523.5
-offset_top = 102.0
-offset_right = -474.5
-offset_bottom = 147.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "1/2"
-label_settings = SubResource("LabelSettings_0ouvs")
-
-[node name="CurrentDivisionLabel" type="Label" parent="Editor/GUI/NoteGUI" unique_id=403843043]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 399.5
-offset_top = 102.0
-offset_right = 448.5
-offset_bottom = 147.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "1/2"
-label_settings = SubResource("LabelSettings_0ouvs")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Editor/GUI/NoteGUI" unique_id=1001185983]
 layout_mode = 1
@@ -615,11 +624,20 @@ offset_top = -236.0
 grow_horizontal = 2
 grow_vertical = 0
 current_tab = 0
+tab_focus_mode = 0
+
+[node name="Scroll Speed Mod" type="Control" parent="Editor/GUI/MouseGUI/TabContainer" unique_id=60719765]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ScrollGraphCreator" parent="Editor/GUI/MouseGUI/TabContainer/Scroll Speed Mod" unique_id=2099170759 instance=ExtResource("32_qvv4r")]
+layout_mode = 1
 
 [node name="Colors" type="Control" parent="Editor/GUI/MouseGUI/TabContainer" unique_id=1660680799]
+visible = false
 layout_mode = 2
 script = ExtResource("30_ia341")
-metadata/_tab_index = 0
+metadata/_tab_index = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Editor/GUI/MouseGUI/TabContainer/Colors" unique_id=584818069]
 layout_mode = 1
@@ -765,11 +783,6 @@ which = 7
 layout_mode = 2
 text = "Note Abs."
 horizontal_alignment = 1
-
-[node name="Scroll Speed" type="Control" parent="Editor/GUI/MouseGUI/TabContainer" unique_id=60719765]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
 
 [node name="PaletteHolder" type="Node" parent="." unique_id=1174330702 groups=["palette_holder"]]
 script = ExtResource("29_wan0x")

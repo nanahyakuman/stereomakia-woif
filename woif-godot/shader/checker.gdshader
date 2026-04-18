@@ -3,8 +3,8 @@ shader_type canvas_item;
 uniform vec3 colA: source_color;
 uniform vec3 colB: source_color;
 
-uniform float vertical_count = 10.;
-uniform vec2 speed = vec2(0, -.015);
+const float vertical_count = 10.;
+const vec2 speed = vec2(0, -.015);
 
 
 void fragment() {

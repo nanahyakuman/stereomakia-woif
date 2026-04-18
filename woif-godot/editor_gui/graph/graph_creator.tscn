@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://bldac8uo6hhgl"]
+
+[ext_resource type="Script" uid="uid://ccg4vojq1oolt" path="res://editor_gui/graph/graph_creator.gd" id="1_kmkg7"]
+[ext_resource type="Texture2D" uid="uid://ckrdfqlxxf24q" path="res://circle_filled.png" id="2_60q5q"]
+[ext_resource type="PackedScene" uid="uid://5pllk36b8pnc" path="res://editor_gui/graph/vertical_graph_line.tscn" id="3_cb05o"]
+
+[node name="GraphCreator" type="Control" unique_id=2099170759]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kmkg7")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1965714038]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1759730479]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GraphArea" type="ColorRect" parent="MarginContainer" unique_id=1338344677]
+clip_children = 2
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.96474224, 0.96474224, 0.9647421, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/GraphArea" unique_id=497145800]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GraphMarginArea" type="Control" parent="MarginContainer/GraphArea/MarginContainer" unique_id=545835638]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VerticalLines" type="Node2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1813974024]
+unique_name_in_owner = true
+
+[node name="Line2D" type="Line2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1030244455]
+unique_name_in_owner = true
+points = PackedVector2Array(0, 0, 208, 196)
+width = 3.0
+default_color = Color(0.58103144, 0.58103347, 0.5810327, 1)
+joint_mode = 2
+
+[node name="MouseCircle" type="Sprite2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1946358479]
+modulate = Color(0.41215283, 0.41215235, 0.4121526, 1)
+position = Vector2(-30, -30)
+scale = Vector2(0.005, 0.005)
+texture = ExtResource("2_60q5q")
+
+[node name="GraphPoints" type="Node2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=711441008]
+unique_name_in_owner = true
+
+[node name="Playhead" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=695791350 instance=ExtResource("3_cb05o")]
+points = PackedVector2Array(52, 253, 0, 0)
+default_color = Color(0, 0, 0, 1)
+
+[node name="ScrollBar" type="ColorRect" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=868582114]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_right = 170.0
+offset_bottom = 8.0
+grow_vertical = 0
+color = Color(0, 0, 0, 0.15686275)
+
+[connection signal="item_rect_changed" from="." to="." method="_on_item_rect_changed"]
+[connection signal="resized" from="." to="." method="_on_resized"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

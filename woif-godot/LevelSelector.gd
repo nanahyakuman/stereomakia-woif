@@ -37,7 +37,7 @@ func _regenerate_file_structure():
 	var slash = globalized.rfind("/")
 	slash = globalized.rfind("/", slash-1)
 	globalized = globalized.substr(0, slash) + "/lvl"
-	print(globalized)
+	#print(globalized)
 	var dir = DirAccess.open(globalized)
 	# taken from godot docs
 	if dir:

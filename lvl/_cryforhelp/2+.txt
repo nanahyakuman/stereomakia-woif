@@ -1488,5 +1488,10 @@
 			"fd2d23ff"
 		],
 		"play_offset": 0.0
+	},
+	"samplers": {
+		"scroll_speed": {
+
+		}
 	}
 }
