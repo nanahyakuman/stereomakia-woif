@@ -8,6 +8,7 @@ class_name NoteHolder
 @onready var root = get_parent().get_parent()
 
 var timer = -2.0
+
 var prev_beat_div = 0.0
 var prev_beat_half_div = 0.0
 
@@ -40,13 +41,13 @@ func _ready():
 	hard_play_offset = PlayerSettings.player_set_game_offset
 
 func _process(delta):
-	# static increment
+	# frame-time increment
 	timer += delta * MusicPlayerShinobu.pitch_scale 
 	
-	#  lerp back to "true" offset. using a lerp here bc it's really jittery
-	# unfiltered & it messes w/ graphics. the actual offset rarely exceeds
-	# a millisecond, so i don't think the theoretical innacuraccy this
-	# introduces is really an issue
+	#  lerp back to "true" offset. using a lerp here bc shiobu sample is
+	# really jittery & it messes w/ graphics. the delta between shinobu &
+	# frame-time rarely exceeds a millisecond, UNLESS you drop a frame or a few,
+	# then it's unplayably bad. that's why we're using Shinobu at all ;p
 	if MusicPlayerShinobu.is_playing():
 		var shinobu_timer = MusicPlayerShinobu.get_playback_position()
 		shinobu_timer -= hard_play_offset + chart_play_offset
