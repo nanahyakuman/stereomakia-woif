@@ -118,7 +118,7 @@ font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c6dwy"]
 shader = ExtResource("17_eednc")
-shader_parameter/glitch_amount = 0.275
+shader_parameter/glitch_amount = 0.0
 shader_parameter/offset = 1.0
 
 [node name="GameRoot" type="Node" unique_id=1589312075]
