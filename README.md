@@ -6,12 +6,11 @@ WoIF is intended to be free on release, although I will probably set up donation
 
 ## To-Do
 
-Right now I'm working on improving the editor experience so that someone other than myself could realistically use it after a video or two of primer, and greater overall track capabilities alongside (soflan, color customization, soundodger-style bgs & shaders w/ automations, &c.). WoIF is basically to be the Soundodger+ to STEREOMAKIA's Soundodger.[^e]
-[^e]: Soundodger is awesome.
+Right now I'm working on improving the editor experience so that someone other than myself could realistically use it after a video or two of primer, and greater overall track capabilities alongside (soflan, color customization, soundodger-style bgs & shaders w/ automations, &c.). WoIF is basically to be the Soundodger+/2 to STEREOMAKIA's Soundodger.
 
-I'm also planning for steam workshop support—I don't really want to run my own forums and I wouldn't be the first steam rhythm game to generously define "fair use". I do still want a new launch tracklist that's a little more defensible than the original's though.
+I'm also planning for steam workshop support—I don't really want to run my own forums and I wouldn't be the first steam rhythm game to generously define "fair use". WoIF imports everything at runtime, though, so you'll still be able to share and load files the old-fashioned way.
 
-I will probably be working pretty slow but for the time being I don't intend on taking external PRs. No one else deserves to go through this code anyways ;p.
+I will probably be working pretty slow but I don't want to be taking PRs on WoIF.
 
 ## Dev Info
 WoIF depends on the [Project Heartbeat Engine](https://github.com/EIRTeam/Project-Heartbeat-Engine), NOT regular Godot.[^d] Some level-editor functionality also depends on `/ffmpeg/bin/ffmpeg.exe` existing (and like, being the real ffmpeg executable), although it's optional right now.
@@ -20,4 +19,4 @@ WoIF depends on the [Project Heartbeat Engine](https://github.com/EIRTeam/Projec
 Levels will not work without their `.ogg` files present. Also, `.ogg` files are in the .gitignore. This is really annoying and may not be true long-term but at least when I was working on original STEREOMAKIA they were really slow to upload, so orz in advance.[^f]
 [^f]: If one were to soundcloud downloader the indicated songs that'd be super mega instadeath illegal but they would also sync up perfectly nudge nudge nudge
 
-All code is presently all-rights-reserved but will probably transition into some sort of MIT or CC-BY long-term. But to be clear, levels you create with the in-game editor obviously belong to you, insofaras a set of text files is meaningfully ownable.
+All code is presently all-rights-reserved but will probably transition into some sort of MIT or CC-BY long-term. But to be clear, levels you create with the in-game editor belong to you.
