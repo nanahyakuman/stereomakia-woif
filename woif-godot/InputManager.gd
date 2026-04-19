@@ -304,4 +304,4 @@ func check_holds(timer):
 
 
 func _calc_time():
-	return note_holder.timer + runtime_offset
+	return note_holder.calc_timer + runtime_offset

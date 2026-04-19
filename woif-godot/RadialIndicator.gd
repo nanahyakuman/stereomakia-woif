@@ -73,7 +73,7 @@ func _process(delta):
 		
 		#  pitch is a mix of the true intended angle and the palyers input bc i wasnt
 		# happy with either on its own
-		var intended_angle = current_hold.calc_dir(note_holder.timer)
+		var intended_angle = current_hold.calc_dir(note_holder.calc_timer)
 		var angle = lerp_angle(intended_angle, rotation, .5)
 		var mix = fposmod(angle + PI * .5, TAU) / TAU 	# [0, 1)
 		if is_right:

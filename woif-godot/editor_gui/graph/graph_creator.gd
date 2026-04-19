@@ -19,8 +19,8 @@ signal updated
 # all the values
 var _vals: Array[FractionPair] = []
 
-# beatline calculated times so we can draw deliniators
-var beat_calc_times: Array[FractionPair] = []
+# beatline real times so we can draw deliniators
+var beat_real_times: Array[FractionPair] = []
 
 var playhead_time: float = -2.0
 
@@ -69,11 +69,11 @@ func _process(delta: float) -> void:
 	var mouseCalcTime = lerp(xRangeBegin, xRangeEnd, mouseLocal.x)
 	var mouseCalcVal = lerp(yRangeEnd, yRangeBegin, mouseLocal.y)
 	var firstBeatAfterIndex = 0
-	while firstBeatAfterIndex < beat_calc_times.size() - 1 and beat_calc_times[firstBeatAfterIndex].calc_time < mouseCalcTime:
+	while firstBeatAfterIndex < beat_real_times.size() - 1 and beat_real_times[firstBeatAfterIndex].calc_time < mouseCalcTime:
 		firstBeatAfterIndex += 1
 	
-	var firstBeatAfter := beat_calc_times[firstBeatAfterIndex]
-	var firstBeatBefore := beat_calc_times[firstBeatAfterIndex-1]
+	var firstBeatAfter := beat_real_times[firstBeatAfterIndex]
+	var firstBeatBefore := beat_real_times[firstBeatAfterIndex-1]
 	
 	var xa = (firstBeatBefore.calc_time - xRangeBegin) / (xRangeEnd-xRangeBegin)
 	var xb = (firstBeatAfter.calc_time - xRangeBegin) / (xRangeEnd-xRangeBegin)
@@ -151,11 +151,11 @@ func _update_chart():
 		vl.queue_free()
 	
 	var beat_i = 0
-	while beat_i < beat_calc_times.size()-1 and xRangeBegin < beat_calc_times[beat_i].calc_time:
+	while beat_i < beat_real_times.size()-1 and xRangeBegin < beat_real_times[beat_i].calc_time:
 		beat_i += 1
-	while beat_i < beat_calc_times.size() and beat_calc_times[beat_i].calc_time < xRangeEnd:
+	while beat_i < beat_real_times.size() and beat_real_times[beat_i].calc_time < xRangeEnd:
 		var vl: Line2D = VERTICAL_GRAPH_LINE.instantiate()
-		var time = beat_calc_times[beat_i].calc_time
+		var time = beat_real_times[beat_i].calc_time
 		# 5 is the size of the margin area. not programmatic bc w/e man
 		vl.add_point(_translate_to_graphical_coords(Vector2(time,yRangeBegin)))
 		vl.add_point(_translate_to_graphical_coords(Vector2(time,yRangeEnd)))
@@ -280,7 +280,7 @@ func get_vals() -> Array[FractionPair]:
 #  give us an array of when beatlines occur in real seconds, so
 # we can draw the guidelines
 func assign_beatlines(arr: Array[FractionPair]):
-	beat_calc_times = arr
+	beat_real_times = arr
 	XMAX = max(XMAX, arr.back().calc_time)
 
 func assign_time(time: float):

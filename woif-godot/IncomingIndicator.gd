@@ -22,7 +22,7 @@ func _process(delta):
 	if next_node == self:
 		target = 0.0
 	else:
-		while next_node != self and (next_node == null or next_node.is_right != is_right or next_node.calculated_offset < note_holder.timer):
+		while next_node != self and (next_node == null or next_node.is_right != is_right or next_node.calculated_offset < note_holder.calc_timer):
 			offs += 1
 			if offs >= which.get_child_count():
 				next_node = self
@@ -30,7 +30,7 @@ func _process(delta):
 			else:
 				next_node = which.get_child(offs)
 		
-		if next_node != self and next_node.calculated_offset - 3.0 < note_holder.timer:
+		if next_node != self and next_node.calculated_offset - 3.0 < note_holder.calc_timer:
 			target = 1.0
 	
 	self_modulate.a = hlp.exdc(self_modulate.a, target, decay, delta)

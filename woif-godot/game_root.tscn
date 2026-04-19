@@ -30,7 +30,6 @@
 [ext_resource type="Script" uid="uid://b2bsnfalbios8" path="res://shader/TopShader.gd" id="18_bgd0t"]
 [ext_resource type="Theme" uid="uid://de4rrv08l2tfy" path="res://editor_gui/editor_theme.tres" id="19_qbwgp"]
 [ext_resource type="Script" uid="uid://beqekaklre2tx" path="res://editor_gui/editor_gui.gd" id="20_1gnx6"]
-[ext_resource type="Script" uid="uid://dovii8n5g6yhf" path="res://sampler_tester.gd" id="21_7bwrt"]
 [ext_resource type="PackedScene" uid="uid://c4ejsibysl6l1" path="res://editor_gui/linear_note_gui.tscn" id="21_xpevi"]
 [ext_resource type="PackedScene" uid="uid://oyqdsuoee1by" path="res://editor_gui/circle_note_gui.tscn" id="23_e0ydq"]
 [ext_resource type="Script" uid="uid://oue7ih6me5p5" path="res://palette_holder.gd" id="29_wan0x"]
@@ -421,12 +420,6 @@ script = ExtResource("11_yj414")
 script = ExtResource("11_yj414")
 
 [node name="Samplers" type="Node2D" parent="NoteHolder" unique_id=2018796985]
-
-[node name="SamplerTester" type="ColorRect" parent="NoteHolder/Samplers" unique_id=861977946]
-offset_left = -693.3334
-offset_right = 395.0
-offset_bottom = 228.33334
-script = ExtResource("21_7bwrt")
 
 [node name="ComboLabel" type="Control" parent="NoteHolder" unique_id=728325908]
 layout_mode = 1

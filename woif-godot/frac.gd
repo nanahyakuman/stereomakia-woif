@@ -22,6 +22,9 @@ func _init(b, n = 0, d = 1, skip_checks = false):
 func as_float():
 	return float(base) + float(numerator) / float(denominator)
 
+func remainder_as_float():
+	return float(numerator) / float(denominator)
+
 #  str(as_float()) will have ugly trailing innacuracy a lot,
 # these ensure prettier fractions
 func as_string():

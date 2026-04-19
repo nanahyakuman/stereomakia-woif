@@ -14,13 +14,14 @@ const vec2 blu_dir = vec2(cos(PI*9.0/12.), sin(PI*9.0/12.));
 
 void fragment() {
 	//// glitch ////
-	uint seed = uint(SCREEN_UV.y / SCREEN_PIXEL_SIZE.y);
+	uint seed = uint(SCREEN_UV.y / SCREEN_PIXEL_SIZE.y / 3.0);
 	seed += uint(floor(TIME*6.)*5462.1); // on really long tracks this runs into the uintmax
 	seed *= seed;
 	seed ^= seed << 13u;
 	seed ^= seed >> 17u;
 	seed ^= seed << 5u;
 	float fseed = float(seed) / 4294967295.0; // uint max
+	fseed -= .5;
 	
 	// cube it for a more natural mix
 	float gmix = mix(0.0, 1.0, glitch_amount * glitch_amount * glitch_amount);

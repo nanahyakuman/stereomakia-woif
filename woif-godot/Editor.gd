@@ -22,12 +22,11 @@ extends Node
 @onready var circle_note_r: CircleNoteGUI = $GUI/NoteGUI/CircleNoteR
 
 @onready var scroll_graph_creator: GraphCreator = $"GUI/MouseGUI/TabContainer/Scroll Speed Mod/ScrollGraphCreator"
-@onready var sampler_tester: ColorRect = $"../NoteHolder/Samplers/SamplerTester"
 
 # dict pairs { graph : SampleHolder }
 @onready var samplers_and_graphs = {
-	$"GUI/MouseGUI/TabContainer/Scroll Speed Mod/ScrollGraphCreator": 
-		$"../NoteHolder/Samplers/SamplerTester"
+	#$"GUI/MouseGUI/TabContainer/Scroll Speed Mod/ScrollGraphCreator": 
+		#$"../NoteHolder/Samplers/SamplerTester"
 }
 
 const HOLD_NOTE_CIRCULAR = preload("res://notes/hold_note_circular.tscn")
@@ -135,7 +134,7 @@ func _process(delta):
 	
 	# give the graphs the time
 	for graph in samplers_and_graphs.keys():
-		graph.assign_time(note_holder.timer)
+		graph.assign_time(note_holder.song_timer)
 	
 	# pause handling
 	if Input.is_action_just_pressed("lvlr_pause"):
@@ -195,7 +194,7 @@ func _pause(val: bool):
 		# the player will be started by noteholder if it isnt here
 		if pause_offset > 0.0:
 			MusicPlayerShinobu.play(pause_offset)
-		note_holder.timer = pause_offset
+		note_holder.song_timer = pause_offset # calc timer should be calc'd off of this
 		note_holder.set_process(true)
 		
 	paused = val
@@ -213,9 +212,9 @@ func _seek(mod: float):
 	# add mod
 	offset_as_frac = offset_as_frac.added(Fraction.new(0, mod, beat_fracs[beat_frac_i].denominator))
 	current_division_label.text = offset_as_frac.as_string()
-	pause_offset = note_holder.calculate_offset_at(offset_as_frac)
+	pause_offset = note_holder.calculate_realtime_at(offset_as_frac)
 	
-	note_holder.timer = pause_offset
+	note_holder.song_timer = pause_offset
 	note_holder.update_notes()
 	if !paused and pause_offset >= 0.0:
 		MusicPlayerShinobu.play(pause_offset)
@@ -608,7 +607,7 @@ func load_lvl(_folder_path: String, chart_name: String):
 		
 		if dict["metadata"].has("bpms"):
 			note_holder.bpms = dict["metadata"]["bpms"]
-		else: # load in the single bpm if there's only one defined. mostly vestigial
+		else: # load in the single bpm if there's only one defined. only needed for deprecated charts
 			note_holder.bpms[0][1] = dict["metadata"]["bpm"]
 		#note_holder.quarter = 60.0 / note_holder.bpms[0][1]
 		if dict["metadata"].has("play_offset"):
@@ -619,6 +618,24 @@ func load_lvl(_folder_path: String, chart_name: String):
 				ph.assign_colors(dict["metadata"]["colors"])
 		
 		chart_artist = dict["metadata"]["chart_artist"]
+		
+		#  prime samplers and their editors as appropriate. needs to happen b4 notes
+		# fdor the scroll speed sampler
+		if dict.has("samplers"):
+			if dict["samplers"].has("scroll_speed"):
+				for key in dict["samplers"]["scroll_speed"]:
+					var frac = Fraction.from_string(key)
+					var val = dict["samplers"]["scroll_speed"][key][0]
+					var interpolation = dict["samplers"]["scroll_speed"][key][1]
+					var realtime_pair = FractionPair.new(frac, val, note_holder.calculate_realtime_at(frac), interpolation)
+					var calctime_pair = FractionPair.new(frac, val, note_holder.calculate_offset_at(frac), interpolation)
+					# graph creators
+					if active:
+						scroll_graph_creator.add_val(realtime_pair)
+					# samplers
+					note_holder.scroll_speeds.append(calctime_pair)
+				note_holder.scroll_speeds.sort_custom(FractionPair.compare)
+				note_holder.offsets_dirty = true
 		
 		# circles
 		if dict.has("circular_notes"):
@@ -658,21 +675,6 @@ func load_lvl(_folder_path: String, chart_name: String):
 			for n in all_notes:
 				nh.add_child(n)
 		
-		# prime samplers and their editors as appropriate
-		if dict.has("samplers"):
-			if dict["samplers"].has("scroll_speed"):
-				for key in dict["samplers"]["scroll_speed"]:
-					var frac = Fraction.from_string(key)
-					var val = dict["samplers"]["scroll_speed"][key][0]
-					var interpolation = dict["samplers"]["scroll_speed"][key][1]
-					var pair = FractionPair.new(frac, val, note_holder.calculate_offset_at(frac), interpolation)
-					# graph creators
-					if active:
-						scroll_graph_creator.add_val(pair)
-					# samplers
-					sampler_tester.sampler.vals.append(pair)
-				sampler_tester.sampler.vals.sort_custom(FractionPair.compare)
-		
 		if active:
 			_log("Loaded from `%s/%s.txt`" % [folder_path, chart_name])
 		
@@ -695,7 +697,7 @@ func load_lvl(_folder_path: String, chart_name: String):
 	
 	var beatlinetimes: Array[FractionPair] = []
 	for i in 250:
-		beatlinetimes.append(FractionPair.new(Fraction.new(i), 0, note_holder.calculate_offset_at(Fraction.new(i))))
+		beatlinetimes.append(FractionPair.new(Fraction.new(i), 0, note_holder.calculate_realtime_at(Fraction.new(i))))
 	scroll_graph_creator.assign_beatlines(beatlinetimes)
 
 #  uses ffmpeg (if present) to create a sample image in the editor so you know broadly
@@ -789,7 +791,7 @@ func _ui_request_circle_hold_addition(is_right: bool, dir: float):
 # graphs
 func _graph_changed(which, vals):
 	samplers_and_graphs[which].sampler.vals = vals
-	samplers_and_graphs[which].update(note_holder.timer)
+	samplers_and_graphs[which].update(note_holder.song_timer)
 
 
 func _log(msg: String):

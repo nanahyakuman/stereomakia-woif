@@ -19,7 +19,7 @@ func at(time: float) -> float:
 		index += 1
 	index -= 1
 	# try to interpolate 
-	if index == vals.size()- 1 \
+	if index == vals.size() - 1 \
 	or vals[index+1].interpolationMode == FractionPair.InterpolationMode.HOLD:
 		return vals[index].val
 	else:
