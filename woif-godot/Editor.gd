@@ -22,12 +22,9 @@ extends Node
 @onready var circle_note_r: CircleNoteGUI = $GUI/NoteGUI/CircleNoteR
 
 @onready var scroll_graph_creator: GraphCreator = $"GUI/MouseGUI/TabContainer/Scroll Speed Mod/ScrollGraphCreator"
-
-# dict pairs { graph : SampleHolder }
-@onready var samplers_and_graphs = {
-	#$"GUI/MouseGUI/TabContainer/Scroll Speed Mod/ScrollGraphCreator": 
-		#$"../NoteHolder/Samplers/SamplerTester"
-}
+@onready var graphs = [
+	scroll_graph_creator
+]
 
 const HOLD_NOTE_CIRCULAR = preload("res://notes/hold_note_circular.tscn")
 const HOLD_NOTE_LINEAR = preload("res://notes/hold_note_linear.tscn")
@@ -103,8 +100,6 @@ func _ready():
 		circle_ui.connect("ui_add_circle_hold_request", _ui_request_circle_hold_addition)
 		circle_ui.connect("ui_add_circle_release_request", _ui_request_circle_release_addition)
 	
-	for graph in samplers_and_graphs.keys():
-		graph.connect("updated", _graph_changed)
 
 # only call on startup plox
 func set_active(val):
@@ -133,7 +128,7 @@ func _process(delta):
 		return
 	
 	# give the graphs the time
-	for graph in samplers_and_graphs.keys():
+	for graph in graphs:
 		graph.assign_time(note_holder.song_timer)
 	
 	# pause handling
@@ -637,6 +632,9 @@ func load_lvl(_folder_path: String, chart_name: String):
 				note_holder.scroll_speeds.sort_custom(FractionPair.compare)
 				note_holder.offsets_dirty = true
 		
+		if active:
+			scroll_graph_creator.updated.connect(_on_scroll_graph_creator_updated)
+		
 		# circles
 		if dict.has("circular_notes"):
 			for is_right in dict["circular_notes"]:
@@ -675,14 +673,14 @@ func load_lvl(_folder_path: String, chart_name: String):
 			for n in all_notes:
 				nh.add_child(n)
 		
-		if active:
-			_log("Loaded from `%s/%s.txt`" % [folder_path, chart_name])
-		
 		# add all the beat markers in
 		for i in max_beat + 1:
 			var bl = BEATLINE.instantiate()
 			bl.time = note_holder.calculate_offset_at(Fraction.new(i))
 			beatlines.add_child(bl)
+		
+		if active:
+			_log("Loaded from `%s/%s.txt`" % [folder_path, chart_name])
 	
 	#  get audio stream. this load should be ignored if we're loading from the level
 	# selector, but is a fallback if fishy stuff goes on
@@ -757,8 +755,23 @@ func _clear():
 	for nh in tap_notes + hold_notes + [circle_hold_notes_left, circle_hold_notes_right, circle_tap_notes_left, circle_tap_notes_right, beatlines]:
 		for n in nh.get_children():
 			_remove_note(n)
+	for graph in graphs:
+		graph.clear_vals()
 	scoring_manager.deregister_all()
 
+# regen all the noyes, for when bpm or scroll speed changes at runtime
+func _recalc_all_notes():
+	for time in notes_dict:
+		var time_frac = Fraction.from_string(time)
+		for note in notes_dict[time]:
+			note.calculated_offset = note_holder.calculate_offset_at(time_frac)
+			if note is HoldNoteLinear:
+				note.set_len(note_holder.calculate_offset_at(note.frac.added(note.len_frac)) - (note_holder.calculate_offset_at(note.frac)), note.len_frac)
+			if note is HoldNoteCircular:
+				note.calculated_len = note_holder.calculate_offset_at(note.frac.added(note.frac_len)) - (note_holder.calculate_offset_at(note.frac))
+	
+	for i in beatlines.get_child_count():
+		beatlines.get_child(i).time = note_holder.calculate_offset_at(Fraction.new(i))
 
 # interpret signals from the editor ui
 func _ui_request_tap_note_addition(index: TapNoteLinear.DIRS):
@@ -788,11 +801,11 @@ func _ui_request_circle_hold_addition(is_right: bool, dir: float):
 	note_holder.update_notes()
 
 
-# graphs
-func _graph_changed(which, vals):
-	samplers_and_graphs[which].sampler.vals = vals
-	samplers_and_graphs[which].update(note_holder.song_timer)
-
-
 func _log(msg: String):
 	logger.new_msg(msg)
+
+
+# graph signals
+func _on_scroll_graph_creator_updated(vals: Array[FractionPair]) -> void:
+	note_holder.scroll_speeds = vals
+	_recalc_all_notes()

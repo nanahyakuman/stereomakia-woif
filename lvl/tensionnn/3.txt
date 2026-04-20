@@ -352,13 +352,13 @@
 			{
 				"abs": false,
 				"also_hold": "0+1/2",
-				"dir": 0,
+				"dir": 3,
 				"doub": false
 			},
 			{
 				"abs": false,
 				"also_hold": "0+1/2",
-				"dir": 3,
+				"dir": 0,
 				"doub": false
 			}
 		],
@@ -456,13 +456,13 @@
 			{
 				"abs": false,
 				"also_hold": "0+1/2",
-				"dir": 0,
+				"dir": 2,
 				"doub": false
 			},
 			{
 				"abs": false,
 				"also_hold": "0+1/2",
-				"dir": 2,
+				"dir": 0,
 				"doub": false
 			}
 		],
@@ -470,13 +470,13 @@
 			{
 				"abs": false,
 				"also_hold": "0+0/1",
-				"dir": 3,
+				"dir": 1,
 				"doub": false
 			},
 			{
 				"abs": false,
 				"also_hold": "0+0/1",
-				"dir": 1,
+				"dir": 3,
 				"doub": false
 			}
 		],
@@ -550,6 +550,12 @@
 		],
 		"128+1/2": [
 			{
+				"abs": true,
+				"also_hold": "0+1/2",
+				"dir": 5,
+				"doub": false
+			},
+			{
 				"abs": false,
 				"also_hold": "0+1/2",
 				"dir": 1,
@@ -565,12 +571,6 @@
 				"abs": true,
 				"also_hold": "0+0/1",
 				"dir": 4,
-				"doub": false
-			},
-			{
-				"abs": true,
-				"also_hold": "0+1/2",
-				"dir": 5,
 				"doub": false
 			}
 		],
@@ -610,7 +610,7 @@
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 4,
+				"dir": 5,
 				"doub": false
 			},
 			{
@@ -622,7 +622,7 @@
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 5,
+				"dir": 4,
 				"doub": false
 			}
 		],
@@ -1438,19 +1438,11 @@
 				"doub": false
 			}
 		],
-		"86+3/4": [
-			{
-				"abs": false,
-				"also_hold": "0+0/1",
-				"dir": 5,
-				"doub": false
-			}
-		],
 		"87+0/1": [
 			{
 				"abs": false,
 				"also_hold": "0+0/1",
-				"dir": 2,
+				"dir": 1,
 				"doub": false
 			}
 		],
@@ -1458,7 +1450,7 @@
 			{
 				"abs": false,
 				"also_hold": "0+0/1",
-				"dir": 3,
+				"dir": 2,
 				"doub": false
 			}
 		],
@@ -1568,13 +1560,13 @@
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 4,
+				"dir": 5,
 				"doub": false
 			},
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 5,
+				"dir": 4,
 				"doub": false
 			}
 		],
@@ -1630,18 +1622,42 @@
 	"samplers": {
 		"scroll_speed": {
 			"0+0/1": [
-				0.125,
+				0.0729409456253052,
+				0
+			],
+			"130+0/1": [
+				0.443529188632965,
+				0
+			],
+			"136+0/1": [
+				1.0,
+				0
+			],
+			"40+0/1": [
+				0.514117419719696,
+				0
+			],
+			"48+0/1": [
+				1.0,
+				0
+			],
+			"56+0/1": [
+				0.503529280424118,
+				0
+			],
+			"64+0/1": [
+				1.0,
+				0
+			],
+			"72+0/1": [
+				0.507058531045914,
 				0
 			],
 			"8+0/1": [
 				1.0,
 				0
 			],
-			"39+0/1": [
-				4.0,
-				0
-			],
-			"40+0/1": [
+			"80+0/1": [
 				1.0,
 				0
 			]

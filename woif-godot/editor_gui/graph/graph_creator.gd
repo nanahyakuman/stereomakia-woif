@@ -55,7 +55,7 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if _dirty:
 		_update_chart()
-		emit_signal("updated", self, _vals)
+		emit_signal("updated", _vals)
 		_dirty = false
 	
 	# ez zoom
