@@ -11,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_kmkg7")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1965714038]
@@ -91,8 +92,11 @@ offset_top = 3.0
 offset_right = 170.0
 offset_bottom = 8.0
 grow_vertical = 0
+mouse_filter = 2
 color = Color(0, 0, 0, 0.15686275)
 
 [connection signal="item_rect_changed" from="." to="." method="_on_item_rect_changed"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="resized" from="." to="." method="_on_resized"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

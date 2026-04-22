@@ -24,6 +24,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [connection signal="gui_input" from="Area" to="." method="_on_area_gui_input"]
 [connection signal="mouse_entered" from="Area" to="." method="_on_area_mouse_entered"]

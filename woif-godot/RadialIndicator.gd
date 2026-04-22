@@ -84,6 +84,8 @@ func _process(delta):
 		# numbers made up but feel pretty good
 		hold_asp.volume_db = -6 + log(mix) * 10
 		hold_asp_2.volume_db = -6 + log(1.0-mix) * 10
+		
+		Vibrator.circle_hold(is_right)
 	else:
 		hold_asp.volume_db = -80.0
 		hold_asp_2.volume_db = -80.0

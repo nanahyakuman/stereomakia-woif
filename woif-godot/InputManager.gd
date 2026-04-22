@@ -172,7 +172,10 @@ func _note_pressed(dir: int, is_right: bool):
 			var indicator = indicators.get_child(dir)
 			indicator.play_sound(note._absolute and score == 0)
 			if note._absolute and score < 3:
-				Vibrator.absolute()
+				if note._doubled:
+					Vibrator.double_absolute()
+				else:
+					Vibrator.absolute()
 			# start hold sound if we're a hold
 			if note.associated_hold != null:
 				indicator.requested = note.associated_hold._calculated_len / MusicPlayerShinobu.pitch_scale

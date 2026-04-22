@@ -44,17 +44,12 @@ var yRangeEnd = 1.0
 var _dirty: bool = true
 
 func _input(event: InputEvent) -> void:
-	# bc we're not using _unhandled_input. reconsider
-	if !get_parent().visible:
-		return
-	
 	if event is InputEventMouseButton:
-		if event.pressed:
-			if mouse_pair.val > -0.05 and mouse_pair.val < 1.05: # stupid boundser
-				if event.button_index == MOUSE_BUTTON_LEFT:
-					_add_or_update_selected_val()
-				elif event.button_index == MOUSE_BUTTON_RIGHT:
-					_delete_selected_val()
+		if hovered and event.pressed:
+			if event.button_index == MOUSE_BUTTON_LEFT:
+				_add_or_update_selected_val()
+			elif event.button_index == MOUSE_BUTTON_RIGHT:
+				_delete_selected_val()
 
 func _process(delta: float) -> void:
 	if _dirty:
@@ -67,6 +62,9 @@ func _process(delta: float) -> void:
 		_adjust_zoom(1.0)
 	if Input.is_action_just_released("scroll_d"):
 		_adjust_zoom(-1.0)
+	
+	if beat_real_times.size() <= 0:
+		return
 	
 	var mousePos = get_viewport().get_mouse_position()
 	var mouseLocal = _translate_to_percent_coords_from_global(mousePos)
@@ -290,3 +288,11 @@ func assign_beatlines(arr: Array[FractionPair]):
 func assign_time(time: float):
 	playhead_time = time
 	_update_playhead()
+
+
+# unhandled input is giving me a migraine
+func _on_mouse_entered() -> void:
+	hovered = true
+
+func _on_mouse_exited() -> void:
+	hovered = false
