@@ -171,6 +171,8 @@ func _note_pressed(dir: int, is_right: bool):
 			# only play the nice hitsound if you abs an abs note
 			var indicator = indicators.get_child(dir)
 			indicator.play_sound(note._absolute and score == 0)
+			if note._absolute and score < 3:
+				Vibrator.absolute()
 			# start hold sound if we're a hold
 			if note.associated_hold != null:
 				indicator.requested = note.associated_hold._calculated_len / MusicPlayerShinobu.pitch_scale
@@ -209,6 +211,8 @@ func circle_pressed(is_right: bool, dir: float):
 				ctol += 1
 			scoring_manager.score_circle_note(1, _calc_time() - note.calculated_offset)
 			
+			Vibrator.circle_tap(is_right)
+			
 			# sound
 			if is_right:
 				radial_indicator_r.play_sound(true)
@@ -246,6 +250,9 @@ func circle_released(is_right: bool, dir: float):
 			else:
 				crol += 1
 			scoring_manager.score_circle_note(1, _calc_time() - note.calculated_offset)
+			
+			Vibrator.circle_release(is_right)
+			
 			# sound
 			if is_right:
 				radial_indicator_r.play_sound(false)

@@ -22,9 +22,12 @@ extends Node
 @onready var circle_note_r: CircleNoteGUI = $GUI/NoteGUI/CircleNoteR
 
 @onready var scroll_graph_creator: GraphCreator = $"GUI/MouseGUI/TabContainer/Scroll Speed Mod/ScrollGraphCreator"
+@onready var glitch_graph_creator: GraphCreator = $GUI/MouseGUI/TabContainer/Glitch/GlitchGraphCreator
 @onready var graphs = [
-	scroll_graph_creator
+	scroll_graph_creator,
+	glitch_graph_creator
 ]
+@onready var filterer: Filterer = $"../Filterer"
 
 const HOLD_NOTE_CIRCULAR = preload("res://notes/hold_note_circular.tscn")
 const HOLD_NOTE_LINEAR = preload("res://notes/hold_note_linear.tscn")
@@ -507,7 +510,8 @@ func _save_lvl(folder_path: String, chart_name: String):
 		"linear_notes": {},
 		"circular_notes": {false: {}, true: {}},
 		"samplers": {
-			"scroll_speed": {}
+			"scroll_speed": {},
+			"glitch": {},
 		}
 	}
 	
@@ -572,6 +576,10 @@ func _save_lvl(folder_path: String, chart_name: String):
 	for v in scroll_vals:
 		dict["samplers"]["scroll_speed"][v.frac.as_string()] = [v.val, v.interpolationMode]
 	
+	var glitch_vals = glitch_graph_creator.get_vals()
+	for v in glitch_vals:
+		dict["samplers"]["glitch"][v.frac.as_string()] = [v.val, v.interpolationMode]
+	
 	
 	_ensure_folder_exists(folder_path)
 	var save_file = FileAccess.open(folder_path + "/" + chart_name + ".txt", FileAccess.WRITE)
@@ -629,11 +637,27 @@ func load_lvl(_folder_path: String, chart_name: String):
 						scroll_graph_creator.add_val(realtime_pair)
 					# samplers
 					note_holder.scroll_speeds.append(calctime_pair)
+				# this needs additional babying
 				note_holder.scroll_speeds.sort_custom(FractionPair.compare)
 				note_holder.offsets_dirty = true
+			
+			if dict["samplers"].has("glitch"):
+				for key in dict["samplers"]["glitch"]:
+					var frac = Fraction.from_string(key)
+					var val = dict["samplers"]["glitch"][key][0]
+					var interpolation = dict["samplers"]["glitch"][key][1]
+					var realtime_pair = FractionPair.new(frac, val, note_holder.calculate_realtime_at(frac), interpolation)
+					var calctime_pair = FractionPair.new(frac, val, note_holder.calculate_offset_at(frac), interpolation)
+					# graph creators
+					if active:
+						glitch_graph_creator.add_val(realtime_pair)
+					# samplers
+					filterer.glitch_sampler.add_val(calctime_pair)
 		
+		# lame putting these here but we only want the connection if active
 		if active:
 			scroll_graph_creator.updated.connect(_on_scroll_graph_creator_updated)
+			glitch_graph_creator.updated.connect(_on_glitch_graph_creator_updated)
 		
 		# circles
 		if dict.has("circular_notes"):
@@ -696,7 +720,8 @@ func load_lvl(_folder_path: String, chart_name: String):
 	var beatlinetimes: Array[FractionPair] = []
 	for i in 250:
 		beatlinetimes.append(FractionPair.new(Fraction.new(i), 0, note_holder.calculate_realtime_at(Fraction.new(i))))
-	scroll_graph_creator.assign_beatlines(beatlinetimes)
+	for graph in graphs:
+		graph.assign_beatlines(beatlinetimes)
 
 #  uses ffmpeg (if present) to create a sample image in the editor so you know broadly
 # what the waveform looks like
@@ -762,9 +787,8 @@ func _clear():
 # regen all the noyes, for when bpm or scroll speed changes at runtime
 func _recalc_all_notes():
 	for time in notes_dict:
-		var time_frac = Fraction.from_string(time)
 		for note in notes_dict[time]:
-			note.calculated_offset = note_holder.calculate_offset_at(time_frac)
+			note.calculated_offset = note_holder.calculate_offset_at(note.frac)
 			if note is HoldNoteLinear:
 				note.set_len(note_holder.calculate_offset_at(note.frac.added(note.len_frac)) - (note_holder.calculate_offset_at(note.frac)), note.len_frac)
 			if note is HoldNoteCircular:
@@ -805,7 +829,11 @@ func _log(msg: String):
 	logger.new_msg(msg)
 
 
-# graph signals
+#  graph signals. doing all these individually is kinda inelegant but some of them
+# want to be slightly different sooo
 func _on_scroll_graph_creator_updated(vals: Array[FractionPair]) -> void:
 	note_holder.scroll_speeds = vals
 	_recalc_all_notes()
+
+func _on_glitch_graph_creator_updated(vals: Array[FractionPair]) -> void:
+	filterer.glitch_sampler.set_vals(vals)

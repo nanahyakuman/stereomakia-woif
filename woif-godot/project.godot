@@ -28,6 +28,7 @@ buses/default_bus_layout="uid://c1wakm3iwxd76"
 PlayerSettings="*res://player_settings.gd"
 MusicPlayerShinobu="*uid://p5cgaupmy22x"
 MouseLabel="*uid://csjaru3io41mr"
+Vibrator="*uid://bry5786yuw1f1"
 
 [display]
 

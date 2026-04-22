@@ -3,7 +3,7 @@ class_name NoteHolder
 
 @onready var notes = $Notes
 @onready var metronome = $Metronome
-@onready var samplers: Node2D = $Samplers
+@onready var filterer: ColorRect = $"../Filterer"
 
 @onready var root = get_parent().get_parent()
 
@@ -98,9 +98,8 @@ func update_notes():
 	# update all the notes (recursive)
 	for nh in notes.get_children():
 		nh.update(calc_timer)
-	for s in samplers.get_children():
-		s.update(calc_timer)
-
+	
+	filterer.update(calc_timer)
 
 func _calc_time_from_real_time(rt: float) -> float:
 	var index = 0

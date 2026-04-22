@@ -90,6 +90,7 @@ func _reset_combo():
 	combo_label.assign(scoring_info.combo)
 	scoring_info.is_full_combo = false
 	scoring_info.is_pfc = false
+	Vibrator.drop_combo()
 	emit_signal("note_missed")
 
 # called at generation to calc our theoretical max score

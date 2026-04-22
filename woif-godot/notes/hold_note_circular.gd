@@ -48,11 +48,16 @@ func update(calculated_timer):
 			var offs = calculated_offset + i * calc_subdiv
 			var calc_dir = lerp_angle(start_dir, new_dir, -(calculated_offset - offs) / calculated_len)
 			var coords = _dir_and_time_to_coords(calc_dir, offs, calculated_timer, width)
+			var uvside = 0
+			which.mesh.surface_set_uv(Vector2(uvside, 0))
 			which.mesh.surface_add_vertex_2d(coords[0])
+			which.mesh.surface_set_uv(Vector2(1-uvside, 0))
 			which.mesh.surface_add_vertex_2d(coords[1])
 		# add last point
 		var coords = _dir_and_time_to_coords(new_dir, calculated_offset+calculated_len, calculated_timer, width)
+		which.mesh.surface_set_uv(Vector2(0, 0))
 		which.mesh.surface_add_vertex_2d(coords[0])
+		which.mesh.surface_set_uv(Vector2(1, 0))
 		which.mesh.surface_add_vertex_2d(coords[1])
 		which.mesh.surface_end()
 		width = def_width_2

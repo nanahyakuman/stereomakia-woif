@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpnrenthr4d0p"]
+[gd_scene format=3 uid="uid://dpnrenthr4d0p"]
 
-[ext_resource type="Script" path="res://indicator.gd" id="1_m0cgg"]
+[ext_resource type="Script" uid="uid://cisn6bcrvp8yc" path="res://indicator.gd" id="1_m0cgg"]
 [ext_resource type="AudioStream" uid="uid://dllhfey2lj3r0" path="res://audio/sfx/1/hold.wav" id="2_pkk2g"]
 
 [sub_resource type="Gradient" id="Gradient_mtswt"]
@@ -10,22 +10,23 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 gradient = SubResource("Gradient_mtswt")
 width = 128
 
-[node name="Indicator" type="Node2D"]
+[node name="Indicator" type="Node2D" unique_id=303706108]
 script = ExtResource("1_m0cgg")
+whichColor = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 0.498039)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=284288073]
+modulate = Color(1, 1, 1, 0.6627451)
 position = Vector2(0, -64)
 rotation = 1.5708
 scale = Vector2(1, 64)
 texture = SubResource("GradientTexture1D_5gey0")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=923840172]
 attenuation = 1e-05
 panning_strength = 2.0
 bus = &"SFX"
 
-[node name="HoldASP" type="AudioStreamPlayer2D" parent="."]
+[node name="HoldASP" type="AudioStreamPlayer2D" parent="." unique_id=2022481183]
 stream = ExtResource("2_pkk2g")
 volume_db = -80.0
 autoplay = true

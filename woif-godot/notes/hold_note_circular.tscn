@@ -9,6 +9,15 @@ resource_local_to_scene = true
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_vulyb"]
 resource_local_to_scene = true
 
+[sub_resource type="Gradient" id="Gradient_exs3y"]
+offsets = PackedFloat32Array(0.2, 0.5, 0.8)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.95686275, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4pi0d"]
+gradient = SubResource("Gradient_exs3y")
+width = 256
+height = 1
+
 [node name="HoldNoteCircular" type="Node2D" unique_id=1749770087]
 script = ExtResource("1_mp2o5")
 
@@ -20,5 +29,6 @@ whichColor = 6
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=160719186]
 mesh = SubResource("ImmediateMesh_vulyb")
+texture = SubResource("GradientTexture2D_4pi0d")
 script = ExtResource("2_exs3y")
 whichColor = 5

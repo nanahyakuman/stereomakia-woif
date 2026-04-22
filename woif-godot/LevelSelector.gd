@@ -80,10 +80,9 @@ func _add_info(file_path: String, known_scores: Dictionary):
 	if dict.has("thumb") and dict["thumb"] != "":
 		var imgpath = file_path + "/" + dict["thumb"]
 		# use the correct importer based on whether we're inside or not
-		if file_path.begins_with("u"):
-			info.thumbnail = Image.load_from_file(imgpath)
-		else:
-			info.thumbnail = ResourceLoader.load(imgpath)
+		var img = Image.new()
+		img.load(imgpath)
+		info.thumbnail = ImageTexture.create_from_image(img)
 	# default thumbnail
 	else:
 		info.thumbnail = ResourceLoader.load("res://no_thumb.tres")

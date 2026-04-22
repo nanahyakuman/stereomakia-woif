@@ -2,7 +2,7 @@
 #  these handle their own logic about being pressed or not,
 # and displaying that to the screen. they don't actually score though,
 # that's handled by the input manager
-extends Node2D
+extends Palettizer
 
 @onready var audio_stream_player_2d = $AudioStreamPlayer2D
 @onready var hold_asp = $HoldASP
@@ -26,6 +26,7 @@ var requested = -1.0
 
 func _ready():
 	modulate.a = 0.0
+	super()
 
 func _process(delta):
 	var target = 0.0
@@ -65,6 +66,7 @@ func is_held():
 func play_sound(is_absolute: bool):
 	audio_stream_player_2d.stream = HEAVY_TAP if is_absolute else LIGHT_TAP
 	audio_stream_player_2d.play()
+	
 
 func _play_hold(val: bool):
 	hold_asp.volume_db = -12.0 if val else -80.0

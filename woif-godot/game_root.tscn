@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://4d81ul43ypqf" path="res://Fader.gd" id="17_8su7s"]
 [ext_resource type="Shader" uid="uid://drubxrtqc1baa" path="res://shader/rootshader.gdshader" id="17_eednc"]
 [ext_resource type="AudioStream" uid="uid://dx88qtel50vqb" path="res://audio/sfx/1/scratch.wav" id="17_vbdav"]
+[ext_resource type="Script" uid="uid://bdaaokty6aefg" path="res://beatlines.gd" id="18_7bwrt"]
 [ext_resource type="Script" uid="uid://b2bsnfalbios8" path="res://shader/TopShader.gd" id="18_bgd0t"]
 [ext_resource type="Theme" uid="uid://de4rrv08l2tfy" path="res://editor_gui/editor_theme.tres" id="19_qbwgp"]
 [ext_resource type="Script" uid="uid://beqekaklre2tx" path="res://editor_gui/editor_gui.gd" id="20_1gnx6"]
@@ -83,7 +84,7 @@ colors = PackedColorArray(1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2k5fu"]
 gradient = SubResource("Gradient_ob076")
 width = 1000
-height = 8
+height = 10
 fill = 1
 fill_from = Vector2(0.5, 1)
 fill_to = Vector2(1, 1)
@@ -224,7 +225,7 @@ horizontal_alignment = 1
 
 [node name="Bar" type="Sprite2D" parent="NoteHolder" unique_id=1985669383]
 modulate = Color(0.69135684, 0.6913568, 0.6913567, 1)
-position = Vector2(0, 308.66663)
+position = Vector2(0, 308.6668)
 texture = SubResource("GradientTexture2D_2k5fu")
 offset = Vector2(0, -4)
 script = ExtResource("7_e5p5i")
@@ -244,7 +245,7 @@ scale = Vector2(5.128, 5.128)
 script = ExtResource("7_3q5py")
 
 [node name="Sprite2D" type="Sprite2D" parent="NoteHolder/RingLeft/RadialIndicator" unique_id=707421057]
-modulate = Color(1, 1, 1, 0.3254902)
+modulate = Color(1, 1, 1, 0.39607844)
 rotation = -0.785398
 texture = SubResource("GradientTexture2D_l61op")
 centered = false
@@ -272,7 +273,7 @@ panning_strength = 3.0
 bus = &"SFX"
 
 [node name="IncomingIndicator" type="Sprite2D" parent="NoteHolder/RingLeft" unique_id=1734830096]
-modulate = Color(1, 1, 1, 0.26666668)
+modulate = Color(1, 1, 1, 0.22745098)
 texture = ExtResource("10_aki3e")
 script = ExtResource("8_hnybe")
 
@@ -291,7 +292,7 @@ script = ExtResource("7_3q5py")
 is_right = true
 
 [node name="Sprite2D" type="Sprite2D" parent="NoteHolder/RingRight/RadialIndicator" unique_id=193669229]
-modulate = Color(1, 1, 1, 0.3254902)
+modulate = Color(1, 1, 1, 0.39607844)
 rotation = -0.785398
 texture = SubResource("GradientTexture2D_l61op")
 centered = false
@@ -320,13 +321,13 @@ panning_strength = 3.0
 bus = &"SFX"
 
 [node name="IncomingIndicator" type="Sprite2D" parent="NoteHolder/RingRight" unique_id=1746825248]
-modulate = Color(1, 1, 1, 0.26666668)
+modulate = Color(1, 1, 1, 0.22745098)
 texture = ExtResource("10_aki3e")
 script = ExtResource("8_hnybe")
 is_right = true
 
 [node name="Indicators" type="Node2D" parent="NoteHolder" unique_id=229416087]
-position = Vector2(0, 302)
+position = Vector2(0, 298.6668)
 script = ExtResource("9_woa5s")
 
 [node name="Indicator" parent="NoteHolder/Indicators" unique_id=1325416327 instance=ExtResource("10_7dcal")]
@@ -342,7 +343,7 @@ script = ExtResource("9_woa5s")
 [node name="Indicator6" parent="NoteHolder/Indicators" unique_id=1918400207 instance=ExtResource("10_7dcal")]
 
 [node name="Notes" type="Node2D" parent="NoteHolder" unique_id=786080329]
-position = Vector2(0, 302)
+position = Vector2(0, 303.66663)
 
 [node name="Waveform" type="Node2D" parent="NoteHolder/Notes" unique_id=1729953115]
 script = ExtResource("13_c3r2a")
@@ -357,7 +358,8 @@ centered = false
 offset = Vector2(0, -75)
 
 [node name="Beatlines" type="Node2D" parent="NoteHolder/Notes" unique_id=1383726192]
-script = ExtResource("11_yj414")
+script = ExtResource("18_7bwrt")
+whichColor = 2
 
 [node name="HoldNotes" type="Node2D" parent="NoteHolder/Notes" unique_id=1068090544]
 script = ExtResource("11_yj414")
@@ -419,8 +421,6 @@ script = ExtResource("11_yj414")
 [node name="CircleTapNotesRight" type="Node2D" parent="NoteHolder/Notes" unique_id=607294641]
 script = ExtResource("11_yj414")
 
-[node name="Samplers" type="Node2D" parent="NoteHolder" unique_id=2018796985]
-
 [node name="ComboLabel" type="Control" parent="NoteHolder" unique_id=728325908]
 layout_mode = 1
 anchors_preset = 8
@@ -475,7 +475,7 @@ script = ExtResource("14_tst6c")
 
 [node name="Scratcher" type="AudioStreamPlayer" parent="ScoringManager" unique_id=30863773]
 stream = ExtResource("17_vbdav")
-volume_db = -10.0
+volume_db = -5.0
 bus = &"SFX"
 
 [node name="Editor" type="Node" parent="." unique_id=420948338]
@@ -627,11 +627,19 @@ metadata/_tab_index = 0
 [node name="ScrollGraphCreator" parent="Editor/GUI/MouseGUI/TabContainer/Scroll Speed Mod" unique_id=2099170759 instance=ExtResource("32_qvv4r")]
 layout_mode = 1
 
+[node name="Glitch" type="Control" parent="Editor/GUI/MouseGUI/TabContainer" unique_id=1991586876]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="GlitchGraphCreator" parent="Editor/GUI/MouseGUI/TabContainer/Glitch" unique_id=1009307603 instance=ExtResource("32_qvv4r")]
+layout_mode = 1
+
 [node name="Colors" type="Control" parent="Editor/GUI/MouseGUI/TabContainer" unique_id=1660680799]
 visible = false
 layout_mode = 2
 script = ExtResource("30_ia341")
-metadata/_tab_index = 1
+metadata/_tab_index = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Editor/GUI/MouseGUI/TabContainer/Colors" unique_id=584818069]
 layout_mode = 1

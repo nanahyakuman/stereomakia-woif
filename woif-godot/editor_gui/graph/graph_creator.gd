@@ -44,9 +44,13 @@ var yRangeEnd = 1.0
 var _dirty: bool = true
 
 func _input(event: InputEvent) -> void:
+	# bc we're not using _unhandled_input. reconsider
+	if !get_parent().visible:
+		return
+	
 	if event is InputEventMouseButton:
 		if event.pressed:
-			if mouse_pair.val > -0.3 and mouse_pair.val < 1.3: # stupid boundser
+			if mouse_pair.val > -0.05 and mouse_pair.val < 1.05: # stupid boundser
 				if event.button_index == MOUSE_BUTTON_LEFT:
 					_add_or_update_selected_val()
 				elif event.button_index == MOUSE_BUTTON_RIGHT:

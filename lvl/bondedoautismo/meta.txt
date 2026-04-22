@@ -1,0 +1,12 @@
+{
+	"full_name": "BONDE DO AUTISMO",
+	"phonetic_name": "bonde do autismo",
+	"artist_name": "DJ ESCOLIOSE, JooJ",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"2"
+	],
+	"preview": 14.7
+}

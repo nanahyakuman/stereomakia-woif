@@ -135,12 +135,12 @@ theme_override_constants/separation = 0
 
 [node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/SongInfo/VBoxContainer" unique_id=383048202]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 90)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 text = "Song Name"
 label_settings = SubResource("LabelSettings_fv3w2")
 horizontal_alignment = 1
-vertical_alignment = 1
+vertical_alignment = 2
 autowrap_mode = 2
 
 [node name="Artist" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/SongInfo/VBoxContainer" unique_id=1440658434]
@@ -148,7 +148,7 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Song Artist"
 label_settings = SubResource("LabelSettings_vtojj")
-horizontal_alignment = 2
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="DiffPrompt" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/SongInfo/VBoxContainer" unique_id=1546971856]

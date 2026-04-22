@@ -15,7 +15,7 @@ fill_from = Vector2(0.5, 1)
 fill_to = Vector2(0, 1)
 
 [node name="Beatline" type="Sprite2D" unique_id=279438718]
-modulate = Color(0, 0, 0, 0.12549)
+modulate = Color(1, 1, 1, 0.1254902)
 texture = SubResource("GradientTexture2D_p3sr7")
 offset = Vector2(0, -4)
 script = ExtResource("1_ebkmh")
