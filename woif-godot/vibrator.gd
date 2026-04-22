@@ -3,6 +3,11 @@ extends Node
 var port = 0
 const weak_mult = .65
 
+# make everything except misses weaker
+var strength_mod = .7
+# circ releases have inertia, this neuters them a bit
+var circ_release_mod = .9
+
 class HapticInfo:
 	var timer: float = -1.0
 	var strength: float = 1.0
@@ -42,23 +47,28 @@ func _queue_vibration(weak_mag: float, strong_mag: float, duration: float):
 
 # called externally by various
 func drop_combo():
-	_queue_vibration(1, 1, .25)
+	_queue_vibration(strength_mod, strength_mod, .25)
 func absolute():
-	_queue_vibration(weak_mult, 1, .06)
+	_queue_vibration(weak_mult * strength_mod, strength_mod, .06)
+# these are always full strength because you tend to slam the hell out of the controller
 func double_absolute():
 	_queue_vibration(weak_mult, 1, .09)
+# hlaf-quue the other side
 func circle_tap(is_right: bool):
 	if is_right:
-		_queue_vibration(weak_mult,.7,.07)
+		_queue_vibration(weak_mult*strength_mod,.7*strength_mod,.07)
 	else:
-		_queue_vibration(weak_mult*.7,1,.07)
+		_queue_vibration(weak_mult*.7*strength_mod,1*strength_mod,.07)
 func circle_release(is_right: bool):
-	circle_tap(is_right)
+	if is_right:
+		_queue_vibration(weak_mult*strength_mod*circ_release_mod,.7*strength_mod*circ_release_mod,.07)
+	else:
+		_queue_vibration(weak_mult*.7*strength_mod*circ_release_mod,1*strength_mod*circ_release_mod,.07)
 func circle_hold(is_right: bool): # the two circle indicators call this one. weird
 	if is_right:
-		_queue_vibration(.3,0,.1)
+		_queue_vibration(.3*strength_mod,0,.1)
 	else:
-		_queue_vibration(0,.2,.1)
+		_queue_vibration(0,.2*strength_mod,.1)
 
 # this doesn't catch godot killing the game sadly
 func _notification(what):
