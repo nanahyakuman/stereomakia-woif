@@ -8,13 +8,11 @@
 [ext_resource type="Script" uid="uid://8w17skdech02" path="res://Pulser.gd" id="5_ygn2j"]
 [ext_resource type="Script" uid="uid://dqbnvtsce5cpt" path="res://ScoreLabel.gd" id="6_q5dla"]
 [ext_resource type="Script" uid="uid://pxwgcwjln5dm" path="res://RadialIndicator.gd" id="7_3q5py"]
-[ext_resource type="Texture2D" uid="uid://c1k7yq6e04cek" path="res://circle.png" id="7_ctoat"]
 [ext_resource type="Script" uid="uid://bqr0oksdt64re" path="res://palettizer.gd" id="7_e5p5i"]
 [ext_resource type="AudioStream" uid="uid://dllhfey2lj3r0" path="res://audio/sfx/1/hold.wav" id="8_0kd0l"]
 [ext_resource type="Script" uid="uid://exjrfy1ov4af" path="res://IncomingIndicator.gd" id="8_hnybe"]
 [ext_resource type="Script" uid="uid://cyxva2wj0oi5" path="res://Indicators.gd" id="9_woa5s"]
 [ext_resource type="PackedScene" uid="uid://dpnrenthr4d0p" path="res://indicator.tscn" id="10_7dcal"]
-[ext_resource type="Texture2D" uid="uid://ckrdfqlxxf24q" path="res://circle_filled.png" id="10_aki3e"]
 [ext_resource type="Script" uid="uid://b5okjus0qf2nm" path="res://notes/resursive_updater.gd" id="11_yj414"]
 [ext_resource type="Script" uid="uid://x141svvfg0fu" path="res://ComboLabel.gd" id="12_e6v6g"]
 [ext_resource type="Script" uid="uid://jktqm6sdiaq6" path="res://editor_waveform_viewer.gd" id="13_c3r2a"]
@@ -38,10 +36,20 @@
 [ext_resource type="Script" uid="uid://druvw3t0ldcg7" path="res://editor_gui/ui_color_picker_button.gd" id="31_xiqd8"]
 [ext_resource type="PackedScene" uid="uid://bldac8uo6hhgl" path="res://editor_gui/graph/graph_creator.tscn" id="32_qvv4r"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7bwrt"]
+frequency = 0.0996
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_u6r27"]
+width = 128
+depth = 32
+noise = SubResource("FastNoiseLite_7bwrt")
+seamless = true
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uka5h"]
 shader = ExtResource("2_wxq4k")
 shader_parameter/colA = Color(1, 1, 1, 1)
-shader_parameter/colB = Color(0.973535, 0.9735351, 0.973535, 1)
+shader_parameter/colB = Color(0.95596343, 0.9559633, 0.95596343, 1)
+shader_parameter/noise = SubResource("NoiseTexture3D_u6r27")
 
 [sub_resource type="Gradient" id="Gradient_j0q2u"]
 offsets = PackedFloat32Array(0.506494, 1)
@@ -78,8 +86,8 @@ shadow_color = Color(0, 0, 0, 0.141176)
 shadow_offset = Vector2(0, 5)
 
 [sub_resource type="Gradient" id="Gradient_ob076"]
-offsets = PackedFloat32Array(0.149351)
-colors = PackedColorArray(1, 1, 1, 1)
+offsets = PackedFloat32Array(0.149351, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2k5fu"]
 gradient = SubResource("Gradient_ob076")
@@ -89,8 +97,20 @@ fill = 1
 fill_from = Vector2(0.5, 1)
 fill_to = Vector2(1, 1)
 
+[sub_resource type="Gradient" id="Gradient_xiqd8"]
+offsets = PackedFloat32Array(0.96, 0.99, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qvv4r"]
+gradient = SubResource("Gradient_xiqd8")
+width = 400
+height = 400
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
 [sub_resource type="Gradient" id="Gradient_n2iip"]
-interpolation_mode = 1
+offsets = PackedFloat32Array(0.30601093, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_l61op"]
@@ -98,6 +118,26 @@ gradient = SubResource("Gradient_n2iip")
 width = 200
 height = 200
 fill = 1
+
+[sub_resource type="Gradient" id="Gradient_7bwrt"]
+offsets = PackedFloat32Array(0, 0.58469945, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.6, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u6r27"]
+gradient = SubResource("Gradient_7bwrt")
+width = 400
+height = 400
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fotuk"]
+gradient = SubResource("Gradient_7bwrt")
+width = 400
+height = 400
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
 
 [sub_resource type="LabelSettings" id="LabelSettings_5w44o"]
 line_spacing = 0.0
@@ -114,7 +154,8 @@ outline_size = 8
 [sub_resource type="LabelSettings" id="LabelSettings_0ouvs"]
 line_spacing = 0.0
 font_size = 32
-font_color = Color(0, 0, 0, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c6dwy"]
 shader = ExtResource("17_eednc")
@@ -224,7 +265,7 @@ horizontal_alignment = 1
 
 [node name="Bar" type="Sprite2D" parent="NoteHolder" unique_id=1985669383]
 modulate = Color(0.69135684, 0.6913568, 0.6913567, 1)
-position = Vector2(0, 308.6668)
+position = Vector2(0, 302.0002)
 texture = SubResource("GradientTexture2D_2k5fu")
 offset = Vector2(0, -4)
 script = ExtResource("7_e5p5i")
@@ -232,15 +273,13 @@ whichColor = 2
 
 [node name="RingLeft" type="Sprite2D" parent="NoteHolder" unique_id=1904733176]
 modulate = Color(1, 0.219608, 0.776471, 1)
-position = Vector2(-200, 100.33313)
-scale = Vector2(0.195, 0.195)
-texture = ExtResource("7_ctoat")
+position = Vector2(-200, 103.66644)
+texture = SubResource("GradientTexture2D_qvv4r")
 script = ExtResource("7_e5p5i")
 whichColor = 3
 metadata/_edit_group_ = true
 
 [node name="RadialIndicator" type="Node2D" parent="NoteHolder/RingLeft" unique_id=1597234719]
-scale = Vector2(5.128, 5.128)
 script = ExtResource("7_3q5py")
 
 [node name="Sprite2D" type="Sprite2D" parent="NoteHolder/RingLeft/RadialIndicator" unique_id=707421057]
@@ -272,21 +311,19 @@ panning_strength = 3.0
 bus = &"SFX"
 
 [node name="IncomingIndicator" type="Sprite2D" parent="NoteHolder/RingLeft" unique_id=1734830096]
-modulate = Color(1, 1, 1, 0.22745098)
-texture = ExtResource("10_aki3e")
+modulate = Color(1, 1, 1, 0.29411766)
+texture = SubResource("GradientTexture2D_u6r27")
 script = ExtResource("8_hnybe")
 
 [node name="RingRight" type="Sprite2D" parent="NoteHolder" unique_id=761755069]
 modulate = Color(0, 1, 0.54902, 1)
-position = Vector2(200, 100.33313)
-scale = Vector2(0.195, 0.195)
-texture = ExtResource("7_ctoat")
+position = Vector2(200, 103.66644)
+texture = SubResource("GradientTexture2D_qvv4r")
 script = ExtResource("7_e5p5i")
 whichColor = 4
 metadata/_edit_group_ = true
 
 [node name="RadialIndicator" type="Node2D" parent="NoteHolder/RingRight" unique_id=1951363176]
-scale = Vector2(5.128, 5.128)
 script = ExtResource("7_3q5py")
 is_right = true
 
@@ -321,12 +358,12 @@ bus = &"SFX"
 
 [node name="IncomingIndicator" type="Sprite2D" parent="NoteHolder/RingRight" unique_id=1746825248]
 modulate = Color(1, 1, 1, 0.22745098)
-texture = ExtResource("10_aki3e")
+texture = SubResource("GradientTexture2D_fotuk")
 script = ExtResource("8_hnybe")
 is_right = true
 
 [node name="Indicators" type="Node2D" parent="NoteHolder" unique_id=229416087]
-position = Vector2(0, 298.6668)
+position = Vector2(0, 303)
 script = ExtResource("9_woa5s")
 
 [node name="Indicator" parent="NoteHolder/Indicators" unique_id=1325416327 instance=ExtResource("10_7dcal")]
@@ -342,19 +379,20 @@ script = ExtResource("9_woa5s")
 [node name="Indicator6" parent="NoteHolder/Indicators" unique_id=1918400207 instance=ExtResource("10_7dcal")]
 
 [node name="Notes" type="Node2D" parent="NoteHolder" unique_id=786080329]
-position = Vector2(0, 303.66663)
+position = Vector2(0, 303.00003)
 
 [node name="Waveform" type="Node2D" parent="NoteHolder/Notes" unique_id=1729953115]
 script = ExtResource("13_c3r2a")
 
 [node name="Sprite2D" type="Sprite2D" parent="NoteHolder/Notes/Waveform" unique_id=1290055411]
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(1, 1, 1, 0.101960786)
+self_modulate = Color(1, 1, 1, 0.48235294)
 texture_filter = 1
 rotation = -1.5707964
 texture = ExtResource("14_tddd6")
 centered = false
 offset = Vector2(0, -75)
+script = ExtResource("7_e5p5i")
+whichColor = 6
 
 [node name="Beatlines" type="Node2D" parent="NoteHolder/Notes" unique_id=1383726192]
 script = ExtResource("18_7bwrt")

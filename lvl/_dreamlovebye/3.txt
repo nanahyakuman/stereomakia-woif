@@ -2561,6 +2561,6 @@
 			]
 		],
 		"chart_artist": "7tk",
-		"play_offset": 0
+		"play_offset": 0.03
 	}
 }

@@ -697,6 +697,22 @@ func load_lvl(_folder_path: String, chart_name: String):
 			for n in all_notes:
 				nh.add_child(n)
 		
+			#  get audio stream. this load should be ignored if we're loading from the level
+		# selector, but is a fallback if fishy stuff goes on
+		MusicPlayerShinobu.load_song(folder_path + "/music.ogg")
+		# stop a playing sample
+		MusicPlayerShinobu.pause()
+		
+		#  scoring info needs this so we can write scores to a file later.
+		# this is obv kinda ugly but refactoring is annoying and not neccesary rn
+		scoring_manager.scoring_info.song_name = folder_path.substr("res://lvl/".length())
+		scoring_manager.scoring_info.chart_diff = chart_name
+		
+		# increase the beat marker length to the whole song in editor
+		if active:
+			while note_holder.calculate_realtime_at(Fraction.new(max_beat)) < MusicPlayerShinobu.get_length():
+				max_beat += 1
+		
 		# add all the beat markers in
 		for i in max_beat + 1:
 			var bl = BEATLINE.instantiate()
@@ -704,24 +720,16 @@ func load_lvl(_folder_path: String, chart_name: String):
 			beatlines.add_child(bl)
 		
 		if active:
+			var beatlinetimes: Array[FractionPair] = []
+			for i in max_beat + 1:
+				beatlinetimes.append(FractionPair.new(Fraction.new(i), 0, note_holder.calculate_realtime_at(Fraction.new(i))))
+			for graph in graphs:
+				graph.assign_beatlines(beatlinetimes)
+		
+		if active:
 			_log("Loaded from `%s/%s.txt`" % [folder_path, chart_name])
 	
-	#  get audio stream. this load should be ignored if we're loading from the level
-	# selector, but is a fallback if fishy stuff goes on
-	MusicPlayerShinobu.load_song(folder_path + "/music.ogg")
-	# stop a playing sample
-	MusicPlayerShinobu.pause()
 	
-	#  scoring info needs this so we can write scores to a file later.
-	# this is obv kinda ugly but refactoring is annoying and not neccesary rn
-	scoring_manager.scoring_info.song_name = folder_path.substr("res://lvl/".length())
-	scoring_manager.scoring_info.chart_diff = chart_name
-	
-	var beatlinetimes: Array[FractionPair] = []
-	for i in 250:
-		beatlinetimes.append(FractionPair.new(Fraction.new(i), 0, note_holder.calculate_realtime_at(Fraction.new(i))))
-	for graph in graphs:
-		graph.assign_beatlines(beatlinetimes)
 
 #  uses ffmpeg (if present) to create a sample image in the editor so you know broadly
 # what the waveform looks like
@@ -731,11 +739,11 @@ func load_img():
 	var imgpath = "../img/outputwaveform.png"
 	
 	# 10 samples a second
-	var len = MusicPlayerShinobu.get_length()*32.0
-	var arg = "showwavespic=s=%dx150:split_channels=1" % len
+	var len = MusicPlayerShinobu.get_length()*64.0
+	var arg = "showwavespic=s=%dx150:colors=#ffffff" % len
 	
 	var output = []
-	OS.execute(ffmpegpath, ["-i", oggpath, "-filter_complex", arg, "-frames:v", "1", "-y", imgpath], output, true)
+	OS.execute(ffmpegpath, ["-i", oggpath, "-filter_complex", arg, "-update", "1", "-frames:v", "1", "-y", imgpath], output, true)
 	#for o in output:
 		#print(o)
 	
