@@ -160,6 +160,7 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c6dwy"]
 shader = ExtResource("17_eednc")
 shader_parameter/glitch_amount = 0.0
+shader_parameter/invert_amount = 0.0
 shader_parameter/offset = 1.0
 
 [node name="GameRoot" type="Node" unique_id=1589312075]
@@ -213,11 +214,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -440.0
-offset_bottom = -440.0
+offset_top = -360.0
+offset_bottom = -360.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(0.6, 0.6)
 script = ExtResource("4_bmlmd")
 
 [node name="Pulser" type="Node" parent="NoteHolder" unique_id=704972061 node_paths=PackedStringArray("nodes")]
@@ -657,26 +657,10 @@ grow_vertical = 0
 current_tab = 0
 tab_focus_mode = 0
 
-[node name="Scroll Speed Mod" type="Control" parent="Editor/GUI/MouseGUI/TabContainer" unique_id=60719765]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="ScrollGraphCreator" parent="Editor/GUI/MouseGUI/TabContainer/Scroll Speed Mod" unique_id=2099170759 instance=ExtResource("32_qvv4r")]
-layout_mode = 1
-
-[node name="Glitch" type="Control" parent="Editor/GUI/MouseGUI/TabContainer" unique_id=1991586876]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="GlitchGraphCreator" parent="Editor/GUI/MouseGUI/TabContainer/Glitch" unique_id=1009307603 instance=ExtResource("32_qvv4r")]
-layout_mode = 1
-
 [node name="Colors" type="Control" parent="Editor/GUI/MouseGUI/TabContainer" unique_id=1660680799]
-visible = false
 layout_mode = 2
 script = ExtResource("30_ia341")
-metadata/_tab_index = 2
+metadata/_tab_index = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Editor/GUI/MouseGUI/TabContainer/Colors" unique_id=584818069]
 layout_mode = 1
@@ -822,6 +806,30 @@ which = 7
 layout_mode = 2
 text = "Note Abs."
 horizontal_alignment = 1
+
+[node name="Scroll Speed Mod" type="Control" parent="Editor/GUI/MouseGUI/TabContainer" unique_id=60719765]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ScrollGraphCreator" parent="Editor/GUI/MouseGUI/TabContainer/Scroll Speed Mod" unique_id=2099170759 instance=ExtResource("32_qvv4r")]
+layout_mode = 1
+
+[node name="Glitch" type="Control" parent="Editor/GUI/MouseGUI/TabContainer" unique_id=1991586876]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="GlitchGraphCreator" parent="Editor/GUI/MouseGUI/TabContainer/Glitch" unique_id=1009307603 instance=ExtResource("32_qvv4r")]
+layout_mode = 1
+
+[node name="Invert" type="Control" parent="Editor/GUI/MouseGUI/TabContainer" unique_id=86500973]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="InvertGraphCreator" parent="Editor/GUI/MouseGUI/TabContainer/Invert" unique_id=1446990135 instance=ExtResource("32_qvv4r")]
+layout_mode = 1
 
 [node name="PaletteHolder" type="Node" parent="." unique_id=1174330702 groups=["palette_holder"]]
 script = ExtResource("29_wan0x")

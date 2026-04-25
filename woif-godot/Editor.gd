@@ -23,9 +23,11 @@ extends Node
 
 @onready var scroll_graph_creator: GraphCreator = $"GUI/MouseGUI/TabContainer/Scroll Speed Mod/ScrollGraphCreator"
 @onready var glitch_graph_creator: GraphCreator = $GUI/MouseGUI/TabContainer/Glitch/GlitchGraphCreator
+@onready var invert_graph_creator: GraphCreator = $GUI/MouseGUI/TabContainer/Invert/InvertGraphCreator
 @onready var graphs = [
 	scroll_graph_creator,
-	glitch_graph_creator
+	glitch_graph_creator,
+	invert_graph_creator
 ]
 @onready var filterer: Filterer = $"../Filterer"
 
@@ -119,8 +121,8 @@ func set_active(val):
 		
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
-		note_holder.scale = Vector2(1.0,1.0)
-		note_holder.position.y = 360
+		#note_holder.scale = Vector2(1.0,1.0)
+		#note_holder.position.y = 360
 		waveform_sprite_2d.visible = false
 		
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -163,16 +165,9 @@ func _process(delta):
 		change_subdiv(-1)
 	
 	#  discard input when in the mouse gui. note this means we still
-	# perform the above seek logic. this is allowed
+	# perform the above logic. this is allowed
 	if gui.is_mouse_mode:
 		return
-	
-	# place note
-	for i in 6:
-		if Input.is_action_just_pressed(dir_input_order[i]):
-			_editor_press_note(offset_as_frac, i)
-		if Input.is_action_just_released(dir_input_order[i]):
-			_editor_release_note(offset_as_frac, i)
 	
 	#  zooming.
 	if Input.is_action_just_released("scroll_u"):
@@ -181,6 +176,13 @@ func _process(delta):
 	if Input.is_action_just_released("scroll_d"):
 		PlayerSettings.player_set_scroll_mod /= 1.4
 		note_holder.update_notes()
+	
+	# place note
+	for i in 6:
+		if Input.is_action_just_pressed(dir_input_order[i]):
+			_editor_press_note(offset_as_frac, i)
+		if Input.is_action_just_released(dir_input_order[i]):
+			_editor_release_note(offset_as_frac, i)
 
 
 func _pause(val: bool):
@@ -512,6 +514,7 @@ func _save_lvl(folder_path: String, chart_name: String):
 		"samplers": {
 			"scroll_speed": {},
 			"glitch": {},
+			"invert": {},
 		}
 	}
 	
@@ -580,6 +583,9 @@ func _save_lvl(folder_path: String, chart_name: String):
 	for v in glitch_vals:
 		dict["samplers"]["glitch"][v.frac.as_string()] = [v.val, v.interpolationMode]
 	
+	var invert_vals = invert_graph_creator.get_vals()
+	for v in invert_vals:
+		dict["samplers"]["invert"][v.frac.as_string()] = [v.val, v.interpolationMode]
 	
 	_ensure_folder_exists(folder_path)
 	var save_file = FileAccess.open(folder_path + "/" + chart_name + ".txt", FileAccess.WRITE)
@@ -653,11 +659,25 @@ func load_lvl(_folder_path: String, chart_name: String):
 						glitch_graph_creator.add_val(realtime_pair)
 					# samplers
 					filterer.glitch_sampler.add_val(calctime_pair)
+			
+			if dict["samplers"].has("invert"):
+				for key in dict["samplers"]["invert"]:
+					var frac = Fraction.from_string(key)
+					var val = dict["samplers"]["invert"][key][0]
+					var interpolation = dict["samplers"]["invert"][key][1]
+					var realtime_pair = FractionPair.new(frac, val, note_holder.calculate_realtime_at(frac), interpolation)
+					var calctime_pair = FractionPair.new(frac, val, note_holder.calculate_offset_at(frac), interpolation)
+					# graph creators
+					if active:
+						invert_graph_creator.add_val(realtime_pair)
+					# samplers
+					filterer.invert_sampler.add_val(calctime_pair)
 		
 		# lame putting these here but we only want the connection if active
 		if active:
 			scroll_graph_creator.updated.connect(_on_scroll_graph_creator_updated)
 			glitch_graph_creator.updated.connect(_on_glitch_graph_creator_updated)
+			invert_graph_creator.updated.connect(_on_invert_graph_creator_updated)
 		
 		# circles
 		if dict.has("circular_notes"):
@@ -755,6 +775,9 @@ func load_img():
 		if err == Error.OK:
 			var imgtex = ImageTexture.create_from_image(img)
 			waveform_sprite_2d.texture = imgtex
+			
+			for graph in graphs:
+				graph.assign_waveform(imgtex)
 	file.close()
 	
 	
@@ -844,4 +867,15 @@ func _on_scroll_graph_creator_updated(vals: Array[FractionPair]) -> void:
 	_recalc_all_notes()
 
 func _on_glitch_graph_creator_updated(vals: Array[FractionPair]) -> void:
-	filterer.glitch_sampler.set_vals(vals)
+	filterer.glitch_sampler.set_vals(_realtime_vals_from_calc_vals(vals))
+
+func _on_invert_graph_creator_updated(vals: Array[FractionPair]) -> void:
+	filterer.invert_sampler.set_vals(_realtime_vals_from_calc_vals(vals))
+
+
+# convert from real time into calc time for things that run on calc time
+func _realtime_vals_from_calc_vals(vals: Array[FractionPair]) -> Array[FractionPair]:
+	var ret: Array[FractionPair]
+	for v in vals:
+		ret.append(FractionPair.new(v.frac.dupe(), v.val, note_holder.calc_time_from_real_time(v.calc_time), v.interpolationMode))
+	return ret

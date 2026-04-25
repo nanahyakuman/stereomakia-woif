@@ -7,32 +7,10 @@
 					"is_release": false
 				}
 			],
-			"105+0/1": [
-				{
-					"dir": -1.73794627189636,
-					"is_release": false
-				}
-			],
 			"106+0/1": [
 				{
 					"dir": -1.15395760536194,
 					"is_release": false
-				}
-			],
-			"107+0/1": [
-				{
-					"dir": -0.51961624622345,
-					"is_release": false,
-					"next": {
-						"dir": -0.591245889663696,
-						"len": "0+1/2"
-					}
-				}
-			],
-			"107+1/2": [
-				{
-					"dir": -0.591245889663696,
-					"is_release": true
 				}
 			],
 			"109+0/1": [
@@ -137,6 +115,28 @@
 			]
 		},
 		"true": {
+			"105+0/1": [
+				{
+					"dir": -1.14416885375977,
+					"is_release": false
+				}
+			],
+			"107+0/1": [
+				{
+					"dir": -2.44293284416199,
+					"is_release": false,
+					"next": {
+						"dir": -2.40855436775217,
+						"len": "0+1/2"
+					}
+				}
+			],
+			"107+1/2": [
+				{
+					"dir": -2.40855436775217,
+					"is_release": true
+				}
+			],
 			"109+0/1": [
 				{
 					"dir": 0.0118572106584907,
@@ -198,6 +198,22 @@
 			"132+1/2": [
 				{
 					"dir": -1.63145053386688,
+					"is_release": true
+				}
+			],
+			"168+0/1": [
+				{
+					"dir": 2.37649631500244,
+					"is_release": false,
+					"next": {
+						"dir": 2.49404311180115,
+						"len": "0+1/2"
+					}
+				}
+			],
+			"168+1/2": [
+				{
+					"dir": 2.49404311180115,
 					"is_release": true
 				}
 			],
@@ -327,15 +343,7 @@
 		"103+1/2": [
 			{
 				"abs": true,
-				"also_hold": "0+0/1",
-				"dir": 1,
-				"doub": false
-			}
-		],
-		"103+3/4": [
-			{
-				"abs": true,
-				"also_hold": "0+0/1",
+				"also_hold": "0+1/4",
 				"dir": 3,
 				"doub": false
 			}
@@ -352,13 +360,13 @@
 			{
 				"abs": false,
 				"also_hold": "0+1/2",
-				"dir": 3,
+				"dir": 0,
 				"doub": false
 			},
 			{
 				"abs": false,
 				"also_hold": "0+1/2",
-				"dir": 0,
+				"dir": 3,
 				"doub": false
 			}
 		],
@@ -390,13 +398,13 @@
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 0,
+				"dir": 2,
 				"doub": false
 			},
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 2,
+				"dir": 0,
 				"doub": false
 			}
 		],
@@ -428,13 +436,13 @@
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 5,
+				"dir": 2,
 				"doub": false
 			},
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 2,
+				"dir": 5,
 				"doub": false
 			}
 		],
@@ -442,13 +450,13 @@
 			{
 				"abs": false,
 				"also_hold": "0+1/2",
-				"dir": 4,
+				"dir": 2,
 				"doub": false
 			},
 			{
 				"abs": false,
 				"also_hold": "0+1/2",
-				"dir": 2,
+				"dir": 4,
 				"doub": false
 			}
 		],
@@ -498,13 +506,13 @@
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 5,
+				"dir": 2,
 				"doub": false
 			},
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 2,
+				"dir": 5,
 				"doub": false
 			}
 		],
@@ -524,18 +532,6 @@
 		],
 		"127+1/2": [
 			{
-				"abs": false,
-				"also_hold": "0+1/2",
-				"dir": 2,
-				"doub": false
-			},
-			{
-				"abs": false,
-				"also_hold": "0+1/2",
-				"dir": 1,
-				"doub": false
-			},
-			{
 				"abs": true,
 				"also_hold": "0+0/1",
 				"dir": 4,
@@ -545,6 +541,18 @@
 				"abs": true,
 				"also_hold": "0+1/2",
 				"dir": 5,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 2,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+1/2",
+				"dir": 1,
 				"doub": false
 			}
 		],
@@ -556,6 +564,12 @@
 				"doub": false
 			},
 			{
+				"abs": true,
+				"also_hold": "0+0/1",
+				"dir": 4,
+				"doub": false
+			},
+			{
 				"abs": false,
 				"also_hold": "0+1/2",
 				"dir": 1,
@@ -565,12 +579,6 @@
 				"abs": false,
 				"also_hold": "0+1/2",
 				"dir": 2,
-				"doub": false
-			},
-			{
-				"abs": true,
-				"also_hold": "0+0/1",
-				"dir": 4,
 				"doub": false
 			}
 		],
@@ -616,14 +624,14 @@
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 1,
-				"doub": true
+				"dir": 4,
+				"doub": false
 			},
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 4,
-				"doub": false
+				"dir": 1,
+				"doub": true
 			}
 		],
 		"14+0/1": [
@@ -658,6 +666,78 @@
 				"doub": false
 			}
 		],
+		"170+1/2": [
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 2,
+				"doub": false
+			}
+		],
+		"171+0/1": [
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 5,
+				"doub": false
+			}
+		],
+		"171+1/2": [
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 0,
+				"doub": false
+			}
+		],
+		"172+0/1": [
+			{
+				"abs": true,
+				"also_hold": "0+0/1",
+				"dir": 1,
+				"doub": false
+			}
+		],
+		"172+1/2": [
+			{
+				"abs": true,
+				"also_hold": "0+1/2",
+				"dir": 2,
+				"doub": false
+			}
+		],
+		"173+1/2": [
+			{
+				"abs": true,
+				"also_hold": "1+0/1",
+				"dir": 2,
+				"doub": false
+			}
+		],
+		"178+1/2": [
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 4,
+				"doub": false
+			}
+		],
+		"179+0/1": [
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 3,
+				"doub": false
+			}
+		],
+		"179+1/2": [
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 2,
+				"doub": false
+			}
+		],
 		"18+0/1": [
 			{
 				"abs": false,
@@ -666,11 +746,123 @@
 				"doub": false
 			}
 		],
+		"180+0/1": [
+			{
+				"abs": true,
+				"also_hold": "0+0/1",
+				"dir": 1,
+				"doub": false
+			}
+		],
+		"180+1/2": [
+			{
+				"abs": true,
+				"also_hold": "0+1/2",
+				"dir": 5,
+				"doub": false
+			}
+		],
+		"181+1/2": [
+			{
+				"abs": true,
+				"also_hold": "1+0/1",
+				"dir": 2,
+				"doub": false
+			}
+		],
+		"184+0/1": [
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 3,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 0,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 2,
+				"doub": false
+			}
+		],
+		"186+0/1": [
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 2,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 1,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 4,
+				"doub": false
+			}
+		],
+		"188+0/1": [
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 0,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 3,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 5,
+				"doub": false
+			}
+		],
 		"19+0/1": [
 			{
 				"abs": false,
 				"also_hold": "0+0/1",
 				"dir": 2,
+				"doub": false
+			}
+		],
+		"190+0/1": [
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 1,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "1+0/1",
+				"dir": 2,
+				"doub": false
+			}
+		],
+		"191+0/1": [
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 5,
+				"doub": false
+			},
+			{
+				"abs": false,
+				"also_hold": "0+0/1",
+				"dir": 4,
 				"doub": false
 			}
 		],
@@ -1554,7 +1746,7 @@
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 1,
+				"dir": 4,
 				"doub": false
 			},
 			{
@@ -1566,7 +1758,7 @@
 			{
 				"abs": false,
 				"also_hold": "1+0/1",
-				"dir": 4,
+				"dir": 1,
 				"doub": false
 			}
 		],
@@ -1650,7 +1842,7 @@
 				0
 			],
 			"168+0/1": [
-				0.5105881690979,
+				0.288235306739807,
 				0
 			],
 			"169+0/1": [
@@ -1762,9 +1954,92 @@
 				1
 			]
 		},
+		"invert": {
+
+		},
 		"scroll_speed": {
 			"0+0/1": [
 				0.0905880331993103,
+				0
+			],
+			"104+0/1": [
+				0.4082350730896,
+				0
+			],
+			"112+0/1": [
+				1.0,
+				0
+			],
+			"130+0/1": [
+				0.665882050991058,
+				0
+			],
+			"132+0/1": [
+				0.358823537826538,
+				0
+			],
+			"136+0/1": [
+				1.0,
+				0
+			],
+			"169+0/1": [
+				0.687058746814728,
+				0
+			],
+			"183+0/1": [
+				0.175294041633606,
+				0
+			],
+			"184+0/1": [
+				1.0,
+				0
+			],
+			"185+0/1": [
+				0.171764433383942,
+				0
+			],
+			"186+0/1": [
+				1.0,
+				0
+			],
+			"187+0/1": [
+				0.154117345809937,
+				0
+			],
+			"188+0/1": [
+				1.0,
+				0
+			],
+			"189+0/1": [
+				0.143529176712036,
+				0
+			],
+			"190+0/1": [
+				1.0,
+				0
+			],
+			"191+0/1": [
+				0.147058844566345,
+				0
+			],
+			"192+0/1": [
+				1.0,
+				0
+			],
+			"36+0/1": [
+				0.941176470369101,
+				0
+			],
+			"37+0/1": [
+				0.856470450758934,
+				0
+			],
+			"38+0/1": [
+				0.75764699280262,
+				0
+			],
+			"39+0/1": [
+				0.662352800369263,
 				0
 			],
 			"40+0/1": [

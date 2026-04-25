@@ -13,6 +13,7 @@ const VERTICAL_GRAPH_LINE = preload("uid://5pllk36b8pnc")
 @onready var mouse_circle: Sprite2D = $MarginContainer/GraphArea/MarginContainer/GraphMarginArea/MouseCircle
 @onready var playhead: Line2D = $MarginContainer/GraphArea/MarginContainer/GraphMarginArea/Playhead
 @onready var scroll_bar: ColorRect = $MarginContainer/GraphArea/MarginContainer/GraphMarginArea/ScrollBar
+@onready var waveform_sprite_2d: Sprite2D = $MarginContainer/GraphArea/MarginContainer/GraphMarginArea/WaveformSprite2D
 
 signal updated
 
@@ -172,6 +173,18 @@ func _update_chart():
 	scroll_bar.size.x = lerp(0.0, graph_margin_area.size.x, right_pos - left_pos)
 	
 	_update_playhead()
+	
+	# waveform
+	# put the whole thing in
+	var tex_size = waveform_sprite_2d.texture.get_size()
+	waveform_sprite_2d.region_rect.position.x = lerp(0.0, tex_size.x, left_pos)
+	waveform_sprite_2d.region_rect.size.x = lerp(0.0, tex_size.x, right_pos - left_pos)
+	
+	waveform_sprite_2d.region_rect.size.y = tex_size.y
+	
+	# blow it up
+	waveform_sprite_2d.scale = graph_margin_area.size / waveform_sprite_2d.region_rect.size
+	
 
 func _update_playhead():
 	playhead.set_point_position(0, _translate_to_graphical_coords(Vector2(playhead_time,yRangeBegin)))
@@ -289,6 +302,8 @@ func assign_time(time: float):
 	playhead_time = time
 	_update_playhead()
 
+func assign_waveform(waveform: Texture2D):
+	waveform_sprite_2d.texture = waveform
 
 # unhandled input is giving me a migraine
 func _on_mouse_entered() -> void:

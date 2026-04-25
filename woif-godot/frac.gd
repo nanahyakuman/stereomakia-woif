@@ -19,6 +19,9 @@ func _init(b, n = 0, d = 1, skip_checks = false):
 		simplify()
 		rebound()
 
+func dupe() -> Fraction:
+	return Fraction.new(base, numerator, denominator, true)
+
 func as_float():
 	return float(base) + float(numerator) / float(denominator)
 

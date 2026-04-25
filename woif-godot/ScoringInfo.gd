@@ -43,4 +43,3 @@ func calculate_grade() -> String:
 		return c + "+"
 	else:
 		return c
-

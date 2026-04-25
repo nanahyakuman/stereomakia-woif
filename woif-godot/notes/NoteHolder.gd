@@ -93,7 +93,7 @@ func _process(delta):
 
 # also called by the editor
 func update_notes():
-	calc_timer = _calc_time_from_real_time(song_timer)
+	calc_timer = calc_time_from_real_time(song_timer)
 	
 	# update all the notes (recursive)
 	for nh in notes.get_children():
@@ -101,7 +101,7 @@ func update_notes():
 	
 	filterer.update(calc_timer)
 
-func _calc_time_from_real_time(rt: float) -> float:
+func calc_time_from_real_time(rt: float) -> float:
 	var index = 0
 	while calculated_offsets[index+1][1] < rt:
 		index += 1

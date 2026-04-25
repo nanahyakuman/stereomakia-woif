@@ -379,9 +379,9 @@
 			"b61b16ff",
 			"eb0700ff",
 			"eb0700ff",
-			"fbd136ff",
-			"600000ff",
-			"35abffff"
+			"eb0700ff",
+			"450000ff",
+			"2390deff"
 		],
 		"play_offset": 0.04
 	},

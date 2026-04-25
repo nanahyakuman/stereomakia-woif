@@ -5,6 +5,7 @@ shader_type canvas_item;
 uniform sampler2D view: hint_screen_texture;
 
 uniform float glitch_amount = 0.0;
+uniform float invert_amount = 0.0;
 
 uniform float offset = 1.0;
 
@@ -28,9 +29,15 @@ void fragment() {
 	vec2 glitch_offset = vec2(fseed * gmix, 0.0);
 	
 	//// rgb ////
-	vec4 tex = texture(view, SCREEN_UV + red_dir * SCREEN_PIXEL_SIZE * offset + glitch_offset);
-	tex.g = texture(view, SCREEN_UV + grn_dir * SCREEN_PIXEL_SIZE * offset + glitch_offset).g;
-	tex.b = texture(view, SCREEN_UV + blu_dir * SCREEN_PIXEL_SIZE * offset + glitch_offset).b;
-	COLOR = tex;
+	vec2 total_offset = glitch_offset;
+	
+	vec4 tex = texture(view, SCREEN_UV + red_dir * SCREEN_PIXEL_SIZE * offset + total_offset);
+	tex.g = texture(view, SCREEN_UV + grn_dir * SCREEN_PIXEL_SIZE * offset + total_offset).g;
+	tex.b = texture(view, SCREEN_UV + blu_dir * SCREEN_PIXEL_SIZE * offset + total_offset).b;
+	
+	
+	//// adjustments to the sampled color ////
+	// invert. not a true invert bc that's lame
+	COLOR = mix(tex, vec4(pow(1.0-tex.r, .8),pow(1.0-tex.g, .8),pow(1.0-tex.b, .8),1.0), invert_amount);
 }
 

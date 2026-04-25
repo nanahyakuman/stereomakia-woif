@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://5pllk36b8pnc"]
 
 [node name="VerticalGraphLine" type="Line2D" unique_id=695791350]
-width = 2.0
+modulate = Color(1, 1, 1, 0.69803923)
+width = 1.0
 joint_mode = 2

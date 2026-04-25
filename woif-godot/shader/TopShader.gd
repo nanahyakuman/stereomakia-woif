@@ -10,6 +10,7 @@ var val = 0.0
 var decay = 7
 
 var glitch_sampler: SamplerOverTime = SamplerOverTime.new()
+var invert_sampler: SamplerOverTime = SamplerOverTime.new()
 
 func _ready():
 	scoring_manager.connect("note_missed", _ping)
@@ -22,6 +23,7 @@ func _process(delta):
 
 func update(calc_time: float):
 	material.set_shader_parameter("glitch_amount", glitch_sampler.at(calc_time))
+	material.set_shader_parameter("invert_amount", invert_sampler.at(calc_time))
 
 func _ping():
 	val = max

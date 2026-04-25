@@ -19,15 +19,15 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton:
 		port = event.device
 
-
 func _process(delta: float) -> void:
-	var strengths = []
-	for h in haptics:
+	var strengths = [0.0, 0.0]
+	for i in haptics.size():
+		var h = haptics[i]
 		if h.timer > 0.0:
 			h.timer -= delta
-			strengths.append(h.strength)
+			strengths[i] = h.strength
 		else:
-			strengths.append(0.0)
+			strengths[i] = 0.0
 	
 	Input.start_joy_vibration(port, strengths[1], strengths[0])
 
@@ -56,14 +56,14 @@ func double_absolute():
 # hlaf-quue the other side
 func circle_tap(is_right: bool):
 	if is_right:
-		_queue_vibration(weak_mult*strength_mod,.6*strength_mod,.07)
+		_queue_vibration(weak_mult*strength_mod,.6*strength_mod,.06)
 	else:
-		_queue_vibration(weak_mult*.6*strength_mod,1*strength_mod,.07)
+		_queue_vibration(weak_mult*.6*strength_mod,1*strength_mod,.06)
 func circle_release(is_right: bool):
 	if is_right:
-		_queue_vibration(weak_mult*strength_mod*circ_release_mod,.6*strength_mod*circ_release_mod,.07)
+		_queue_vibration(weak_mult*strength_mod*circ_release_mod,.6*strength_mod*circ_release_mod,.06)
 	else:
-		_queue_vibration(weak_mult*.6*strength_mod*circ_release_mod,1*strength_mod*circ_release_mod,.07)
+		_queue_vibration(weak_mult*.6*strength_mod*circ_release_mod,1*strength_mod*circ_release_mod,.06)
 func circle_hold(is_right: bool): # the two circle indicators call this one. weird
 	if is_right:
 		_queue_vibration(.3*strength_mod,0,.1)

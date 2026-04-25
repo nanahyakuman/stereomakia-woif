@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ccg4vojq1oolt" path="res://editor_gui/graph/graph_creator.gd" id="1_kmkg7"]
 [ext_resource type="Texture2D" uid="uid://ckrdfqlxxf24q" path="res://circle_filled.png" id="2_60q5q"]
+[ext_resource type="Texture2D" uid="uid://lkb6mtdyar66" path="res://sampleoutputwaveform.png" id="2_s1m63"]
 [ext_resource type="PackedScene" uid="uid://5pllk36b8pnc" path="res://editor_gui/graph/vertical_graph_line.tscn" id="3_cb05o"]
 
 [node name="GraphCreator" type="Control" unique_id=2099170759]
@@ -58,6 +59,13 @@ theme_override_constants/margin_bottom = 10
 [node name="GraphMarginArea" type="Control" parent="MarginContainer/GraphArea/MarginContainer" unique_id=545835638]
 layout_mode = 2
 mouse_filter = 2
+
+[node name="WaveformSprite2D" type="Sprite2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1970225157]
+modulate = Color(0.69965345, 0.69965345, 0.69965345, 1)
+texture_filter = 1
+texture = ExtResource("2_s1m63")
+centered = false
+region_enabled = true
 
 [node name="VerticalLines" type="Node2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1813974024]
 unique_name_in_owner = true
