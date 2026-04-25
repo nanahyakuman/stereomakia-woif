@@ -31,6 +31,9 @@ var mouse_pair: FractionPair = FractionPair.new(Fraction.new(1), 0.0, 0.0)
 
 var hovered: bool = false
 
+# for comparison when we signal update
+var key: String = ""
+
 # visual horizontal range
 var XMIN = 0.0 # this is really only ever 0, leaving some room for optimization, but im using it just in case
 var XMAX = 1.0
@@ -55,7 +58,7 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if _dirty:
 		_update_chart()
-		emit_signal("updated", _vals)
+		emit_signal("updated", key, _vals)
 		_dirty = false
 	
 	# ez zoom

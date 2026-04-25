@@ -44,7 +44,8 @@ const tap_windows = [
 	.000, #abs
 	.034, #pure
 	.084, #impure
-	.134, #miss. reminder you can't "miss" early, the input is just dropped
+	.134, #miss. reminder you can't "miss" early, the input is just dropped.
+	# this is also the min time before a hold starts scoring
 ]
 # these are always abs if you hit them at all
 const circle_tap_window = .150
@@ -266,7 +267,7 @@ func circle_released(is_right: bool, dir: float):
 		else:
 			return
 
-# called every so often to check all holds
+# called bny inputmanager every so often to check all holds
 func check_holds(timer):
 	if !active:
 		return
@@ -277,11 +278,10 @@ func check_holds(timer):
 		var track_node = hold_notes[dir]
 		for n in range(ho[dir], track_node.get_child_count()):
 			var note = track_node.get_child(n)
-			#  if we're over this note basically.
-			#(eg a 1.5 quarter hold pings once as a tap and twice as a hold)
-			if timer > note.calculated_offset + .05:
+			#  if we're over this note basically. doesn't start until the end of the safety window
+			if timer > note.calculated_offset + tap_windows.back():
 				var indicator = indicators.get_child(note._dir)
-				if timer < note.calculated_offset + note._calculated_len + .05:
+				if timer < note.calculated_offset + note._calculated_len - .05:
 					scoring_manager.score_hold(indicator.is_held(), false)
 				# offset past completed notes
 				else:

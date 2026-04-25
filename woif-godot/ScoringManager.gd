@@ -7,6 +7,7 @@ extends Node
 @onready var scratcher = $Scratcher
 # get the hold tick rate
 @onready var note_holder = $"../NoteHolder"
+@onready var input_manager: Node = $"../InputManager"
 
 #  this is in flux but i basically want perfects and near perfects
 # to be fine but anything else to be pretty punishing
@@ -96,9 +97,10 @@ func _reset_combo():
 # called at generation to calc our theoretical max score
 func register_tap():
 	scoring_info.theoretical_max_score += tap_values[0]
-# holds are -.5 bc the ends arent counted
+#  holds don't start until after the drop window for their note
+# concludes
 func register_hold(len):
-	scoring_info.theoretical_max_score += (len) * hold_value / note_holder.holds_tick_every
+	scoring_info.theoretical_max_score += max(0.0, (len - input_manager.tap_windows.back())) * hold_value / note_holder.holds_tick_every
 func register_circle_tap():
 	scoring_info.theoretical_max_score += circle_tap_value
 func register_circle_hold(len):

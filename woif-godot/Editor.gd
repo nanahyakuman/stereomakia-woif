@@ -21,15 +21,23 @@ extends Node
 @onready var circle_note_l: CircleNoteGUI = $GUI/NoteGUI/CircleNoteL
 @onready var circle_note_r: CircleNoteGUI = $GUI/NoteGUI/CircleNoteR
 
-@onready var scroll_graph_creator: GraphCreator = $"GUI/MouseGUI/TabContainer/Scroll Speed Mod/ScrollGraphCreator"
-@onready var glitch_graph_creator: GraphCreator = $GUI/MouseGUI/TabContainer/Glitch/GlitchGraphCreator
-@onready var invert_graph_creator: GraphCreator = $GUI/MouseGUI/TabContainer/Invert/InvertGraphCreator
-@onready var graphs = [
-	scroll_graph_creator,
-	glitch_graph_creator,
-	invert_graph_creator
-]
 @onready var filterer: Filterer = $"../Filterer"
+
+class SampleableInfo:
+	var sampler: SamplerOverTime
+	var graph: GraphCreator
+	var save_key: String
+	func _init(_sampler, _graph, _save_key):
+		sampler = _sampler
+		graph = _graph
+		save_key = _save_key
+
+@onready var sampler_infos: Array[SampleableInfo] = [
+	# this has custom update code. it also needs to be the first in order for instantiation reasons
+	SampleableInfo.new(null, $"GUI/MouseGUI/TabContainer/Scroll Speed Mod/ScrollGraphCreator", "scroll_speed"),
+	SampleableInfo.new(filterer.glitch_sampler, $GUI/MouseGUI/TabContainer/Glitch/GlitchGraphCreator, "glitch"),
+	SampleableInfo.new(filterer.invert_sampler, $GUI/MouseGUI/TabContainer/Invert/InvertGraphCreator, "invert"),
+]
 
 const HOLD_NOTE_CIRCULAR = preload("res://notes/hold_note_circular.tscn")
 const HOLD_NOTE_LINEAR = preload("res://notes/hold_note_linear.tscn")
@@ -120,6 +128,9 @@ func set_active(val):
 		waveform_sprite_2d.visible = true
 		
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		
+		for si in sampler_infos:
+			si.graph.key = si.save_key
 	else:
 		#note_holder.scale = Vector2(1.0,1.0)
 		#note_holder.position.y = 360
@@ -133,8 +144,8 @@ func _process(delta):
 		return
 	
 	# give the graphs the time
-	for graph in graphs:
-		graph.assign_time(note_holder.song_timer)
+	for si in sampler_infos:
+		si.graph.assign_time(note_holder.song_timer)
 	
 	# pause handling
 	if Input.is_action_just_pressed("lvlr_pause"):
@@ -512,9 +523,6 @@ func _save_lvl(folder_path: String, chart_name: String):
 		"linear_notes": {},
 		"circular_notes": {false: {}, true: {}},
 		"samplers": {
-			"scroll_speed": {},
-			"glitch": {},
-			"invert": {},
 		}
 	}
 	
@@ -575,17 +583,12 @@ func _save_lvl(folder_path: String, chart_name: String):
 			curr = curr["next"]
 	
 	# samplers
-	var scroll_vals = scroll_graph_creator.get_vals()
-	for v in scroll_vals:
-		dict["samplers"]["scroll_speed"][v.frac.as_string()] = [v.val, v.interpolationMode]
-	
-	var glitch_vals = glitch_graph_creator.get_vals()
-	for v in glitch_vals:
-		dict["samplers"]["glitch"][v.frac.as_string()] = [v.val, v.interpolationMode]
-	
-	var invert_vals = invert_graph_creator.get_vals()
-	for v in invert_vals:
-		dict["samplers"]["invert"][v.frac.as_string()] = [v.val, v.interpolationMode]
+	for si in sampler_infos:
+		var vals = si.graph.get_vals()
+		if !dict["samplers"].has(si.save_key):
+			dict["samplers"][si.save_key] = {}
+		for v in vals:
+			dict["samplers"][si.save_key][v.frac.as_string()] = [v.val, v.interpolationMode]
 	
 	_ensure_folder_exists(folder_path)
 	var save_file = FileAccess.open(folder_path + "/" + chart_name + ".txt", FileAccess.WRITE)
@@ -631,53 +634,34 @@ func load_lvl(_folder_path: String, chart_name: String):
 		#  prime samplers and their editors as appropriate. needs to happen b4 notes
 		# fdor the scroll speed sampler
 		if dict.has("samplers"):
-			if dict["samplers"].has("scroll_speed"):
-				for key in dict["samplers"]["scroll_speed"]:
-					var frac = Fraction.from_string(key)
-					var val = dict["samplers"]["scroll_speed"][key][0]
-					var interpolation = dict["samplers"]["scroll_speed"][key][1]
-					var realtime_pair = FractionPair.new(frac, val, note_holder.calculate_realtime_at(frac), interpolation)
-					var calctime_pair = FractionPair.new(frac, val, note_holder.calculate_offset_at(frac), interpolation)
-					# graph creators
-					if active:
-						scroll_graph_creator.add_val(realtime_pair)
-					# samplers
-					note_holder.scroll_speeds.append(calctime_pair)
-				# this needs additional babying
-				note_holder.scroll_speeds.sort_custom(FractionPair.compare)
-				note_holder.offsets_dirty = true
-			
-			if dict["samplers"].has("glitch"):
-				for key in dict["samplers"]["glitch"]:
-					var frac = Fraction.from_string(key)
-					var val = dict["samplers"]["glitch"][key][0]
-					var interpolation = dict["samplers"]["glitch"][key][1]
-					var realtime_pair = FractionPair.new(frac, val, note_holder.calculate_realtime_at(frac), interpolation)
-					var calctime_pair = FractionPair.new(frac, val, note_holder.calculate_offset_at(frac), interpolation)
-					# graph creators
-					if active:
-						glitch_graph_creator.add_val(realtime_pair)
-					# samplers
-					filterer.glitch_sampler.add_val(calctime_pair)
-			
-			if dict["samplers"].has("invert"):
-				for key in dict["samplers"]["invert"]:
-					var frac = Fraction.from_string(key)
-					var val = dict["samplers"]["invert"][key][0]
-					var interpolation = dict["samplers"]["invert"][key][1]
-					var realtime_pair = FractionPair.new(frac, val, note_holder.calculate_realtime_at(frac), interpolation)
-					var calctime_pair = FractionPair.new(frac, val, note_holder.calculate_offset_at(frac), interpolation)
-					# graph creators
-					if active:
-						invert_graph_creator.add_val(realtime_pair)
-					# samplers
-					filterer.invert_sampler.add_val(calctime_pair)
+			for si in sampler_infos:
+				if dict["samplers"].has(si.save_key):
+					#  scroll speed doesn't have a sampler (largely for legacy reasons),
+					# but instead of reworking all that im just handling it manually here
+					var is_scroll_speed = si.save_key == "scroll_speed"
+					for key in dict["samplers"][si.save_key]:
+						var this_dict = dict["samplers"][si.save_key][key]
+						var frac = Fraction.from_string(key)
+						var val = this_dict[0]
+						var interpolation = this_dict[1]
+						var realtime_pair = FractionPair.new(frac, val, note_holder.calculate_realtime_at(frac), interpolation)
+						var calctime_pair = FractionPair.new(frac, val, note_holder.calculate_offset_at(frac), interpolation)
+						# graph creators
+						if active:
+							si.graph.add_val(realtime_pair)
+						# samplers
+						if si.sampler:
+							si.sampler.add_val(calctime_pair)
+						elif is_scroll_speed:
+							note_holder.scroll_speeds.append(calctime_pair)
+					# needs to be babied a little
+					if is_scroll_speed:
+						note_holder.scroll_speeds.sort_custom(FractionPair.compare)
+						note_holder.offsets_dirty = true
 		
-		# lame putting these here but we only want the connection if active
-		if active:
-			scroll_graph_creator.updated.connect(_on_scroll_graph_creator_updated)
-			glitch_graph_creator.updated.connect(_on_glitch_graph_creator_updated)
-			invert_graph_creator.updated.connect(_on_invert_graph_creator_updated)
+		for si in sampler_infos:
+			si.graph.updated.connect(_on_graph_creator_updated)
+		
 		
 		# circles
 		if dict.has("circular_notes"):
@@ -743,8 +727,8 @@ func load_lvl(_folder_path: String, chart_name: String):
 			var beatlinetimes: Array[FractionPair] = []
 			for i in max_beat + 1:
 				beatlinetimes.append(FractionPair.new(Fraction.new(i), 0, note_holder.calculate_realtime_at(Fraction.new(i))))
-			for graph in graphs:
-				graph.assign_beatlines(beatlinetimes)
+			for si in sampler_infos:
+				si.graph.assign_beatlines(beatlinetimes)
 		
 		if active:
 			_log("Loaded from `%s/%s.txt`" % [folder_path, chart_name])
@@ -776,8 +760,8 @@ func load_img():
 			var imgtex = ImageTexture.create_from_image(img)
 			waveform_sprite_2d.texture = imgtex
 			
-			for graph in graphs:
-				graph.assign_waveform(imgtex)
+			for si in sampler_infos:
+				si.graph.assign_waveform(imgtex)
 	file.close()
 	
 	
@@ -811,8 +795,8 @@ func _clear():
 	for nh in tap_notes + hold_notes + [circle_hold_notes_left, circle_hold_notes_right, circle_tap_notes_left, circle_tap_notes_right, beatlines]:
 		for n in nh.get_children():
 			_remove_note(n)
-	for graph in graphs:
-		graph.clear_vals()
+	for si in sampler_infos:
+		si.graph.clear_vals()
 	scoring_manager.deregister_all()
 
 # regen all the noyes, for when bpm or scroll speed changes at runtime
@@ -862,16 +846,15 @@ func _log(msg: String):
 
 #  graph signals. doing all these individually is kinda inelegant but some of them
 # want to be slightly different sooo
-func _on_scroll_graph_creator_updated(vals: Array[FractionPair]) -> void:
-	note_holder.scroll_speeds = vals
-	_recalc_all_notes()
-
-func _on_glitch_graph_creator_updated(vals: Array[FractionPair]) -> void:
-	filterer.glitch_sampler.set_vals(_realtime_vals_from_calc_vals(vals))
-
-func _on_invert_graph_creator_updated(vals: Array[FractionPair]) -> void:
-	filterer.invert_sampler.set_vals(_realtime_vals_from_calc_vals(vals))
-
+func _on_graph_creator_updated(key: String, vals: Array[FractionPair]) -> void:
+	match key:
+		"scroll_speed":
+			note_holder.scroll_speeds = vals
+			_recalc_all_notes()
+		"glitch":
+			filterer.glitch_sampler.set_vals(_realtime_vals_from_calc_vals(vals))
+		"invert":
+			filterer.invert_sampler.set_vals(_realtime_vals_from_calc_vals(vals))
 
 # convert from real time into calc time for things that run on calc time
 func _realtime_vals_from_calc_vals(vals: Array[FractionPair]) -> Array[FractionPair]:
