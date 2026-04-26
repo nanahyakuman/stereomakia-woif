@@ -5,10 +5,12 @@ var is_right = false
 # these are where the note starts
 var frac = Fraction.new(0)
 var calculated_offset = 3.0
+var realtime_offset: float = 3.0
 var start_dir = 0.0
 # these are where the note holds to
 var frac_len = Fraction.new(1)
 var calculated_len = 1.0
+var realtime_len: float = 3.0
 var new_dir = 0.0
 
 var next_hold: HoldNoteCircular = null
@@ -83,4 +85,4 @@ func _dir_and_time_to_coords(in_dir, _tim, timer, width):
 
 # get the direction at the given time
 func calc_dir(timer):
-	return lerp_angle(start_dir, new_dir, (timer - calculated_offset) / calculated_len)
+	return lerp_angle(start_dir, new_dir, (timer - realtime_offset) / realtime_len)

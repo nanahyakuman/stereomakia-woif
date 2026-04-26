@@ -95,24 +95,24 @@ func _process(delta):
 	
 	# scroll past old tap notes. 
 	for dir in 6:
-		while to[dir] < tap_notes[dir].get_child_count() and tap_notes[dir].get_child(to[dir]).calculated_offset - _calc_time() < -tap_windows[-1]:
+		while to[dir] < tap_notes[dir].get_child_count() and tap_notes[dir].get_child(to[dir]).realtime_offset - _calc_time() < -tap_windows[-1]:
 			scoring_manager.score_note(99, 1)
 			to[dir] += 1
 	
 	#  quadding code is lame but it resists refactoring sorz
 	# scroll past old circle notes
-	while ctol < circle_tap_notes_left.get_child_count() and circle_tap_notes_left.get_child(ctol).calculated_offset - _calc_time() < -circle_tap_window:
+	while ctol < circle_tap_notes_left.get_child_count() and circle_tap_notes_left.get_child(ctol).realtime_offset - _calc_time() < -circle_tap_window:
 		scoring_manager.score_note(99, 1)
 		ctol += 1
-	while ctor < circle_tap_notes_right.get_child_count() and circle_tap_notes_right.get_child(ctor).calculated_offset - _calc_time() < -circle_tap_window:
+	while ctor < circle_tap_notes_right.get_child_count() and circle_tap_notes_right.get_child(ctor).realtime_offset - _calc_time() < -circle_tap_window:
 		scoring_manager.score_note(99, 1)
 		ctor += 1
 	
 	# scroll past old circle releases
-	while crol < circle_release_notes_left.get_child_count() and circle_release_notes_left.get_child(crol).calculated_offset - _calc_time() < -circle_tap_window:
+	while crol < circle_release_notes_left.get_child_count() and circle_release_notes_left.get_child(crol).realtime_offset - _calc_time() < -circle_tap_window:
 		scoring_manager.score_note(99, 1)
 		crol += 1
-	while cror < circle_release_notes_right.get_child_count() and circle_release_notes_right.get_child(cror).calculated_offset - _calc_time() < -circle_tap_window:
+	while cror < circle_release_notes_right.get_child_count() and circle_release_notes_right.get_child(cror).realtime_offset - _calc_time() < -circle_tap_window:
 		scoring_manager.score_note(99, 1)
 		cror += 1
 	
@@ -137,7 +137,7 @@ func _check_if_end():
 			return false
 		if pair[1].get_child_count() < 0:
 			var final = pair[1].get_child(pair[1].get_child_count()-1)
-			if final is HoldNoteCircular and final.calculated_offset + final.calculated_len > _calc_time():
+			if final is HoldNoteCircular and final.realtime_offset + final.realtime_len > _calc_time():
 				return false
 	return true
 
@@ -149,7 +149,7 @@ func _note_pressed(dir: int, is_right: bool):
 	for n in range(to[dir], track_node.get_child_count()):
 		var note = track_node.get_child(n)
 		# tap notes on udlr+lb/rb
-		var abs_offset = abs(_calc_time() - note.calculated_offset)
+		var abs_offset = abs(_calc_time() - note.realtime_offset)
 		# don't read too far into future.
 		if abs_offset < tap_windows[-1]:
 			# double notes need both sides
@@ -168,7 +168,7 @@ func _note_pressed(dir: int, is_right: bool):
 					break
 			note.visible = false
 			to[dir] += 1
-			scoring_manager.score_note(score, _calc_time() - note.calculated_offset, note._absolute)
+			scoring_manager.score_note(score, _calc_time() - note.realtime_offset, note._absolute)
 			# only play the nice hitsound if you abs an abs note
 			var indicator = indicators.get_child(dir)
 			indicator.play_sound(note._absolute and score == 0)
@@ -179,11 +179,11 @@ func _note_pressed(dir: int, is_right: bool):
 					Vibrator.absolute()
 			# start hold sound if we're a hold
 			if note.associated_hold != null:
-				indicator.requested = note.associated_hold._calculated_len / MusicPlayerShinobu.pitch_scale
+				indicator.requested = note.associated_hold.realtime_len / MusicPlayerShinobu.pitch_scale
 			
 			# internal offset adjust on pure
 			if score == 1:
-				runtime_offset -= pure_nudge * sign(_calc_time() - note.calculated_offset)
+				runtime_offset -= pure_nudge * sign(_calc_time() - note.realtime_offset)
 			#print(runtime_offset)
 			
 			return
@@ -205,7 +205,7 @@ func circle_pressed(is_right: bool, dir: float):
 		if abs(hlp.angle_to_angle(dir, note._dir)) > PI * .28:
 			continue
 		# actually try the note
-		var abs_offset = abs(_calc_time() - note.calculated_offset)
+		var abs_offset = abs(_calc_time() - note.realtime_offset)
 		# don't read too far into future.
 		if abs_offset < circle_tap_window:
 			note.visible = false
@@ -213,7 +213,7 @@ func circle_pressed(is_right: bool, dir: float):
 				ctor += 1
 			else:
 				ctol += 1
-			scoring_manager.score_circle_note(1, _calc_time() - note.calculated_offset)
+			scoring_manager.score_circle_note(1, _calc_time() - note.realtime_offset)
 			
 			Vibrator.circle_tap(is_right)
 			
@@ -245,7 +245,7 @@ func circle_released(is_right: bool, dir: float):
 		#if abs(hlp.angle_to_angle(dir, note._dir)) > PI * .28:
 			#continue
 		# actually try the note
-		var abs_offset = abs(_calc_time() - note.calculated_offset)
+		var abs_offset = abs(_calc_time() - note.realtime_offset)
 		# don't read too far into future.
 		if abs_offset < circle_tap_window:
 			note.visible = false
@@ -253,7 +253,7 @@ func circle_released(is_right: bool, dir: float):
 				cror += 1
 			else:
 				crol += 1
-			scoring_manager.score_circle_note(1, _calc_time() - note.calculated_offset)
+			scoring_manager.score_circle_note(1, _calc_time() - note.realtime_offset)
 			
 			Vibrator.circle_release(is_right)
 			
@@ -267,7 +267,7 @@ func circle_released(is_right: bool, dir: float):
 		else:
 			return
 
-# called bny inputmanager every so often to check all holds
+# called bny noteholder every so often to check all holds
 func check_holds(timer):
 	if !active:
 		return
@@ -279,9 +279,9 @@ func check_holds(timer):
 		for n in range(ho[dir], track_node.get_child_count()):
 			var note = track_node.get_child(n)
 			#  if we're over this note basically. doesn't start until the end of the safety window
-			if timer > note.calculated_offset + tap_windows.back():
+			if timer > note.realtime_offset + tap_windows.back():
 				var indicator = indicators.get_child(note._dir)
-				if timer < note.calculated_offset + note._calculated_len - .05:
+				if timer < note.realtime_offset + note.realtime_len - .05:
 					scoring_manager.score_hold(indicator.is_held(), false)
 				# offset past completed notes
 				else:
@@ -292,18 +292,18 @@ func check_holds(timer):
 		for n in range((chol if !is_right else chor), track_node.get_child_count()):
 			var note = track_node.get_child(n)
 			var indicator = radial_indicator_l if !is_right else radial_indicator_r
-			if timer > note.calculated_offset:
-				if timer < note.calculated_offset + note.calculated_len:
+			if timer > note.realtime_offset:
+				if timer < note.realtime_offset + note.realtime_len:
 					# scoring only triggers when we're safely within a note
-					if timer > note.calculated_offset + circle_tap_window and \
-						timer < note.calculated_offset + note.calculated_len:
+					if timer > note.realtime_offset + circle_tap_window and \
+						timer < note.realtime_offset + note.realtime_len:
 						var active = indicator.is_active()
 						var angled_correctly = true
 						if abs(hlp.angle_to_angle(indicator.rotation, note.calc_dir(timer))) > PI * .28:
 							angled_correctly = false
 						scoring_manager.score_hold(active and angled_correctly, true)
 					# holds audio triggers are more juvenile
-					indicator.requested = note.calculated_offset + note.calculated_len - timer
+					indicator.requested = note.realtime_offset + note.realtime_len - timer
 					indicator.current_hold = note
 					# stitch in next hold
 					if note.next_hold:
@@ -321,4 +321,4 @@ func check_holds(timer):
 
 
 func _calc_time():
-	return note_holder.calc_timer + runtime_offset
+	return note_holder.song_timer + runtime_offset

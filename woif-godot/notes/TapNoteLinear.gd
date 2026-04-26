@@ -11,6 +11,8 @@ var _dir = DIRS.L
 var frac: Fraction = Fraction.new(0,0,1,false)
 # calculated visual offset, for bpm changes and soflan. in "time" units
 var calculated_offset: float = 3.0
+# actual time it occurs, for scoring.
+var realtime_offset: float = 3.0
 var _doubled: bool = false # require both buttons (only for ruld)
 var _absolute: bool = false
 

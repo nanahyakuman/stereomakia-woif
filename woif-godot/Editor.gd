@@ -322,6 +322,7 @@ func _add_note(time: Fraction, track: int, double: bool = false, absolute: bool 
 	tap_notes[track].add_child(n)
 	n.frac = time
 	n.calculated_offset = note_holder.calculate_offset_at(n.frac)
+	n.realtime_offset = note_holder.calculate_realtime_at(n.frac)
 	n.set_cast(track)
 	n.set_doubled(double)
 	n.set_absolute(absolute)
@@ -343,7 +344,9 @@ func _add_hold(time: Fraction, track: int, len: Fraction):
 	hold_notes[track].add_child(h)
 	h.frac = time
 	h.calculated_offset = note_holder.calculate_offset_at(h.frac)
+	h.realtime_offset = note_holder.calculate_realtime_at(h.frac)
 	h.set_len(note_holder.calculate_offset_at(h.frac.added(len)) - (note_holder.calculate_offset_at(h.frac)), len)
+	h.realtime_len = note_holder.calculate_realtime_at(h.frac.added(len)) - (note_holder.calculate_realtime_at(h.frac))
 	h.set_cast(track)
 	scoring_manager.register_hold(h._calculated_len)
 	
@@ -369,6 +372,7 @@ func _add_circle_note(time: Fraction, is_right: bool, angle, is_release: bool):
 	
 	n.frac = time
 	n.calculated_offset = note_holder.calculate_offset_at(n.frac)
+	n.realtime_offset = note_holder.calculate_realtime_at(n.frac)
 	n.is_right = is_right
 	n._dir = angle
 	scoring_manager.register_circle_tap()
@@ -384,9 +388,11 @@ func _add_circle_hold(time: Fraction, is_right: bool, angle, hold_len: Fraction,
 	which_node.add_child(h)
 	h.frac = time
 	h.calculated_offset = note_holder.calculate_offset_at(h.frac)
+	h.realtime_offset = note_holder.calculate_realtime_at(h.frac)
 	h.start_dir = angle
 	h.frac_len = hold_len
 	h.calculated_len = note_holder.calculate_offset_at(h.frac.added(hold_len)) - (note_holder.calculate_offset_at(h.frac))
+	h.realtime_len = note_holder.calculate_realtime_at(h.frac.added(hold_len)) - (note_holder.calculate_realtime_at(h.frac))
 	h.new_dir = hold_dir
 	h.is_right = is_right
 	h.is_editor = active
@@ -663,7 +669,8 @@ func load_lvl(_folder_path: String, chart_name: String):
 						note_holder.offsets_dirty = true
 						
 						# add the speed change indicators
-						if !active:
+						if !active and false:
+							var last_speed = 1.0
 							for key in dict["samplers"][si.save_key]:
 								var indicator = SPEED_CHANGE.instantiate()
 								var frac = Fraction.from_string(key)
@@ -671,6 +678,9 @@ func load_lvl(_folder_path: String, chart_name: String):
 								if frac.base == 0:
 									continue
 								indicator.calculated_offset = note_holder.calculate_offset_at(frac)
+								var this_speed = dict["samplers"][si.save_key][key][0]
+								indicator.is_speedup = this_speed >= last_speed
+								last_speed = this_speed
 								speed_changes.add_child(indicator)
 		
 		for si in sampler_infos:

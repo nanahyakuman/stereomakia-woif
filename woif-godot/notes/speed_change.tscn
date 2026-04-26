@@ -1,16 +1,37 @@
 [gd_scene format=3 uid="uid://draab48mnc3xp"]
 
 [ext_resource type="Script" uid="uid://bvm2vplfgqtps" path="res://notes/speed_change.gd" id="1_ic7tl"]
-[ext_resource type="Texture2D" uid="uid://c0vjw16wrdsiv" path="res://notes/speed_change_base.png" id="2_3fwi6"]
-[ext_resource type="Texture2D" uid="uid://bonahwm5oehrt" path="res://notes/speed_change_outline.png" id="3_poaei"]
+
+[sub_resource type="Gradient" id="Gradient_vxq3i"]
+offsets = PackedFloat32Array(0, 0.5300546, 1)
+colors = PackedColorArray(1, 1, 1, 0.3764706, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vxq3i"]
+gradient = SubResource("Gradient_vxq3i")
+width = 400
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_se82g"]
+gradient = SubResource("Gradient_vxq3i")
+width = 400
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(1, 1)
 
 [node name="SpeedChange" type="Node2D" unique_id=872632464]
 script = ExtResource("1_ic7tl")
-whichColor = 5
 
 [node name="Sprite2DBG" type="Sprite2D" parent="." unique_id=1198737977]
 modulate = Color(0, 0, 0, 1)
-texture = ExtResource("3_poaei")
+position = Vector2(0, -6.9999986)
+scale = Vector2(1, 1.75)
+texture = SubResource("GradientTexture2D_vxq3i")
 
 [node name="Sprite2DBase" type="Sprite2D" parent="." unique_id=148919118]
-texture = ExtResource("2_3fwi6")
+modulate = Color(1, 0, 0, 1)
+position = Vector2(0, -4)
+texture = SubResource("GradientTexture2D_se82g")

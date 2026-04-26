@@ -6,8 +6,10 @@ var _dir = TapNoteLinear.DIRS.L
 var frac = Fraction.new(0,0,1,false)
 var time = 3.0
 var calculated_offset = 3.0
+var realtime_offset: float = 3.0
 var len_frac = Fraction.new(1,0,1,false)
 var _calculated_len = 1.0
+var realtime_len: float = 1.0
 
 var base_pos = Vector2.ZERO
 

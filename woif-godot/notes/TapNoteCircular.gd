@@ -5,6 +5,7 @@ var _dir = 0.0 # may want to store this in degrees somehow, and convert at runti
 var is_right = false
 var frac = Fraction.new(0)
 var calculated_offset: float = 3.0
+var realtime_offset: float = 3.0
 
 var next_hold: HoldNoteCircular = null
 

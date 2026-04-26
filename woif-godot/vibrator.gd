@@ -41,7 +41,7 @@ func _queue_vibration(weak_mag: float, strong_mag: float, duration: float):
 	for i in 2:
 		var h = haptics[i]
 		var strength = strengths[i]
-		if h.timer < 0.0 or strength > h.strength:
+		if h.timer < 0.0 or strength >= h.strength:
 			h.strength = strength
 			h.timer = duration
 

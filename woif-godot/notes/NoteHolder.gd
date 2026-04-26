@@ -70,7 +70,8 @@ func _process(delta):
 	#  lerp back to "true" offset. using a lerp here bc shiobu sample is
 	# really jittery & it messes w/ graphics. the delta between shinobu &
 	# frame-time rarely exceeds a millisecond, UNLESS you drop a frame or a few,
-	# then it's unplayably bad. that's why we're using Shinobu at all, to correct drops ;p
+	# then frame-time is unplayably bad.
+	#  that's why we're using Shinobu at all, to correct drops ;p
 	if MusicPlayerShinobu.is_playing():
 		var shinobu_timer = MusicPlayerShinobu.get_playback_position()
 		shinobu_timer -= hard_play_offset + chart_play_offset
@@ -80,7 +81,7 @@ func _process(delta):
 	# hold scoring
 	while song_timer > prev_beat_div * holds_tick_every:
 		prev_beat_div += 1.0
-		emit_signal("beat_passed", calc_timer)
+		emit_signal("beat_passed", song_timer)
 		metronome.play()
 	
 	# start song at beginning
