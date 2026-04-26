@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://draab48mnc3xp"]
+
+[ext_resource type="Script" uid="uid://bvm2vplfgqtps" path="res://notes/speed_change.gd" id="1_ic7tl"]
+[ext_resource type="Texture2D" uid="uid://c0vjw16wrdsiv" path="res://notes/speed_change_base.png" id="2_3fwi6"]
+[ext_resource type="Texture2D" uid="uid://bonahwm5oehrt" path="res://notes/speed_change_outline.png" id="3_poaei"]
+
+[node name="SpeedChange" type="Node2D" unique_id=872632464]
+script = ExtResource("1_ic7tl")
+whichColor = 5
+
+[node name="Sprite2DBG" type="Sprite2D" parent="." unique_id=1198737977]
+modulate = Color(0, 0, 0, 1)
+texture = ExtResource("3_poaei")
+
+[node name="Sprite2DBase" type="Sprite2D" parent="." unique_id=148919118]
+texture = ExtResource("2_3fwi6")

@@ -14,6 +14,7 @@ extends Node
 @onready var circle_release_notes_right = $"../NoteHolder/Notes/CircleReleaseNotesRight"
 @onready var beatlines = $"../NoteHolder/Notes/Beatlines"
 @onready var waveform_sprite_2d: Sprite2D = $"../NoteHolder/Notes/Waveform/Sprite2D"
+@onready var speed_changes: Node2D = $"../NoteHolder/Notes/SpeedChanges"
 @onready var gui: Control = $GUI
 @onready var division_label: Label = $GUI/DivisionLabel
 @onready var current_division_label: Label = $GUI/CurrentDivisionLabel
@@ -45,6 +46,7 @@ const TAP_NOTE_CIRCULAR = preload("res://notes/tap_note_circular.tscn")
 const TAP_NOTE_LINEAR = preload("res://notes/tap_note_linear.tscn")
 const RELEASE_NOTE_CIRCULAR = preload("res://notes/release_note_circular.tscn")
 const BEATLINE = preload("res://beatline.tscn")
+const SPEED_CHANGE = preload("uid://draab48mnc3xp")
 
 #  the input manager sets itself to the opposite of this at runtime,
 # so it's not killing our notes from under us
@@ -654,10 +656,22 @@ func load_lvl(_folder_path: String, chart_name: String):
 							si.sampler.add_val(calctime_pair)
 						elif is_scroll_speed:
 							note_holder.scroll_speeds.append(calctime_pair)
+							
 					# needs to be babied a little
 					if is_scroll_speed:
 						note_holder.scroll_speeds.sort_custom(FractionPair.compare)
 						note_holder.offsets_dirty = true
+						
+						# add the speed change indicators
+						if !active:
+							for key in dict["samplers"][si.save_key]:
+								var indicator = SPEED_CHANGE.instantiate()
+								var frac = Fraction.from_string(key)
+								# the first one doesnt count
+								if frac.base == 0:
+									continue
+								indicator.calculated_offset = note_holder.calculate_offset_at(frac)
+								speed_changes.add_child(indicator)
 		
 		for si in sampler_infos:
 			si.graph.updated.connect(_on_graph_creator_updated)

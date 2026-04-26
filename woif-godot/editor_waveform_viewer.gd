@@ -1,4 +1,3 @@
-# pass an update call onto children
 extends Node2D
 
 @onready var note_holder: Control = $"../.."
