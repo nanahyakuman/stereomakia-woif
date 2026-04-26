@@ -291,16 +291,19 @@ func check_holds(timer):
 		var track_node = circle_hold_notes_left if !is_right else circle_hold_notes_right
 		for n in range((chol if !is_right else chor), track_node.get_child_count()):
 			var note = track_node.get_child(n)
-			if timer > note.calculated_offset + .05:
-				if timer < note.calculated_offset + note.calculated_len + .05:
-					var indicator = radial_indicator_l if !is_right else radial_indicator_r
-					var active = indicator.is_active()
-					var angled_correctly = true
-					if abs(hlp.angle_to_angle(indicator.rotation, note.calc_dir(timer))) > PI * .28:
-						angled_correctly = false
-					scoring_manager.score_hold(active and angled_correctly, true)
-					
-					indicator.requested = note.calculated_offset + note.calculated_len - timer + .05
+			var indicator = radial_indicator_l if !is_right else radial_indicator_r
+			if timer > note.calculated_offset:
+				if timer < note.calculated_offset + note.calculated_len:
+					# scoring only triggers when we're safely within a note
+					if timer > note.calculated_offset + circle_tap_window and \
+						timer < note.calculated_offset + note.calculated_len:
+						var active = indicator.is_active()
+						var angled_correctly = true
+						if abs(hlp.angle_to_angle(indicator.rotation, note.calc_dir(timer))) > PI * .28:
+							angled_correctly = false
+						scoring_manager.score_hold(active and angled_correctly, true)
+					# holds audio triggers are more juvenile
+					indicator.requested = note.calculated_offset + note.calculated_len - timer
 					indicator.current_hold = note
 					# stitch in next hold
 					if note.next_hold:
@@ -311,6 +314,10 @@ func check_holds(timer):
 						chor += 1
 					else:
 						chol += 1
+					
+					# kill indicator knowledge of this. messes with chained hold playback
+					indicator.current_hold = null
+					indicator.requested = 0.0
 
 
 func _calc_time():

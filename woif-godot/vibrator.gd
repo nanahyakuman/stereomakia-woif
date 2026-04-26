@@ -68,7 +68,7 @@ func circle_hold(is_right: bool): # the two circle indicators call this one. wei
 	if is_right:
 		_queue_vibration(.3*strength_mod,0,.1)
 	else:
-		_queue_vibration(0,.2*strength_mod,.1)
+		_queue_vibration(0,.1*strength_mod,.1)
 
 # this doesn't catch godot killing the game sadly
 func _notification(what):
