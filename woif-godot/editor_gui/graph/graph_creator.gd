@@ -45,6 +45,9 @@ var xRangeEnd: float = 25.0
 var yRangeBegin = 0.0
 var yRangeEnd = 1.0
 
+# the editor subdivision, assigned by the Editor
+var subdiv: int = 1
+
 var _dirty: bool = true
 
 func _input(event: InputEvent) -> void:
@@ -84,20 +87,19 @@ func _process(delta: float) -> void:
 	var xa = (firstBeatBefore.calc_time - xRangeBegin) / (xRangeEnd-xRangeBegin)
 	var xb = (firstBeatAfter.calc_time - xRangeBegin) / (xRangeEnd-xRangeBegin)
 	
-	var aDist = abs(mouseLocal.x - xa)
-	var bDist = abs(mouseLocal.x - xb)
-	var beforeSelected = aDist < bDist
-	var selectedX = _translate_to_graphical_coords(Vector2(firstBeatBefore.calc_time,0)).x if beforeSelected else _translate_to_graphical_coords(Vector2(firstBeatAfter.calc_time,0)).x
+	var num = remap(mouseLocal.x, xa, xb, 0.0, 1.0)
+	num += .5 / subdiv
+	
+	var selectedFrac = Fraction.new(firstBeatBefore.frac.base, num*subdiv, subdiv)
+	var selectedTime = lerp(firstBeatBefore.calc_time, firstBeatAfter.calc_time, selectedFrac.as_float()-firstBeatBefore.frac.as_float())
+	
+	var selectedX = _translate_to_graphical_coords(Vector2(selectedTime,0)).x 
 	
 	mouse_circle.position.x = selectedX
 	mouse_circle.global_position.y = mousePos.y
 	
-	if beforeSelected:
-		mouse_pair.frac = firstBeatBefore.frac
-		mouse_pair.calc_time = firstBeatBefore.calc_time
-	else:
-		mouse_pair.frac = firstBeatAfter.frac
-		mouse_pair.calc_time = firstBeatAfter.calc_time
+	mouse_pair.frac = selectedFrac
+	mouse_pair.calc_time = selectedTime
 	mouse_pair.val = mouseCalcVal
 
 

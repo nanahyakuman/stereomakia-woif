@@ -10,6 +10,7 @@ func _ready():
 	#_start_title_screen()
 	start_level_select()
 	#start_level("C:/Users/owtha/Documents/Shinobu/controller-rhythm-game/stereomakia-woif/lvl/badbunnynl", "3", true)
+	#start_level("C:/Users/owtha/Documents/Shinobu/controller-rhythm-game/stereomakia-woif/lvl/tensionnn", "3", true)
 
 
 func _start_title_screen():

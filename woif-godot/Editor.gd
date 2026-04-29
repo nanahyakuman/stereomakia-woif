@@ -215,6 +215,8 @@ func _pause(val: bool):
 func change_subdiv(amt: int):
 	beat_frac_i = clampi(beat_frac_i+amt, 0, beat_fracs.size()-1)
 	division_label.text = beat_fracs[beat_frac_i].as_string().substr(2)
+	for si in sampler_infos:
+		si.graph.subdiv = beat_fracs[beat_frac_i].denominator
 
 func _seek(mod: float):
 	if !paused:
