@@ -382,7 +382,7 @@ func _add_circle_note(time: Fraction, is_right: bool, angle, is_release: bool):
 	_update_ui_for_current_time()
 	return n
 
-func _add_circle_hold(time: Fraction, is_right: bool, angle, hold_len: Fraction, hold_dir):
+func _add_circle_hold(time: Fraction, is_right: bool, angle, hold_len: Fraction, hold_dir, is_onset: bool = false):
 	var h = HOLD_NOTE_CIRCULAR.instantiate()
 	var which_node = circle_hold_notes_right if is_right else circle_hold_notes_left
 	which_node.add_child(h)
@@ -396,6 +396,7 @@ func _add_circle_hold(time: Fraction, is_right: bool, angle, hold_len: Fraction,
 	h.new_dir = hold_dir
 	h.is_right = is_right
 	h.is_editor = active
+	h.is_onset = is_onset
 	scoring_manager.register_circle_hold(h.calculated_len)
 	
 	_add_circle_hold_to_dict(h)
@@ -625,9 +626,11 @@ func load_lvl(_folder_path: String, chart_name: String):
 		
 		var max_beat = 0
 		
+		if !dict.has("metadata"):
+			dict["metadata"] = {}
 		if dict["metadata"].has("bpms"):
 			note_holder.bpms = dict["metadata"]["bpms"]
-		else: # load in the single bpm if there's only one defined. only needed for deprecated charts
+		elif dict["metadata"].has("bpm"): # load in the single bpm if there's only one defined. only needed for deprecated charts
 			note_holder.bpms[0][1] = dict["metadata"]["bpm"]
 		#note_holder.quarter = 60.0 / note_holder.bpms[0][1]
 		if dict["metadata"].has("play_offset"):
@@ -698,11 +701,13 @@ func load_lvl(_folder_path: String, chart_name: String):
 						var a = _add_circle_note(Fraction.from_string(fracstr), is_right == "true", head["dir"], is_release)
 						# recursively add holds. frac.fromstr is called real redundantly
 						var frac = a.frac
+						var is_onset = true
 						while head.has("next"):
-							a.next_hold = _add_circle_hold(frac, is_right == "true", head["dir"], Fraction.from_string(head["next"]["len"]), head["next"]["dir"])
+							a.next_hold = _add_circle_hold(frac, is_right == "true", head["dir"], Fraction.from_string(head["next"]["len"]), head["next"]["dir"], is_onset)
 							a = a.next_hold
 							frac = frac.added(a.frac_len)
 							head = head["next"]
+							is_onset = false
 						
 						max_beat = maxi(max_beat, a.frac.base)
 		

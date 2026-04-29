@@ -295,7 +295,7 @@ func check_holds(timer):
 			if timer > note.realtime_offset:
 				if timer < note.realtime_offset + note.realtime_len:
 					# scoring only triggers when we're safely within a note
-					if timer > note.realtime_offset + circle_tap_window and \
+					if (!note.is_onset or timer > note.realtime_offset + circle_tap_window) and \
 						timer < note.realtime_offset + note.realtime_len:
 						var active = indicator.is_active()
 						var angled_correctly = true

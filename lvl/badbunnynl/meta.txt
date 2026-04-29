@@ -1,0 +1,12 @@
+{
+	"full_name": "Bad Bunny if he went to NL once (one time)",
+	"phonetic_name": "bad bunny if he went to nl once",
+	"artist_name": "Explorers of the Internet",
+	"chart_artist": "7tk",
+	"thumb": "thumb.jpg",
+	"difficulties":
+	[
+		"3"
+	],
+	"preview": 22.0
+}

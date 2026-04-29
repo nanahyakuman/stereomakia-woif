@@ -15,6 +15,11 @@ var new_dir = 0.0
 
 var next_hold: HoldNoteCircular = null
 
+#  whether this note is attached to a tap before it. if so, we mute
+# the hold scoring on this hold for the length of the tap window so that
+# aceeptably late taps aren't combo broken by holds 
+var is_onset: bool = false
+
 const def_width = 90
 const def_width_2 = 110
 const subdiv_mod = .05
