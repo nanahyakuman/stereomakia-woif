@@ -10,12 +10,12 @@ resource_local_to_scene = true
 resource_local_to_scene = true
 
 [sub_resource type="Gradient" id="Gradient_exs3y"]
-offsets = PackedFloat32Array(0.2, 0.5, 0.8)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.95686275, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4pi0d"]
 gradient = SubResource("Gradient_exs3y")
-width = 256
+width = 128
 height = 1
 
 [node name="HoldNoteCircular" type="Node2D" unique_id=1749770087]

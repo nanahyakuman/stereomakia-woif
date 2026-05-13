@@ -161,6 +161,7 @@ outline_color = Color(0, 0, 0, 1)
 shader = ExtResource("17_eednc")
 shader_parameter/glitch_amount = 0.0
 shader_parameter/invert_amount = 0.0
+shader_parameter/desat_amount = 0.0
 shader_parameter/offset = 1.0
 
 [node name="GameRoot" type="Node" unique_id=1589312075]
@@ -520,7 +521,6 @@ bus = &"SFX"
 
 [node name="Editor" type="Node" parent="." unique_id=420948338]
 script = ExtResource("15_qgihk")
-active = true
 
 [node name="GUI" type="Control" parent="Editor" unique_id=1769329441]
 z_index = 1
@@ -683,6 +683,7 @@ alignment = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 4
+focus_mode = 0
 edit_intensity = false
 script = ExtResource("31_xiqd8")
 
@@ -699,6 +700,7 @@ alignment = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 4
+focus_mode = 0
 edit_intensity = false
 script = ExtResource("31_xiqd8")
 which = 1
@@ -716,6 +718,7 @@ alignment = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 4
+focus_mode = 0
 edit_intensity = false
 script = ExtResource("31_xiqd8")
 which = 2
@@ -733,6 +736,7 @@ alignment = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 4
+focus_mode = 0
 edit_intensity = false
 script = ExtResource("31_xiqd8")
 which = 3
@@ -750,6 +754,7 @@ alignment = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 4
+focus_mode = 0
 edit_intensity = false
 script = ExtResource("31_xiqd8")
 which = 4
@@ -767,6 +772,7 @@ alignment = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 4
+focus_mode = 0
 edit_intensity = false
 script = ExtResource("31_xiqd8")
 which = 5
@@ -784,6 +790,7 @@ alignment = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 4
+focus_mode = 0
 edit_intensity = false
 script = ExtResource("31_xiqd8")
 which = 6
@@ -801,6 +808,7 @@ alignment = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 4
+focus_mode = 0
 edit_intensity = false
 script = ExtResource("31_xiqd8")
 which = 7
@@ -832,6 +840,14 @@ layout_mode = 2
 metadata/_tab_index = 3
 
 [node name="InvertGraphCreator" parent="Editor/GUI/MouseGUI/TabContainer/Invert" unique_id=1446990135 instance=ExtResource("32_qvv4r")]
+layout_mode = 1
+
+[node name="Desat" type="Control" parent="Editor/GUI/MouseGUI/TabContainer" unique_id=1047990699]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="DesatGraphCreator" parent="Editor/GUI/MouseGUI/TabContainer/Desat" unique_id=393767729 instance=ExtResource("32_qvv4r")]
 layout_mode = 1
 
 [node name="PaletteHolder" type="Node" parent="." unique_id=1174330702 groups=["palette_holder"]]

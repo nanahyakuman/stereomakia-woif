@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://lkb6mtdyar66" path="res://sampleoutputwaveform.png" id="2_s1m63"]
 [ext_resource type="PackedScene" uid="uid://5pllk36b8pnc" path="res://editor_gui/graph/vertical_graph_line.tscn" id="3_cb05o"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_s1m63"]
+font_color = Color(0.27387273, 0.27387273, 0.27387273, 1)
+
 [node name="GraphCreator" type="Control" unique_id=2099170759]
 layout_mode = 3
 anchors_preset = 15
@@ -37,13 +40,79 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="GraphArea" type="ColorRect" parent="MarginContainer" unique_id=1338344677]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1988703969]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1577280025]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=285499079]
+layout_mode = 2
+text = "Max Value"
+label_settings = SubResource("LabelSettings_s1m63")
+
+[node name="MaxSpinBox" type="SpinBox" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1809045875]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+allow_greater = true
+allow_lesser = true
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1641025187]
+layout_mode = 2
+text = "Min Value"
+label_settings = SubResource("LabelSettings_s1m63")
+
+[node name="MinSpinBox2" type="SpinBox" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1211164535]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1623115775]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer/VBoxContainer/Control" unique_id=423637911]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.57700837, 0.5770084, 0.57700837, 1)
+
+[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=51908964]
+layout_mode = 2
+text = "Last Point:"
+label_settings = SubResource("LabelSettings_s1m63")
+
+[node name="SpinBox3" type="SpinBox" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1312614162]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+allow_greater = true
+allow_lesser = true
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=751856996]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.32, 0.32, 0.32, 1)
+text = "Linear"
+
+[node name="GraphArea" type="ColorRect" parent="MarginContainer/HBoxContainer" unique_id=1338344677]
 clip_children = 2
 layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.96474224, 0.96474224, 0.9647421, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/GraphArea" unique_id=497145800]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/GraphArea" unique_id=497145800]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,41 +125,41 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="GraphMarginArea" type="Control" parent="MarginContainer/GraphArea/MarginContainer" unique_id=545835638]
+[node name="GraphMarginArea" type="Control" parent="MarginContainer/HBoxContainer/GraphArea/MarginContainer" unique_id=545835638]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="WaveformSprite2D" type="Sprite2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1970225157]
+[node name="WaveformSprite2D" type="Sprite2D" parent="MarginContainer/HBoxContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1970225157]
 modulate = Color(0.69965345, 0.69965345, 0.69965345, 1)
 texture_filter = 1
 texture = ExtResource("2_s1m63")
 centered = false
 region_enabled = true
 
-[node name="VerticalLines" type="Node2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1813974024]
+[node name="VerticalLines" type="Node2D" parent="MarginContainer/HBoxContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1813974024]
 unique_name_in_owner = true
 
-[node name="Line2D" type="Line2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1030244455]
+[node name="Line2D" type="Line2D" parent="MarginContainer/HBoxContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1030244455]
 unique_name_in_owner = true
 points = PackedVector2Array(0, 0, 208, 196)
 width = 3.0
 default_color = Color(0.58103144, 0.58103347, 0.5810327, 1)
 joint_mode = 2
 
-[node name="MouseCircle" type="Sprite2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1946358479]
+[node name="MouseCircle" type="Sprite2D" parent="MarginContainer/HBoxContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=1946358479]
 modulate = Color(0.41215283, 0.41215235, 0.4121526, 1)
 position = Vector2(-30, -30)
 scale = Vector2(0.005, 0.005)
 texture = ExtResource("2_60q5q")
 
-[node name="GraphPoints" type="Node2D" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=711441008]
+[node name="GraphPoints" type="Node2D" parent="MarginContainer/HBoxContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=711441008]
 unique_name_in_owner = true
 
-[node name="Playhead" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=695791350 instance=ExtResource("3_cb05o")]
+[node name="Playhead" parent="MarginContainer/HBoxContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=695791350 instance=ExtResource("3_cb05o")]
 points = PackedVector2Array(52, 253, 0, 0)
 default_color = Color(0, 0, 0, 1)
 
-[node name="ScrollBar" type="ColorRect" parent="MarginContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=868582114]
+[node name="ScrollBar" type="ColorRect" parent="MarginContainer/HBoxContainer/GraphArea/MarginContainer/GraphMarginArea" unique_id=868582114]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 1
 anchors_preset = 2
@@ -108,3 +177,5 @@ color = Color(0, 0, 0, 0.15686275)
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="resized" from="." to="." method="_on_resized"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/VBoxContainer/MaxSpinBox" to="." method="_on_max_spin_box_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/VBoxContainer/MinSpinBox2" to="." method="_on_min_spin_box_2_value_changed"]

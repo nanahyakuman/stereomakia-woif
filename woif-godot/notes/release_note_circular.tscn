@@ -4,11 +4,23 @@
 [ext_resource type="Script" uid="uid://bqr0oksdt64re" path="res://palettizer.gd" id="2_uan3u"]
 
 [sub_resource type="Gradient" id="Gradient_wrst6"]
-offsets = PackedFloat32Array(0.876623, 0.961039, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.876623, 0.961039, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_kjgxs"]
 gradient = SubResource("Gradient_wrst6")
+width = 70
+height = 110
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_uan3u"]
+offsets = PackedFloat32Array(0, 0.961039, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uan3u"]
+gradient = SubResource("Gradient_uan3u")
 width = 70
 height = 110
 fill = 1
@@ -23,12 +35,12 @@ position = Vector2(200, 0)
 
 [node name="Sprite2D2" type="Sprite2D" parent="Node2D" unique_id=67779419]
 modulate = Color(0, 0, 0, 1)
-scale = Vector2(1.15, 1.15)
+scale = Vector2(1.15, 1.11)
 texture = SubResource("GradientTexture2D_kjgxs")
 script = ExtResource("2_uan3u")
 whichColor = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=665868199]
-texture = SubResource("GradientTexture2D_kjgxs")
+texture = SubResource("GradientTexture2D_uan3u")
 script = ExtResource("2_uan3u")
 whichColor = 5

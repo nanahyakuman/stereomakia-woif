@@ -100,7 +100,7 @@ func update_notes():
 	for nh in notes.get_children():
 		nh.update(calc_timer)
 	
-	filterer.update(calc_timer)
+	filterer.update(song_timer)
 
 func calc_time_from_real_time(rt: float) -> float:
 	var index = 0

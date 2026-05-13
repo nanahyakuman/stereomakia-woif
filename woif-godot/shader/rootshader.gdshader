@@ -6,6 +6,7 @@ uniform sampler2D view: hint_screen_texture;
 
 uniform float glitch_amount = 0.0;
 uniform float invert_amount = 0.0;
+uniform float desat_amount = 0.0;
 
 uniform float offset = 1.0;
 
@@ -39,5 +40,10 @@ void fragment() {
 	//// adjustments to the sampled color ////
 	// invert. not a true invert bc that's lame
 	COLOR = mix(tex, vec4(pow(1.0-tex.r, .8),pow(1.0-tex.g, .8),pow(1.0-tex.b, .8),1.0), invert_amount);
+	
+	// desaturate
+	float average = COLOR.r + COLOR.g + COLOR.b;
+	average *= .333333333;
+	COLOR.rgb = mix(COLOR.rgb, vec3(average), desat_amount);
 }
 

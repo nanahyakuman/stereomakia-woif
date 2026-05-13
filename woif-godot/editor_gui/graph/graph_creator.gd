@@ -4,16 +4,16 @@ class_name GraphCreator
 const GRAPH_POINT = preload("uid://c3cve1xv7tu75")
 const VERTICAL_GRAPH_LINE = preload("uid://5pllk36b8pnc")
 
-@onready var graph_area: ColorRect = $MarginContainer/GraphArea
+@onready var graph_area: ColorRect = $MarginContainer/HBoxContainer/GraphArea
 @onready var vertical_lines: Node2D = %VerticalLines
 @onready var line_2d: Line2D = %Line2D
 @onready var graph_points: Node2D = %GraphPoints
 # used to margin the graph a bit
-@onready var graph_margin_area: Control = $MarginContainer/GraphArea/MarginContainer/GraphMarginArea
-@onready var mouse_circle: Sprite2D = $MarginContainer/GraphArea/MarginContainer/GraphMarginArea/MouseCircle
-@onready var playhead: Line2D = $MarginContainer/GraphArea/MarginContainer/GraphMarginArea/Playhead
-@onready var scroll_bar: ColorRect = $MarginContainer/GraphArea/MarginContainer/GraphMarginArea/ScrollBar
-@onready var waveform_sprite_2d: Sprite2D = $MarginContainer/GraphArea/MarginContainer/GraphMarginArea/WaveformSprite2D
+@onready var graph_margin_area: Control = $MarginContainer/HBoxContainer/GraphArea/MarginContainer/GraphMarginArea
+@onready var mouse_circle: Sprite2D = $MarginContainer/HBoxContainer/GraphArea/MarginContainer/GraphMarginArea/MouseCircle
+@onready var playhead: Line2D = $MarginContainer/HBoxContainer/GraphArea/MarginContainer/GraphMarginArea/Playhead
+@onready var scroll_bar: ColorRect = $MarginContainer/HBoxContainer/GraphArea/MarginContainer/GraphMarginArea/ScrollBar
+@onready var waveform_sprite_2d: Sprite2D = $MarginContainer/HBoxContainer/GraphArea/MarginContainer/GraphMarginArea/WaveformSprite2D
 
 signal updated
 
@@ -221,7 +221,7 @@ func _add_or_update_selected_val():
 	if val:
 		remove_val(val)
 	
-	add_val(FractionPair.new(mouse_pair.frac, clamp(mouse_pair.val, 0.0, 1.0), mouse_pair.calc_time))
+	add_val(FractionPair.new(mouse_pair.frac, clamp(mouse_pair.val, yRangeBegin, yRangeEnd), mouse_pair.calc_time))
 
 func _delete_selected_val():
 	var val = _find_mouse_val()
@@ -281,6 +281,12 @@ func add_val(val: FractionPair):
 	XMIN = min(XMIN, val.calc_time)
 	XMAX = max(XMAX, val.calc_time)
 	
+	# rerange vals
+	if val.val > yRangeEnd:
+		yRangeEnd = val.val
+	if val.val < yRangeBegin:
+		yRangeBegin = val.val
+	
 	_dirty = true
 
 func remove_val(val: FractionPair):
@@ -310,9 +316,19 @@ func assign_time(time: float):
 func assign_waveform(waveform: Texture2D):
 	waveform_sprite_2d.texture = waveform
 
-# unhandled input is giving me a migraine
+
+#  unhandled input is giving me a migraine. manual hover tracker. the sidebar is
+# mouse blocking so this is safe
 func _on_mouse_entered() -> void:
 	hovered = true
-
 func _on_mouse_exited() -> void:
 	hovered = false
+
+
+
+func _on_max_spin_box_value_changed(value: float) -> void:
+	yRangeEnd = value
+	_dirty = true
+func _on_min_spin_box_2_value_changed(value: float) -> void:
+	yRangeBegin = value
+	_dirty = true

@@ -38,6 +38,7 @@ class SampleableInfo:
 	SampleableInfo.new(null, $"GUI/MouseGUI/TabContainer/Scroll Speed Mod/ScrollGraphCreator", "scroll_speed"),
 	SampleableInfo.new(filterer.glitch_sampler, $GUI/MouseGUI/TabContainer/Glitch/GlitchGraphCreator, "glitch"),
 	SampleableInfo.new(filterer.invert_sampler, $GUI/MouseGUI/TabContainer/Invert/InvertGraphCreator, "invert"),
+	SampleableInfo.new(filterer.desat_sampler, $GUI/MouseGUI/TabContainer/Desat/DesatGraphCreator, "desat"),
 ]
 
 const HOLD_NOTE_CIRCULAR = preload("res://notes/hold_note_circular.tscn")
@@ -226,6 +227,10 @@ func _seek(mod: float):
 	offset_as_frac = note_holder.calculate_from_offset(pause_offset, beat_fracs[beat_frac_i].denominator)
 	# add mod
 	offset_as_frac = offset_as_frac.added(Fraction.new(0, mod, beat_fracs[beat_frac_i].denominator))
+	# floor
+	if offset_as_frac.as_float() < 0.0:
+		offset_as_frac = Fraction.new(0)
+	
 	current_division_label.text = offset_as_frac.as_string()
 	pause_offset = note_holder.calculate_realtime_at(offset_as_frac)
 	
@@ -664,9 +669,9 @@ func load_lvl(_folder_path: String, chart_name: String):
 							si.graph.add_val(realtime_pair)
 						# samplers
 						if si.sampler:
-							si.sampler.add_val(calctime_pair)
+							si.sampler.add_val(realtime_pair)
 						elif is_scroll_speed:
-							note_holder.scroll_speeds.append(calctime_pair)
+							note_holder.scroll_speeds.append(realtime_pair)
 							
 					# needs to be babied a little
 					if is_scroll_speed:
@@ -774,7 +779,7 @@ func load_img():
 	var imgpath = "../img/outputwaveform.png"
 	
 	# 10 samples a second
-	var len = MusicPlayerShinobu.get_length()*64.0
+	var len = MusicPlayerShinobu.get_length()*16.0
 	var arg = "showwavespic=s=%dx150:colors=#ffffff" % len
 	
 	var output = []
@@ -883,9 +888,11 @@ func _on_graph_creator_updated(key: String, vals: Array[FractionPair]) -> void:
 			note_holder.scroll_speeds = vals
 			_recalc_all_notes()
 		"glitch":
-			filterer.glitch_sampler.set_vals(_realtime_vals_from_calc_vals(vals))
+			filterer.glitch_sampler.set_vals((vals))
 		"invert":
-			filterer.invert_sampler.set_vals(_realtime_vals_from_calc_vals(vals))
+			filterer.invert_sampler.set_vals((vals))
+		"desat":
+			filterer.desat_sampler.set_vals((vals))
 
 # convert from real time into calc time for things that run on calc time
 func _realtime_vals_from_calc_vals(vals: Array[FractionPair]) -> Array[FractionPair]:

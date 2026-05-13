@@ -3,13 +3,26 @@
 [ext_resource type="Script" uid="uid://c3w8mjb3wrufa" path="res://notes/TapNoteCircular.gd" id="1_s35nn"]
 [ext_resource type="Script" uid="uid://bqr0oksdt64re" path="res://palettizer.gd" id="2_hui8i"]
 
-[sub_resource type="Gradient" id="Gradient_xrl4c"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+[sub_resource type="Gradient" id="Gradient_hui8i"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_afixv"]
+gradient = SubResource("Gradient_hui8i")
+width = 48
+height = 48
+
+[sub_resource type="Gradient" id="Gradient_xrl4c"]
+offsets = PackedFloat32Array(0.3387978)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hui8i"]
 gradient = SubResource("Gradient_xrl4c")
 width = 48
 height = 48
+fill = 1
+fill_from = Vector2(0.6, 0.4)
+fill_to = Vector2(0, 1)
 
 [node name="TapNoteCircular" type="Node2D" unique_id=1904233769]
 script = ExtResource("1_s35nn")
@@ -28,6 +41,6 @@ whichColor = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=1013217953]
 rotation = 0.785398
-texture = SubResource("GradientTexture2D_afixv")
+texture = SubResource("GradientTexture2D_hui8i")
 script = ExtResource("2_hui8i")
 whichColor = 5
